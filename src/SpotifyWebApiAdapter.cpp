@@ -1,6 +1,6 @@
-#include "SpotifyWebApi.h"
+#include "SpotifyWebApiAdapter.h"
 
-void SpotifyWebApi::Initialize() {
+void SpotifyWebApiAdapter::Initialize() {
     constexpr int max_file_size = 1048576 * 5;
     constexpr int max_files = 1048576 * 5;
     try {
@@ -10,16 +10,17 @@ void SpotifyWebApi::Initialize() {
 
         m_asyncLogger->set_level(spdlog::level::debug);
         m_asyncLogger->debug("Initialize called.");
+        m_manager.performGetRequest("", "", "");
     } catch (const spdlog::spdlog_ex &ex) {
-        std::cout << "Log initialization failed: " << ex.what() << '\n';
+        spdlog::logger("Log initialization failed: " + std::string(ex.what()));
     }
 }
 
-void SpotifyWebApi::Authorize() {
+void SpotifyWebApiAdapter::Authorize() {
 }
 
-void SpotifyWebApi::post() {
+void SpotifyWebApiAdapter::post() {
 }
 
-void SpotifyWebApi::update() {
+void SpotifyWebApiAdapter::update() {
 }

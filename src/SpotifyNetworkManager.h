@@ -10,6 +10,8 @@
 #include <QNetworkRequest>
 #include <QObject>
 #include <QUrl>
+#include <spdlog/async.h>
+#include <spdlog/sinks/rotating_file_sink.h>
 
 class SpotifyNetworkManager : public QObject {
 
@@ -22,18 +24,21 @@ public:
 
     SpotifyNetworkManager();
     SpotifyNetworkManager(SpotifyNetworkManager &manager) = delete;
-    ~SpotifyNetworkManager() override;
+    SpotifyNetworkManager(SpotifyNetworkManager &&manager) = delete;
+    ~SpotifyNetworkManager() override = default;
     SpotifyNetworkManager &operator=(SpotifyNetworkManager const &manager) = delete;
+    SpotifyNetworkManager &operator=(SpotifyNetworkManager const &&manager) = delete;
     void performGetRequest(std::string url, std::string h1, std::string h2);
-    void performPostRequest(const QNetworkRequest &request, QByteArray data);
-    void performPutRequest(const QNetworkRequest &request, QByteArray data);
-    std::string getReply() const;
+    void performPostRequest(const QNetworkRequest &request, const QByteArray &data);
+    void performPutRequest(const QNetworkRequest &request, const QByteArray &data);
+    [[nodiscard]] std::string getReply() const;
 
 private:
-    QNetworkAccessManager *m_manager{};
+    std::unique_ptr<QNetworkAccessManager> m_manager{};
     std::string m_reply{};
-    static QNetworkRequest createRequest(QUrl url, HeaderInfo const &info);
+    static QNetworkRequest createRequest(const QUrl &url, HeaderInfo const &info);
     void performGetRequest(QNetworkRequest const &request);
+    std::shared_ptr<spdlog::logger> m_asyncLogger;
 
 signals:
 
@@ -42,6 +47,7 @@ private slots:
     void slotSslErrors(const QList<QSslError> &errors);
     void slotReadyRead();
     void slotError();
+    static QNetworkRequest createRequest(std::string surl, std::string h1, std::string h2);
 };
 
 #endif//SPOTIFYWEBAPI_SPOTIFYNETWORKMANAGER_H

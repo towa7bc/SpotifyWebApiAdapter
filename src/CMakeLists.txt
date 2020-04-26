@@ -1,5 +1,5 @@
 # Generic test that uses conan libs
-add_library(SpotifyWebApiAdapter SpotifyWebApi.cpp SpotifyWebApi.h SpotifyNetworkManager.cpp SpotifyNetworkManager.h
+add_library(SpotifyWebApiAdapter SpotifyWebApiAdapter.cpp SpotifyWebApiAdapter.h SpotifyNetworkManager.cpp SpotifyNetworkManager.h
         AuthentificationToken.cpp AuthentificationToken.h)
 
 if ($ENV{CLION_IDE})
