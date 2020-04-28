@@ -28,7 +28,7 @@ public:
     ~SpotifyNetworkManager() override = default;
     SpotifyNetworkManager &operator=(SpotifyNetworkManager const &manager) = delete;
     SpotifyNetworkManager &operator=(SpotifyNetworkManager const &&manager) = delete;
-    void performGetRequest(std::string url, std::string h1, std::string h2);
+    void performGetRequest(std::string_view url, std::string_view h1, std::string_view h2);
     void performPostRequest(const QNetworkRequest &request, const QByteArray &data);
     void performPutRequest(const QNetworkRequest &request, const QByteArray &data);
     [[nodiscard]] std::string getReply() const;
@@ -38,6 +38,8 @@ private:
     std::string m_reply{};
     static QNetworkRequest createRequest(const QUrl &url, HeaderInfo const &info);
     void performGetRequest(QNetworkRequest const &request);
+    static constexpr int max_file_size = 1048576 * 5;
+    static constexpr int max_files = 1048576 * 5;
     std::shared_ptr<spdlog::logger> m_asyncLogger;
 
 signals:
@@ -47,7 +49,7 @@ private slots:
     void slotSslErrors(const QList<QSslError> &errors);
     void slotReadyRead();
     void slotError();
-    static QNetworkRequest createRequest(std::string surl, std::string h1, std::string h2);
+    static QNetworkRequest createRequest(std::string_view surl, std::string_view h1, std::string_view h2);
 };
 
 #endif//SPOTIFYWEBAPI_SPOTIFYNETWORKMANAGER_H

@@ -21,10 +21,10 @@ private:
 
 public:
     void setMHasExpired(bool mHasExpired);
-    bool isMHasExpired() const;
+    [[nodiscard]] bool isMHasExpired() const;
     const std::string &getMAccessToken();
-    void setMAccessToken(const std::string &mAccessToken);
-    const boost::posix_time::ptime &getMExpiresOn() const;
+    void setMAccessToken(std::string_view mAccessToken);
+    [[nodiscard]] const boost::posix_time::ptime &getMExpiresOn() const;
     void setMExpiresOn(const boost::posix_time::ptime &mExpiresOn);
     void refresh();
 };

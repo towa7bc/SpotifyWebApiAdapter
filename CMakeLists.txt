@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
 
-# Set the project name to your project name, my project isn't very descriptive
 project(SpotifyWebApiAdapter CXX)
 include(cmake/StandardProjectSettings.cmake)
 
@@ -67,7 +66,6 @@ if (CPP_STARTER_USE_SDL)
             sdl2/2.0.10@bincrafters/stable)
     # set(CONAN_EXTRA_OPTIONS ${CONAN_EXTRA_OPTIONS} sdl2:wayland=True)
 endif ()
-
 
 include(cmake/Conan.cmake)
 run_conan()

@@ -11,7 +11,7 @@ const std::string &AuthentificationToken::getMAccessToken() {
     return m_accessToken;
 }
 
-void AuthentificationToken::setMAccessToken(const std::string &mAccessToken) {
+void AuthentificationToken::setMAccessToken(std::string_view mAccessToken) {
     m_accessToken = mAccessToken;
 }
 

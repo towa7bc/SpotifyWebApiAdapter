@@ -8,8 +8,6 @@ SpotifyNetworkManager::SpotifyNetworkManager() {
     m_manager = std::make_unique<QNetworkAccessManager>(this);
     connect(m_manager.get(), &QNetworkAccessManager::finished, this, &SpotifyNetworkManager::replyFinished);
 
-    constexpr int max_file_size = 1048576 * 5;
-    constexpr int max_files = 1048576 * 5;
     try {
         m_asyncLogger = spdlog::rotating_logger_mt<spdlog::async_factory>("async_file_logger_qt",
                                                                           "logs/async_log_qt.txt",
@@ -36,7 +34,7 @@ QNetworkRequest SpotifyNetworkManager::createRequest(const QUrl &url, HeaderInfo
     return request;
 }
 
-QNetworkRequest SpotifyNetworkManager::createRequest(std::string surl, std::string h1, std::string h2) {
+QNetworkRequest SpotifyNetworkManager::createRequest(std::string_view surl, std::string_view h1, std::string_view h2) {
     QUrl url = QUrl(surl.data());
     QByteArray header1 = h1.data();
     QByteArray header2 = h2.data();
@@ -48,8 +46,8 @@ QNetworkRequest SpotifyNetworkManager::createRequest(std::string surl, std::stri
 }
 
 
-void SpotifyNetworkManager::performGetRequest(std::string surl, std::string h1, std::string h2) {
-    auto request = createRequest(std::move(surl), std::move(h1), std::move(h2));
+void SpotifyNetworkManager::performGetRequest(std::string_view surl, std::string_view h1, std::string_view h2) {
+    auto request = createRequest(surl, h1, h2);
     performGetRequest(request);
 }
 
