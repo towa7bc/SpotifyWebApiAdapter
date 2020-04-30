@@ -13,14 +13,18 @@ macro(run_conan)
     conan_add_remote(NAME bincrafters URL
             https://api.bintray.com/conan/bincrafters/public-conan)
 
+    conan_add_remote(NAME manu343726 URL
+            https://api.bintray.com/conan/manu343726/conan-packages)
+
     conan_cmake_run(
             REQUIRES
             ${CONAN_EXTRA_REQUIRES}
+            stlab/1.5.2\#
             catch2/2.12.0
             fmt/6.1.2
             spdlog/1.5.0
             openssl/1.1.1f
-            boost/1.72.0
+            #boost/1.69.0
             nlohmann_json/3.7.3
             OPTIONS
             ${CONAN_EXTRA_OPTIONS}

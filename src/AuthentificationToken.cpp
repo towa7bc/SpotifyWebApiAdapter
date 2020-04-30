@@ -4,33 +4,33 @@
 
 #include "AuthentificationToken.h"
 
-const std::string &AuthentificationToken::getMAccessToken() {
+auto AuthentificationToken::getMAccessToken() -> const std::string & {
     if (isMHasExpired()) {
         refresh();
     }
-    return m_accessToken;
+    return _access_token;
 }
 
-void AuthentificationToken::setMAccessToken(std::string_view mAccessToken) {
-    m_accessToken = mAccessToken;
+auto AuthentificationToken::setMAccessToken(std::string_view mAccessToken) -> void {
+    _access_token = mAccessToken;
 }
 
-void AuthentificationToken::refresh() {
+auto AuthentificationToken::refresh() -> void {
 }
 
-bool AuthentificationToken::isMHasExpired() const {
+auto AuthentificationToken::isMHasExpired() const -> bool {
     boost::posix_time::ptime currentTime(boost::gregorian::day_clock::universal_day(), boost::posix_time::second_clock::universal_time().time_of_day());
-    return currentTime > m_ExpiresOn;
+    return currentTime > _expires_on;
 }
 
-void AuthentificationToken::setMHasExpired(bool mHasExpired) {
-    m_hasExpired = mHasExpired;
+auto AuthentificationToken::setMHasExpired(bool mHasExpired) -> void {
+    _has_expired = mHasExpired;
 }
 
-const boost::posix_time::ptime &AuthentificationToken::getMExpiresOn() const {
-    return m_ExpiresOn;
+auto AuthentificationToken::getMExpiresOn() const -> const boost::posix_time::ptime & {
+    return _expires_on;
 }
 
-void AuthentificationToken::setMExpiresOn(const boost::posix_time::ptime &mExpiresOn) {
-    m_ExpiresOn = mExpiresOn;
+auto AuthentificationToken::setMExpiresOn(const boost::posix_time::ptime &mExpiresOn) -> void {
+    _expires_on = mExpiresOn;
 }

@@ -12,22 +12,22 @@
 
 class AuthentificationToken {
 private:
-    std::string m_accessToken;
-    std::string m_tokenType;
-    boost::posix_time::ptime m_ExpiresOn;
-    std::string m_refreshToken;
-    bool m_hasExpired;
-    nlohmann::json m_json;
+    std::string _access_token;
+    std::string _token_type;
+    boost::posix_time::ptime _expires_on;
+    std::string _refresh_token;
+    bool _has_expired;
+    nlohmann::json _json;
 
 public:
-    void setMHasExpired(bool mHasExpired);
-    [[nodiscard]] bool isMHasExpired() const;
-    const std::string &getMAccessToken();
-    void setMAccessToken(std::string_view mAccessToken);
-    [[nodiscard]] const boost::posix_time::ptime &getMExpiresOn() const;
-    void setMExpiresOn(const boost::posix_time::ptime &mExpiresOn);
-    void refresh();
+    auto setMHasExpired(bool mHasExpired) -> void;
+    [[nodiscard]] auto isMHasExpired() const -> bool;
+    auto getMAccessToken() -> const std::string &;
+    auto setMAccessToken(std::string_view mAccessToken) -> void;
+    [[nodiscard]] auto getMExpiresOn() const -> const boost::posix_time::ptime &;
+    auto setMExpiresOn(const boost::posix_time::ptime &mExpiresOn) -> void;
+    auto refresh() -> void;
 };
 
 
-#endif//SPOTIFYWEBAPI_AUTHENTIFICATIONTOKEN_H
+#endif
