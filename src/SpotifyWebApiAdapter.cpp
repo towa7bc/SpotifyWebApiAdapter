@@ -1,6 +1,6 @@
 #include "SpotifyWebApiAdapter.h"
 
-auto SpotifyWebApiAdapter::Initialize() -> void {
+auto spotify::SpotifyWebApiAdapter::Initialize() -> void {
     try {
         _async_logger = spdlog::rotating_logger_mt<spdlog::async_factory>("async_file_logger",
                                                                           "logs/async_log.txt",
@@ -13,10 +13,10 @@ auto SpotifyWebApiAdapter::Initialize() -> void {
     }
 }
 
-auto SpotifyWebApiAdapter::Authorize() -> void {
+auto spotify::SpotifyWebApiAdapter::Authorize() -> void {
 }
 
-auto SpotifyWebApiAdapter::post() -> void {
+auto spotify::SpotifyWebApiAdapter::post() -> void {
     stlab::sender<int> send;
     stlab::receiver<int> receive;
 
@@ -42,5 +42,5 @@ auto SpotifyWebApiAdapter::post() -> void {
     }
 }
 
-auto SpotifyWebApiAdapter::update() -> void {
+auto spotify::SpotifyWebApiAdapter::update() -> void {
 }

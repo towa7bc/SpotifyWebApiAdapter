@@ -10,24 +10,36 @@
 #include <nlohmann/json.hpp>
 #include <string>
 
-class AuthentificationToken {
-private:
-    std::string _access_token;
-    std::string _token_type;
-    boost::posix_time::ptime _expires_on;
-    std::string _refresh_token;
-    bool _has_expired;
-    nlohmann::json _json;
+namespace spotify {
 
-public:
-    auto setMHasExpired(bool mHasExpired) -> void;
-    [[nodiscard]] auto isMHasExpired() const -> bool;
-    auto getMAccessToken() -> const std::string &;
-    auto setMAccessToken(std::string_view mAccessToken) -> void;
-    [[nodiscard]] auto getMExpiresOn() const -> const boost::posix_time::ptime &;
-    auto setMExpiresOn(const boost::posix_time::ptime &mExpiresOn) -> void;
-    auto refresh() -> void;
-};
+    inline namespace v1 {
 
+        class AuthentificationToken {
+            using date_time_t = boost::posix_time::ptime;
+
+        private:
+            std::string _access_token;
+            std::string _token_type;
+            boost::posix_time::ptime _expires_on;
+            std::string _refresh_token;
+            bool _has_expired{false};
+            nlohmann::json _json;
+
+        public:
+            AuthentificationToken() = default;
+            auto setMHasExpired(bool mHasExpired) -> void;
+            [[nodiscard]] auto isMHasExpired() const -> bool;
+            auto getMAccessToken() -> const std::string &;
+            auto setAccessToken(std::string_view mAccessToken) -> void;
+            [[nodiscard]] auto getMExpiresOn() const -> const boost::posix_time::ptime &;
+            auto setExpiresOn(const boost::posix_time::ptime &mExpiresOn) -> void;
+            auto refresh() -> void;
+            void setTokenType(std::string_view tokenType);
+            void setRefreshToken(std::string_view refreshToken);
+        };
+
+    }// namespace v1
+
+}// namespace spotify
 
 #endif

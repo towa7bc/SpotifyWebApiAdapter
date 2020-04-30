@@ -4,33 +4,41 @@
 
 #include "AuthentificationToken.h"
 
-auto AuthentificationToken::getMAccessToken() -> const std::string & {
+auto spotify::AuthentificationToken::getMAccessToken() -> const std::string & {
     if (isMHasExpired()) {
         refresh();
     }
     return _access_token;
 }
 
-auto AuthentificationToken::setMAccessToken(std::string_view mAccessToken) -> void {
+auto spotify::AuthentificationToken::setAccessToken(std::string_view mAccessToken) -> void {
     _access_token = mAccessToken;
 }
 
-auto AuthentificationToken::refresh() -> void {
+auto spotify::AuthentificationToken::refresh() -> void {
 }
 
-auto AuthentificationToken::isMHasExpired() const -> bool {
-    boost::posix_time::ptime currentTime(boost::gregorian::day_clock::universal_day(), boost::posix_time::second_clock::universal_time().time_of_day());
+auto spotify::AuthentificationToken::isMHasExpired() const -> bool {
+    date_time_t currentTime(boost::gregorian::day_clock::universal_day(), boost::posix_time::second_clock::universal_time().time_of_day());
     return currentTime > _expires_on;
 }
 
-auto AuthentificationToken::setMHasExpired(bool mHasExpired) -> void {
+auto spotify::AuthentificationToken::setMHasExpired(bool mHasExpired) -> void {
     _has_expired = mHasExpired;
 }
 
-auto AuthentificationToken::getMExpiresOn() const -> const boost::posix_time::ptime & {
+auto spotify::AuthentificationToken::getMExpiresOn() const -> const boost::posix_time::ptime & {
     return _expires_on;
 }
 
-auto AuthentificationToken::setMExpiresOn(const boost::posix_time::ptime &mExpiresOn) -> void {
+auto spotify::AuthentificationToken::setExpiresOn(const boost::posix_time::ptime &mExpiresOn) -> void {
     _expires_on = mExpiresOn;
+}
+
+void spotify::AuthentificationToken::setTokenType(std::string_view tokenType) {
+    _token_type = tokenType;
+}
+
+void spotify::AuthentificationToken::setRefreshToken(std::string_view refreshToken) {
+    _refresh_token = refreshToken;
 }

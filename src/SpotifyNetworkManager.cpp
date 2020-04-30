@@ -4,7 +4,7 @@
 
 #include "SpotifyNetworkManager.h"
 
-SpotifyNetworkManager::SpotifyNetworkManager() : _manager(std::make_unique<QNetworkAccessManager>(this)) {
+spotify::SpotifyNetworkManager::SpotifyNetworkManager() : _manager(std::make_unique<QNetworkAccessManager>(this)) {
     connect(_manager.get(), &QNetworkAccessManager::finished, this, &SpotifyNetworkManager::replyFinished);
 
     try {
@@ -19,21 +19,21 @@ SpotifyNetworkManager::SpotifyNetworkManager() : _manager(std::make_unique<QNetw
     }
 }
 
-auto SpotifyNetworkManager::replyFinished(QNetworkReply *reply) -> void {
+auto spotify::SpotifyNetworkManager::replyFinished(QNetworkReply *reply) -> void {
     if (reply->error() == QNetworkReply::NoError) {
         _reply = reply->readAll().data();
     }
     reply->deleteLater();
 }
 
-auto SpotifyNetworkManager::createRequest(const QUrl &url, HeaderInfo const &info) -> QNetworkRequest {
+auto spotify::SpotifyNetworkManager::createRequest(const QUrl &url, HeaderInfo const &info) -> QNetworkRequest {
     QNetworkRequest request;
     request.setUrl(url);
     request.setRawHeader(info._header1, info._header2);
     return request;
 }
 
-auto SpotifyNetworkManager::createRequest(std::string_view surl, std::string_view h1, std::string_view h2) -> QNetworkRequest {
+auto spotify::SpotifyNetworkManager::createRequest(std::string_view surl, std::string_view h1, std::string_view h2) -> QNetworkRequest {
     QUrl url = QUrl(surl.data());
     QByteArray header1 = h1.data();
     QByteArray header2 = h2.data();
@@ -45,43 +45,43 @@ auto SpotifyNetworkManager::createRequest(std::string_view surl, std::string_vie
 }
 
 
-auto SpotifyNetworkManager::performGetRequest(std::string_view surl, std::string_view h1, std::string_view h2) -> void {
+auto spotify::SpotifyNetworkManager::performGetRequest(std::string_view surl, std::string_view h1, std::string_view h2) -> void {
     auto request = createRequest(surl, h1, h2);
     performGetRequest(request);
 }
 
-auto SpotifyNetworkManager::performGetRequest(const QNetworkRequest &request) -> void {
+auto spotify::SpotifyNetworkManager::performGetRequest(const QNetworkRequest &request) -> void {
     auto *reply = _manager->get(request);
     connect(reply, &QIODevice::readyRead, this, &SpotifyNetworkManager::slotReadyRead);
     connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::error), this, &SpotifyNetworkManager::slotError);
     connect(reply, &QNetworkReply::sslErrors, this, &SpotifyNetworkManager::slotSslErrors);
 }
 
-auto SpotifyNetworkManager::performPostRequest(const QNetworkRequest &request, const QByteArray &data) -> void {
+auto spotify::SpotifyNetworkManager::performPostRequest(const QNetworkRequest &request, const QByteArray &data) -> void {
     auto *reply = _manager->post(request, data);
     connect(reply, &QIODevice::readyRead, this, &SpotifyNetworkManager::slotReadyRead);
     connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::error), this, &SpotifyNetworkManager::slotError);
     connect(reply, &QNetworkReply::sslErrors, this, &SpotifyNetworkManager::slotSslErrors);
 }
 
-auto SpotifyNetworkManager::performPutRequest(const QNetworkRequest &request, const QByteArray &data) -> void {
+auto spotify::SpotifyNetworkManager::performPutRequest(const QNetworkRequest &request, const QByteArray &data) -> void {
     auto *reply = _manager->put(request, data);
     connect(reply, &QIODevice::readyRead, this, &SpotifyNetworkManager::slotReadyRead);
     connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::error), this, &SpotifyNetworkManager::slotError);
     connect(reply, &QNetworkReply::sslErrors, this, &SpotifyNetworkManager::slotSslErrors);
 }
 
-auto SpotifyNetworkManager::slotReadyRead() -> void {
+auto spotify::SpotifyNetworkManager::slotReadyRead() -> void {
 }
 
-auto SpotifyNetworkManager::slotError() -> void {
+auto spotify::SpotifyNetworkManager::slotError() -> void {
 }
 
-auto SpotifyNetworkManager::slotSslErrors(const QList<QSslError> &errors) -> void {
+auto spotify::SpotifyNetworkManager::slotSslErrors(const QList<QSslError> &errors) -> void {
     std::string error = errors[0].errorString().toStdString();
     _asyncLogger->debug(error);
 }
 
-auto SpotifyNetworkManager::getReply() const -> std::string {
+auto spotify::SpotifyNetworkManager::getReply() const -> std::string {
     return _reply;
 }
