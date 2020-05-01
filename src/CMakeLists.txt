@@ -1,6 +1,7 @@
 # Generic test that uses conan libs
-add_library(SpotifyWebApiAdapter SpotifyWebApiAdapter.cpp SpotifyWebApiAdapter.h SpotifyNetworkManager.cpp SpotifyNetworkManager.h
-        AuthentificationToken.cpp AuthentificationToken.h SpotifyModel/accesstoken.cpp SpotifyModel/accesstoken.h BaseModel.cpp BaseModel.h)
+add_library(SpotifyWebApiAdapter SpotifyWebApiAdapter.hpp SpotifyNetworkManager.hpp
+        detail/AuthentificationToken.hpp detail/BaseModel.hpp detail/Authentification.hpp detail/HttpHelper.hpp
+        SpotifyWebApiAdapter.cpp)
 
 if ($ENV{CLION_IDE})
     set(CMAKE_PREFIX_PATH /Users/michaelwittmann/Qt/5.14.2/clang_64/lib/cmake/Qt5;/usr/local/include/stlab)

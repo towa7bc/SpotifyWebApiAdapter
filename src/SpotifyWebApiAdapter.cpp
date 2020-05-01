@@ -1,4 +1,8 @@
-#include "SpotifyWebApiAdapter.h"
+//
+// Created by Michael Wittmann on 01/05/2020.
+//
+
+#include "SpotifyWebApiAdapter.hpp"
 
 auto spotify::SpotifyWebApiAdapter::Initialize() -> void {
     try {
