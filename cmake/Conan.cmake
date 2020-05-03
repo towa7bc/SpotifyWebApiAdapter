@@ -19,7 +19,7 @@ macro(run_conan)
     conan_cmake_run(
             REQUIRES
             ${CONAN_EXTRA_REQUIRES}
-            stlab/1.5.2\#
+            stlab/1.5.2
             catch2/2.12.0
             fmt/6.1.2
             spdlog/1.5.0

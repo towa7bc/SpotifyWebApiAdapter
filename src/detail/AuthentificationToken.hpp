@@ -5,6 +5,7 @@
 #ifndef SPOTIFYWEBAPI_AUTHENTIFICATIONTOKEN_H
 #define SPOTIFYWEBAPI_AUTHENTIFICATIONTOKEN_H
 
+#include "Authentification.hpp"
 #include <boost/date_time/c_local_time_adjustor.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <nlohmann/json.hpp>
@@ -29,44 +30,15 @@ private:
 public:
     AuthentificationToken() = default;
 
-    auto setMHasExpired(bool mHasExpired) -> void {
-        _has_expired = mHasExpired;
-    }
-
-    [[nodiscard]] auto isMHasExpired() const -> bool {
-        date_time_t currentTime(boost::gregorian::day_clock::universal_day(), boost::posix_time::second_clock::universal_time().time_of_day());
-        return currentTime > _expires_on;
-    }
-
-    auto getMAccessToken() -> const std::string & {
-        if (isMHasExpired()) {
-            refresh();
-        }
-        return _access_token;
-    }
-
-    auto setAccessToken(std::string_view mAccessToken) -> void {
-        _access_token = mAccessToken;
-    }
-
-    [[nodiscard]] auto getMExpiresOn() const -> const boost::posix_time::ptime & {
-        return _expires_on;
-    }
-
-    auto setExpiresOn(const boost::posix_time::ptime &mExpiresOn) -> void {
-        _expires_on = mExpiresOn;
-    }
-
-    auto refresh() -> void {
-    }
-
-    void setTokenType(std::string_view tokenType) {
-        _token_type = tokenType;
-    }
-
-    void setRefreshToken(std::string_view refreshToken) {
-        _refresh_token = refreshToken;
-    }
+    auto setMHasExpired(bool mHasExpired) -> void;
+    [[nodiscard]] auto isMHasExpired() const -> bool;
+    auto getMAccessToken() -> const std::string &;
+    auto setAccessToken(std::string_view mAccessToken) -> void;
+    [[nodiscard]] auto getMExpiresOn() const -> const boost::posix_time::ptime &;
+    auto setExpiresOn(const boost::posix_time::ptime &mExpiresOn) -> void;
+    auto refresh() -> void;
+    void setTokenType(std::string_view tokenType);
+    void setRefreshToken(std::string_view refreshToken);
 };
 
 }// namespace v1

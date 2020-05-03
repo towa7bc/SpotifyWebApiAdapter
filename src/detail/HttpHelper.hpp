@@ -7,10 +7,11 @@
 
 #define STLAB_FUTURE_COROUTINE_SUPPORT
 
+#include "../SpotifyNetworkManager.hpp"
 #include <map>
-#include <stlab/concurrency/default_executor.hpp>
-#include <stlab/concurrency/future.hpp>
-#include <stlab/concurrency/utility.hpp>
+//#include <stlab/concurrency/default_executor.hpp>
+//#include <stlab/concurrency/future.hpp>
+//#include <stlab/concurrency/utility.hpp>
 #include <string>
 
 namespace spotify {
@@ -20,11 +21,11 @@ inline namespace v1 {
 namespace detail {
 
 class HttpHelper {
+private:
+    static SpotifyNetworkManager _manager;
+
 public:
-    static auto post(std::string_view url, const std::map<std::string, std::string> &postData) -> stlab::future<std::string> {
-        std::string s = "dhdheh";
-        co_return s;
-    }
+    static auto post(std::string_view url, const std::map<std::string, std::string> &postData) -> std::string;
 };
 
 }// namespace detail

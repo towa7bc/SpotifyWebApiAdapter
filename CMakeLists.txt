@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 
-project(SpotifyWebApiAdapter CXX)
+project(SpotifyWebApiAdapter LANGUAGES CXX)
 
 include(cmake/StandardProjectSettings.cmake)
 
