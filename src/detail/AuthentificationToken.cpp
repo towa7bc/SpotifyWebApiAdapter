@@ -9,7 +9,8 @@ auto spotify::AuthentificationToken::setMHasExpired(bool mHasExpired) -> void {
 }
 
 auto spotify::AuthentificationToken::isMHasExpired() const -> bool {
-    date_time_t currentTime(boost::gregorian::day_clock::universal_day(), boost::posix_time::second_clock::universal_time().time_of_day());
+    date_time_t currentTime(boost::gregorian::day_clock::universal_day(),
+                            boost::posix_time::second_clock::universal_time().time_of_day());
     return currentTime > _expires_on;
 }
 
@@ -28,7 +29,8 @@ auto spotify::AuthentificationToken::getMExpiresOn() const -> const boost::posix
     return _expires_on;
 }
 
-auto spotify::AuthentificationToken::setExpiresOn(const boost::posix_time::ptime &mExpiresOn) -> void {
+auto spotify::AuthentificationToken::setExpiresOn(const boost::posix_time::ptime &mExpiresOn)
+        -> void {
     _expires_on = mExpiresOn;
 }
 

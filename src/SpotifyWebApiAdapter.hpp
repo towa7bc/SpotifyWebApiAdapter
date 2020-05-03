@@ -27,7 +27,8 @@ private:
     static constexpr int dim = 33;
     const std::string clientId = "636b0c0e79f34ce39855f58337583f84";
     const std::string clientSecret = "6c3d3d78017347bfaacf451a3789811e";
-    static constexpr std::array<char, dim> clientSecretEncrypted{"{.~)~)zu}|z~yz/+,,.+yx|,~zutu||("};
+    static constexpr std::array<char, dim> clientSecretEncrypted{
+            "{.~)~)zu}|z~yz/+,,.+yx|,~zutu||("};
     static constexpr int max_file_size = 1048576 * 5;
     static constexpr int max_files = 1048576 * 5;
     std::shared_ptr<spdlog::logger> _async_logger;

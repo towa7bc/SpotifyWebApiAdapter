@@ -19,7 +19,6 @@ namespace spotify {
 inline namespace v1 {
 
 class SpotifyNetworkManager : public QObject {
-
     Q_OBJECT
 public:
     struct HeaderInfo {
@@ -34,7 +33,8 @@ public:
     SpotifyNetworkManager &operator=(SpotifyNetworkManager const &manager) = delete;
     SpotifyNetworkManager &operator=(SpotifyNetworkManager const &&manager) = delete;
     auto performGetRequest(std::string_view surl, std::string_view h1, std::string_view h2) -> void;
-    auto perform_post_request(std::string_view url, const std::map<std::string, std::string> &postData) -> void;
+    auto perform_post_request(std::string_view url,
+                              const std::map<std::string, std::string> &postData) -> void;
     auto performPostRequest(const QNetworkRequest &request, const QByteArray &data) -> void;
     auto performPutRequest(const QNetworkRequest &request, const QByteArray &data) -> void;
     [[nodiscard]] auto getReply() const -> std::string;
@@ -55,7 +55,8 @@ private slots:
     auto slotSslErrors(const QList<QSslError> &errors) -> void;
     auto slotReadyRead() -> void;
     auto slotError() -> void;
-    static auto createRequest(std::string_view surl, std::string_view h1, std::string_view h2) -> QNetworkRequest;
+    static auto createRequest(std::string_view surl, std::string_view h1, std::string_view h2)
+            -> QNetworkRequest;
 };
 
 }// namespace v1

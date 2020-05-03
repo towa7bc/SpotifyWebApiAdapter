@@ -15,7 +15,6 @@ inline namespace v1 {
 
 namespace model {
 
-
 struct accesstoken {
     std::string access_token;
     std::string token_type;
@@ -23,13 +22,11 @@ struct accesstoken {
     std::string refresh_token;
 };
 
-
 void to_json(json &j, const accesstoken &token) {
-    j = json{
-            {"access_token", token.access_token},
-            {"token_type", token.token_type},
-            {"expires_in", token.expires_in},
-            {"refresh_token", token.refresh_token}};
+    j = json{{"access_token", token.access_token},
+             {"token_type", token.token_type},
+             {"expires_in", token.expires_in},
+             {"refresh_token", token.refresh_token}};
 }
 
 void from_json(const json &j, accesstoken &token) {

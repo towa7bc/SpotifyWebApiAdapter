@@ -25,7 +25,8 @@ private:
     static SpotifyNetworkManager _manager;
 
 public:
-    static auto post(std::string_view url, const std::map<std::string, std::string> &postData) -> std::string;
+    static auto post(std::string_view url, const std::map<std::string, std::string> &postData)
+            -> std::string;
 };
 
 }// namespace detail
