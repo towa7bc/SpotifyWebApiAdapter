@@ -29,6 +29,7 @@ auto spotify::SpotifyNetworkManager::performGetRequest(std::string_view surl,
 auto spotify::SpotifyNetworkManager::perform_post_request(
         std::string_view url, const std::map<std::string, std::string> &postData) -> void {
     auto request = createRequest(url, "application/x-www-form-urlencoded", "");
+    _asyncLogger->debug("perform_post_request called.");
     QByteArray data;
     QUrlQuery query;
     for (const auto &field : postData) {
@@ -114,11 +115,13 @@ auto spotify::SpotifyNetworkManager::slotSslErrors(const QList<QSslError> &error
 }
 
 void spotify::SpotifyNetworkManager::perform_get_request(std::string_view url) {
+    _asyncLogger->debug("perform_get_request called.");
     auto request = createRequest(url, "application/x-www-form-urlencoded", "");
     performGetRequest(request);
 }
 
 void spotify::SpotifyNetworkManager::perform_get_request(std::string_view url, spotify::AuthentificationToken &token, bool include_bearer) {
+    _asyncLogger->debug("perform_get_request called.");
     QNetworkRequest request;
     if (include_bearer) {
         request = createRequest(url, "Authorization: Bearer " + token.getMAccessToken(), "");
@@ -131,6 +134,7 @@ void spotify::SpotifyNetworkManager::perform_get_request(std::string_view url, s
 auto spotify::SpotifyNetworkManager::perform_post_request(
         std::string_view url, spotify::AuthentificationToken &token,
         const std::map<std::string, std::string> &postData, bool include_bearer) -> void {
+    _asyncLogger->debug("perform_post_request called.");
     QNetworkRequest request;
     if (include_bearer) {
         request = createRequest(url, "Authorization: Bearer " + token.getMAccessToken(), "");
@@ -149,6 +153,7 @@ auto spotify::SpotifyNetworkManager::perform_post_request(
 auto spotify::SpotifyNetworkManager::perform_post_request(
         std::string_view url, spotify::AuthentificationToken &token,
         std::string_view json_string, bool include_bearer) -> void {
+    _asyncLogger->debug("perform_post_request called.");
     QNetworkRequest request;
     if (include_bearer) {
         request = createRequest(url, "Authorization: Bearer " + token.getMAccessToken(), "application/json");
@@ -161,6 +166,7 @@ auto spotify::SpotifyNetworkManager::perform_post_request(
 auto spotify::SpotifyNetworkManager::perform_put_request(
         std::string_view url, spotify::AuthentificationToken &token,
         const std::map<std::string, std::string> &postData, bool include_bearer) -> void {
+    _asyncLogger->debug("perform_put_request called.");
     QNetworkRequest request;
     if (include_bearer) {
         request = createRequest(url, "Authorization: Bearer " + token.getMAccessToken(), "");
@@ -179,6 +185,7 @@ auto spotify::SpotifyNetworkManager::perform_put_request(
 auto spotify::SpotifyNetworkManager::perform_put_request(
         std::string_view url, spotify::AuthentificationToken &token,
         std::string_view json_string, bool include_bearer) -> void {
+    _asyncLogger->debug("perform_put_request called.");
     QNetworkRequest request;
     if (include_bearer) {
         request = createRequest(url, "Authorization: Bearer " + token.getMAccessToken(), "application/json");
@@ -190,6 +197,7 @@ auto spotify::SpotifyNetworkManager::perform_put_request(
 
 auto spotify::SpotifyNetworkManager::perform_delete_request(
         std::string_view url, spotify::AuthentificationToken &token, bool include_bearer) -> void {
+    _asyncLogger->debug("perform_delete_request called.");
     QNetworkRequest request;
     if (include_bearer) {
         request = createRequest(url, "Authorization: Bearer " + token.getMAccessToken(), "");

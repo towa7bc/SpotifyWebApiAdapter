@@ -14,7 +14,7 @@
 #include <spdlog/async.h>
 #include <spdlog/sinks/rotating_file_sink.h>
 
-#include "detail/AuthentificationToken.hpp"
+#include "../AuthentificationToken.hpp"
 
 namespace spotify {
 
@@ -50,6 +50,11 @@ public:
     void perform_delete_request(std::string_view url, AuthentificationToken &token, bool include_bearer);
 
 private:
+    static constexpr int dim = 33;
+    const std::string clientId = "636b0c0e79f34ce39855f58337583f84";
+    const std::string clientSecret = "6c3d3d78017347bfaacf451a3789811e";
+    static constexpr std::array<char, dim> clientSecretEncrypted{
+            "{.~)~)zu}|z~yz/+,,.+yx|,~zutu||("};
     std::unique_ptr<QNetworkAccessManager> _manager{};
     std::string _reply{};
     static constexpr int max_file_size = 1048576 * 5;

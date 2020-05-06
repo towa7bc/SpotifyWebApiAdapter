@@ -11,9 +11,10 @@
 
 #define STLAB_FUTURE_COROUTINE_SUPPORT
 
-#include "../model/accesstoken.hpp"
 #include "AuthentificationToken.hpp"
-#include "HttpHelper.hpp"
+#include "detail/BaseModel.hpp"
+#include "detail/HttpHelper.hpp"
+#include "model/accesstoken.hpp"
 #include <boost/date_time/c_local_time_adjustor.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <map>
@@ -28,7 +29,7 @@ inline namespace v1 {
 
 class AuthentificationToken;
 
-class Authentification {
+class Authentification : public spotify::BaseModel {
     using date_time_t = boost::posix_time::ptime;
     using json_t = nlohmann::json;
 

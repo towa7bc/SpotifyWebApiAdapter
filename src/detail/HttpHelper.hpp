@@ -7,9 +7,9 @@
 
 #define STLAB_FUTURE_COROUTINE_SUPPORT
 
-#include "../SpotifyNetworkManager.hpp"
+#include "../AuthentificationToken.hpp"
 #include "../model/playlistdata.hpp"
-#include "AuthentificationToken.hpp"
+#include "SpotifyNetworkManager.hpp"
 #include <map>
 //#include <stlab/concurrency/default_executor.hpp>
 //#include <stlab/concurrency/future.hpp>
