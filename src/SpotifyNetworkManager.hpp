@@ -14,9 +14,13 @@
 #include <spdlog/async.h>
 #include <spdlog/sinks/rotating_file_sink.h>
 
+#include "detail/AuthentificationToken.hpp"
+
 namespace spotify {
 
 inline namespace v1 {
+
+class AuthentificationToken;
 
 class SpotifyNetworkManager : public QObject {
     Q_OBJECT
@@ -32,12 +36,18 @@ public:
     ~SpotifyNetworkManager() override = default;
     SpotifyNetworkManager &operator=(SpotifyNetworkManager const &manager) = delete;
     SpotifyNetworkManager &operator=(SpotifyNetworkManager const &&manager) = delete;
-    auto performGetRequest(std::string_view surl, std::string_view h1, std::string_view h2) -> void;
     auto perform_post_request(std::string_view url,
                               const std::map<std::string, std::string> &postData) -> void;
-    auto performPostRequest(const QNetworkRequest &request, const QByteArray &data) -> void;
-    auto performPutRequest(const QNetworkRequest &request, const QByteArray &data) -> void;
-    [[nodiscard]] auto getReply() const -> std::string;
+    [[nodiscard]] auto get_reply() const -> std::string;
+    void perform_get_request(std::string_view view);
+    void perform_get_request(std::string_view url, spotify::AuthentificationToken &token, bool include_bearer = true);
+    [[maybe_unused]] void perform_post_request(std::string_view url, spotify::AuthentificationToken &token,
+                                               const std::map<std::string, std::string> &postData, bool include_bearer = true);
+    void perform_post_request(std::string_view url, AuthentificationToken &token,
+                              std::string_view json_string, bool include_bearer = true);
+    void perform_put_request(std::string_view url, AuthentificationToken &token, const std::map<std::string, std::string> &postData, bool include_bearer);
+    void perform_put_request(std::string_view url, AuthentificationToken &token, std::string_view json_string, bool include_bearer);
+    void perform_delete_request(std::string_view url, AuthentificationToken &token, bool include_bearer);
 
 private:
     std::unique_ptr<QNetworkAccessManager> _manager{};
@@ -47,6 +57,10 @@ private:
     std::shared_ptr<spdlog::logger> _asyncLogger;
     static auto createRequest(const QUrl &url, HeaderInfo const &info) -> QNetworkRequest;
     auto performGetRequest(QNetworkRequest const &request) -> void;
+    auto performPostRequest(const QNetworkRequest &request, const QByteArray &data) -> void;
+    auto performPutRequest(const QNetworkRequest &request, const QByteArray &data) -> void;
+    auto performGetRequest(std::string_view surl, std::string_view h1, std::string_view h2) -> void;
+    void performDeleteRequest(const QNetworkRequest &request);
 
 signals:
 

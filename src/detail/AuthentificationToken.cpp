@@ -35,7 +35,8 @@ auto spotify::AuthentificationToken::setExpiresOn(const boost::posix_time::ptime
 }
 
 auto spotify::AuthentificationToken::refresh() -> void {
-    auto auth_token = spotify::Authentification::getAccessToken(_refresh_token);
+    auto auth_token_future = stlab::async(stlab::default_executor, spotify::Authentification::getAccessToken, _refresh_token);
+    auto auth_token = stlab::blocking_get(auth_token_future);
     _access_token = auth_token._access_token;
     _refresh_token = auth_token._refresh_token;
     _token_type = auth_token._token_type;

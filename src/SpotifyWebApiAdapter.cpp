@@ -10,7 +10,6 @@ auto spotify::SpotifyWebApiAdapter::Initialize() -> void {
                 "async_file_logger", "logs/async_log.txt", max_file_size, max_files);
         _async_logger->set_level(spdlog::level::debug);
         _async_logger->debug("Initialize called.");
-        _manager.performGetRequest("", "", "");
     } catch (const spdlog::spdlog_ex &ex) {
         spdlog::logger("Log initialization failed: " + std::string(ex.what()));
     }

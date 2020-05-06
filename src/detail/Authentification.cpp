@@ -13,7 +13,7 @@
     postData["redirect_uri"] = _redirect_uri;
     postData["client_id"] = _client_id;
     postData["client_secret"] = _client_secret;
-    auto local_future = stlab::async(stlab::default_executor, spotify::detail::HttpHelper::post,
+    auto local_future = stlab::async(stlab::default_executor, spotify::detail::HttpHelper::post1,
                                      "https://accounts.spotify.com/api/token", postData)
                         | ([](std::string_view s) { return json_t::parse(s); })
                         | ([](const json_t &j) { return j.get<model::accesstoken>(); });

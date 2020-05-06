@@ -8,6 +8,8 @@
 #define STLAB_FUTURE_COROUTINE_SUPPORT
 
 #include "../SpotifyNetworkManager.hpp"
+#include "../model/playlistdata.hpp"
+#include "AuthentificationToken.hpp"
 #include <map>
 //#include <stlab/concurrency/default_executor.hpp>
 //#include <stlab/concurrency/future.hpp>
@@ -18,15 +20,29 @@ namespace spotify {
 
 inline namespace v1 {
 
+class SpotifyNetworkManager;
+
+class AuthentificationToken;
+
 namespace detail {
 
 class HttpHelper {
 private:
-    static SpotifyNetworkManager _manager;
+    static spotify::SpotifyNetworkManager _manager;
 
 public:
-    static auto post(std::string_view url, const std::map<std::string, std::string> &postData)
-            -> std::string;
+    static auto post1(std::string_view url, const std::map<std::string, std::string> &postData) -> std::string;
+    static auto post2(std::string_view url, spotify::AuthentificationToken &token,
+                      const std::map<std::string, std::string> &postData, bool include_bearer = true) -> std::string;
+    static auto post3(std::string_view url, spotify::AuthentificationToken &token,
+                      const spotify::model::playlistdata &pD, bool include_bearer = true) -> std::string;
+    static auto get1(std::string_view url) -> std::string;
+    static auto get2(std::string_view url, spotify::AuthentificationToken &token, bool include_bearer = true) -> std::string;
+    static std::string put1(std::string_view url, AuthentificationToken &token,
+                            const std::map<std::string, std::string> &postData, bool include_bearer);
+    static std::string put2(std::string_view url, AuthentificationToken &token,
+                            const model::playlistdata &pD, bool include_bearer);
+    static std::string delete_(std::string_view url, AuthentificationToken &token, bool include_bearer);
 };
 
 }// namespace detail

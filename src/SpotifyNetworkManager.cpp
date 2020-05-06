@@ -56,7 +56,7 @@ auto spotify::SpotifyNetworkManager::performPutRequest(const QNetworkRequest &re
     connect(reply, &QNetworkReply::sslErrors, this, &SpotifyNetworkManager::slotSslErrors);
 }
 
-auto spotify::SpotifyNetworkManager::getReply() const -> std::string { return _reply; }
+auto spotify::SpotifyNetworkManager::get_reply() const -> std::string { return _reply; }
 
 /* static */ auto spotify::SpotifyNetworkManager::createRequest(const QUrl &url,
                                                                 HeaderInfo const &info)
@@ -67,8 +67,16 @@ auto spotify::SpotifyNetworkManager::getReply() const -> std::string { return _r
     return request;
 }
 
-auto spotify::SpotifyNetworkManager::performGetRequest(QNetworkRequest const &request) -> void {
+auto spotify::SpotifyNetworkManager::performGetRequest(const QNetworkRequest &request) -> void {
     auto *reply = _manager->get(request);
+    connect(reply, &QIODevice::readyRead, this, &SpotifyNetworkManager::slotReadyRead);
+    connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::error), this,
+            &SpotifyNetworkManager::slotError);
+    connect(reply, &QNetworkReply::sslErrors, this, &SpotifyNetworkManager::slotSslErrors);
+}
+
+auto spotify::SpotifyNetworkManager::performDeleteRequest(const QNetworkRequest &request) -> void {
+    auto *reply = _manager->deleteResource(request);
     connect(reply, &QIODevice::readyRead, this, &SpotifyNetworkManager::slotReadyRead);
     connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::error), this,
             &SpotifyNetworkManager::slotError);
@@ -103,4 +111,90 @@ auto spotify::SpotifyNetworkManager::slotSslErrors(const QList<QSslError> &error
     info._header2 = header2;
 
     return createRequest(url, info);
+}
+
+void spotify::SpotifyNetworkManager::perform_get_request(std::string_view url) {
+    auto request = createRequest(url, "application/x-www-form-urlencoded", "");
+    performGetRequest(request);
+}
+
+void spotify::SpotifyNetworkManager::perform_get_request(std::string_view url, spotify::AuthentificationToken &token, bool include_bearer) {
+    QNetworkRequest request;
+    if (include_bearer) {
+        request = createRequest(url, "Authorization: Bearer " + token.getMAccessToken(), "");
+    } else {
+        request = createRequest(url, "application/x-www-form-urlencoded", "");
+    }
+    performGetRequest(request);
+}
+
+auto spotify::SpotifyNetworkManager::perform_post_request(
+        std::string_view url, spotify::AuthentificationToken &token,
+        const std::map<std::string, std::string> &postData, bool include_bearer) -> void {
+    QNetworkRequest request;
+    if (include_bearer) {
+        request = createRequest(url, "Authorization: Bearer " + token.getMAccessToken(), "");
+    } else {
+        request = createRequest(url, "application/x-www-form-urlencoded", "");
+    }
+    QByteArray data;
+    QUrlQuery query;
+    for (const auto &field : postData) {
+        query.addQueryItem(field.first.data(), field.second.data());
+    }
+    data = query.toString(QUrl::FullyEncoded).toUtf8();
+    performPostRequest(request, data);
+}
+
+auto spotify::SpotifyNetworkManager::perform_post_request(
+        std::string_view url, spotify::AuthentificationToken &token,
+        std::string_view json_string, bool include_bearer) -> void {
+    QNetworkRequest request;
+    if (include_bearer) {
+        request = createRequest(url, "Authorization: Bearer " + token.getMAccessToken(), "application/json");
+    } else {
+        request = createRequest(url, "application/json", "");
+    }
+    performPostRequest(request, json_string.data());
+}
+
+auto spotify::SpotifyNetworkManager::perform_put_request(
+        std::string_view url, spotify::AuthentificationToken &token,
+        const std::map<std::string, std::string> &postData, bool include_bearer) -> void {
+    QNetworkRequest request;
+    if (include_bearer) {
+        request = createRequest(url, "Authorization: Bearer " + token.getMAccessToken(), "");
+    } else {
+        request = createRequest(url, "application/x-www-form-urlencoded", "");
+    }
+    QByteArray data;
+    QUrlQuery query;
+    for (const auto &field : postData) {
+        query.addQueryItem(field.first.data(), field.second.data());
+    }
+    data = query.toString(QUrl::FullyEncoded).toUtf8();
+    performPutRequest(request, data);
+}
+
+auto spotify::SpotifyNetworkManager::perform_put_request(
+        std::string_view url, spotify::AuthentificationToken &token,
+        std::string_view json_string, bool include_bearer) -> void {
+    QNetworkRequest request;
+    if (include_bearer) {
+        request = createRequest(url, "Authorization: Bearer " + token.getMAccessToken(), "application/json");
+    } else {
+        request = createRequest(url, "application/json", "");
+    }
+    performPutRequest(request, json_string.data());
+}
+
+auto spotify::SpotifyNetworkManager::perform_delete_request(
+        std::string_view url, spotify::AuthentificationToken &token, bool include_bearer) -> void {
+    QNetworkRequest request;
+    if (include_bearer) {
+        request = createRequest(url, "Authorization: Bearer " + token.getMAccessToken(), "");
+    } else {
+        request = createRequest(url, "application/x-www-form-urlencoded", "");
+    }
+    performDeleteRequest(request);
 }

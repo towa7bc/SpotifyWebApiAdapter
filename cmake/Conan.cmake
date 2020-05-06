@@ -21,7 +21,7 @@ macro(run_conan)
             ${CONAN_EXTRA_REQUIRES}
             stlab/1.5.2
             catch2/2.12.0
-            fmt/6.1.2
+            #fmt/6.1.2
             spdlog/1.5.0
             openssl/1.1.1f
             #boost/1.69.0
