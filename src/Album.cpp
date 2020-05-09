@@ -4,6 +4,10 @@
 
 #include "Album.hpp"
 
+namespace spotify {
+
+inline namespace v1 {
+
 spotify::Page<spotify::Album> spotify::v1::Album::get_artist_albums(std::string_view artist_id) {
     auto local_future = stlab::async(stlab::default_executor, spotify::detail::HttpHelper::get1,
                                      "https://api.spotify.com/v1/artists/" + std::string(artist_id) + "/albums")
@@ -12,7 +16,10 @@ spotify::Page<spotify::Album> spotify::v1::Album::get_artist_albums(std::string_
     auto local_obj = stlab::blocking_get(local_future);
     return spotify::Page<spotify::Album>();
 }
-/*
+
+}// namespace v1
+}// namespace spotify
+ /*
  *  public static async Task<Page<Album>> GetArtistAlbums(string artistId)
         {
             var json = await HttpHelper.Get("https://api.spotify.com/v1/artists/" + artistId + "/albums");

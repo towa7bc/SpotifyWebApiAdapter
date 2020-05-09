@@ -4,6 +4,12 @@
 
 #include "HttpHelper.hpp"
 
+namespace spotify {
+
+inline namespace v1 {
+
+namespace detail {
+
 /* static */ auto spotify::detail::HttpHelper::get1(std::string_view url) -> std::string {
     _manager.perform_get_request(url);
     return _manager.get_reply();
@@ -56,3 +62,7 @@
     _manager.perform_delete_request(url, token, include_bearer);
     return _manager.get_reply();
 }
+
+}// namespace detail
+}// namespace v1
+}// namespace spotify

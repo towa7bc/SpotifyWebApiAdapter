@@ -13,6 +13,10 @@
 #include <cctype>
 #include <type_traits>
 
+namespace spotify {
+
+inline namespace v1 {
+
 template<typename T>
 bool spotify::Page<T>::isHasNextPage() const {
     return !_next.empty();
@@ -134,3 +138,6 @@ spotify::Page<T> spotify::Page<T>::get_next_page() {
     }
     return nullptr;
 }
+
+}// namespace v1
+}// namespace spotify

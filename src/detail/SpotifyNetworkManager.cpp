@@ -4,6 +4,10 @@
 
 #include "SpotifyNetworkManager.hpp"
 
+namespace spotify {
+
+inline namespace v1 {
+
 spotify::SpotifyNetworkManager::SpotifyNetworkManager() : _manager(std::make_unique<QNetworkAccessManager>(this)) {
     connect(_manager.get(), &QNetworkAccessManager::finished, this,
             &SpotifyNetworkManager::replyFinished);
@@ -206,3 +210,6 @@ auto spotify::SpotifyNetworkManager::perform_delete_request(
     }
     performDeleteRequest(request);
 }
+
+}// namespace v1
+}// namespace spotify

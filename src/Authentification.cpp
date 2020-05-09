@@ -4,6 +4,10 @@
 
 #include "Authentification.hpp"
 
+namespace spotify {
+
+inline namespace v1 {
+
 /* static */ auto spotify::Authentification::get_access_token(std::string_view code)
         -> spotify::AuthentificationToken {
     AuthentificationToken auth_token;
@@ -26,3 +30,6 @@
     auth_token.setExpiresOn(currentTime + boost::posix_time::seconds(access_token.expires_in));
     return auth_token;
 }
+
+}// namespace v1
+}// namespace spotify

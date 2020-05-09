@@ -4,6 +4,10 @@
 
 #include "Artist.hpp"
 
+namespace spotify {
+
+inline namespace v1 {
+
 spotify::Artist spotify::Artist::get_artist(const std::string &artist_id) {
     Artist artist_;
     auto local_future = stlab::async(stlab::default_executor, spotify::detail::HttpHelper::get1,
@@ -180,3 +184,6 @@ std::vector<spotify::Artist> spotify::Artist::get_related_artists(const std::str
 std::vector<spotify::Artist> spotify::Artist::get_related_artists(const std::string &country_code) const {
     return get_related_artists(this->_id, country_code);
 }
+
+}// namespace v1
+}// namespace spotify

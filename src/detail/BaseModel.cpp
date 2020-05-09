@@ -4,6 +4,10 @@
 
 #include "BaseModel.hpp"
 
+namespace spotify {
+
+inline namespace v1 {
+
 /* static */ auto spotify::BaseModel::create_comma_separated_List(const std::vector<std::string> &v)
         -> std::string {
     if (v.empty()) {
@@ -28,3 +32,6 @@ std::string spotify::BaseModel::str_toupper(std::string s) {
                    [](unsigned char c) { return std::toupper(c); });
     return s;
 }
+
+}// namespace v1
+}// namespace spotify
