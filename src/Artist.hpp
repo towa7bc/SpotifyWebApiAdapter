@@ -1,0 +1,62 @@
+//
+// Created by Michael Wittmann on 07/05/2020.
+//
+
+#ifndef SPOTIFYWEBAPIADAPTER_ARTIST_HPP
+#define SPOTIFYWEBAPIADAPTER_ARTIST_HPP
+
+#include "Album.hpp"
+#include "Image.hpp"
+#include "Page.hpp"
+#include "Track.hpp"
+#include "detail/BaseModel.hpp"
+#include "detail/HttpHelper.hpp"
+#include <algorithm>
+#include <vector>
+
+namespace spotify {
+
+inline namespace v1 {
+
+class Track;
+class Album;
+template<typename>
+class Page;
+
+class Artist : public BaseModel {
+    using json_t = nlohmann::json;
+
+public:
+    Artist() = default;
+    Artist(const Artist &) = default;
+    ~Artist() = default;
+    Artist &operator=(const Artist &) = default;
+    std::vector<std::string> _genres;
+    std::string _external_url;
+    std::string _href;
+    std::string _id;
+    std::vector<Image> _images;
+    std::string _name;
+    int _popularity;
+    std::string _type;
+    std::string _uri;
+    static spotify::Artist get_artist(const std::string &artist_id);
+    static std::vector<spotify::Artist> get_artists(const std::vector<std::string> &artist_ids);
+    static spotify::Page<spotify::Artist> search(std::string &artistName,
+                                                 std::string &year,
+                                                 std::string &genre,
+                                                 std::string &upc,
+                                                 std::string &isrc,
+                                                 int limit = 20,
+                                                 int offset = 0);
+    spotify::Page<spotify::Album> get_albums();
+    static std::vector<spotify::Track> get_top_tracks(const std::string &artist_id, const std::string &country_code = "US");
+    [[nodiscard]] std::vector<spotify::Track> get_top_tracks(const std::string &country_code = "US") const;
+    static std::vector<Artist> get_related_artists(const std::string &artist_id, const std::string &country_code);
+    [[nodiscard]] std::vector<Artist> get_related_artists(const std::string &country_code) const;
+};
+
+}// namespace v1
+}// namespace spotify
+
+#endif

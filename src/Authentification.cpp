@@ -4,7 +4,7 @@
 
 #include "Authentification.hpp"
 
-/* static */ auto spotify::Authentification::getAccessToken(std::string_view code)
+/* static */ auto spotify::Authentification::get_access_token(std::string_view code)
         -> spotify::AuthentificationToken {
     AuthentificationToken auth_token;
     std::map<std::string, std::string> postData;

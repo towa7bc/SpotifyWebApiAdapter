@@ -5,10 +5,9 @@
 #ifndef SPOTIFYWEBAPIADAPTER_HTTPHELPER_HPP
 #define SPOTIFYWEBAPIADAPTER_HTTPHELPER_HPP
 
-#define STLAB_FUTURE_COROUTINE_SUPPORT
-
 #include "../AuthentificationToken.hpp"
-#include "../model/playlistdata.hpp"
+//#include "../model/playlistdata.hpp"
+#include "../model/modeldata.hpp"
 #include "SpotifyNetworkManager.hpp"
 #include <map>
 //#include <stlab/concurrency/default_executor.hpp>

@@ -14,7 +14,7 @@
 #include "AuthentificationToken.hpp"
 #include "detail/BaseModel.hpp"
 #include "detail/HttpHelper.hpp"
-#include "model/accesstoken.hpp"
+#include "model/modeldata.hpp"
 #include <boost/date_time/c_local_time_adjustor.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <map>
@@ -37,7 +37,7 @@ public:
     static std::string _client_id;
     static std::string _client_secret;
     static std::string _redirect_uri;
-    static auto getAccessToken(std::string_view code) -> spotify::AuthentificationToken;
+    static auto get_access_token(std::string_view code) -> spotify::AuthentificationToken;
 };
 
 }// namespace v1
