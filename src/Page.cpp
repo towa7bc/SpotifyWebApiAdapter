@@ -10,7 +10,6 @@
 #include "detail/BaseModel.hpp"
 #include "detail/HttpHelper.hpp"
 #include "model/modeldata.hpp"
-#include <cctype>
 #include <type_traits>
 
 namespace spotify {
