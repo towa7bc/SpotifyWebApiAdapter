@@ -19,6 +19,7 @@ inline namespace v1 {
 
 class Album;
 class Artist;
+struct Image;
 
 class Track : public BaseModel {
     using json_t = nlohmann::json;
