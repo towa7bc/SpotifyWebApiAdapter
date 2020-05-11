@@ -30,6 +30,8 @@ RUN apt update \
       clang \
       gdb \
       curl \
+      sudo \
+      neovim \
       cmake \
       ninja-build \
       rsync \
@@ -57,5 +59,7 @@ RUN ( \
 
 RUN useradd -m user \
   && yes password | passwd user
+
+RUN adduser user sudo
 
 CMD ["/usr/sbin/sshd", "-D", "-e", "-f", "/etc/ssh/sshd_config_test_clion"]
