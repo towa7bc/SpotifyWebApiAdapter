@@ -16,7 +16,7 @@ struct Image {
     Image(const Image &) = default;
     ~Image() = default;
     Image &operator=(const Image &) = default;
-    Image &operator=(Image &&) = default;
+    Image &operator=(Image &&) noexcept = default;
     Image(Image &&) noexcept = default;
     int _height{0};
     std::string _url;

@@ -19,7 +19,7 @@ struct PlaylistTrack {
     PlaylistTrack(const PlaylistTrack &) = default;
     ~PlaylistTrack() = default;
     PlaylistTrack &operator=(const PlaylistTrack &) = default;
-    PlaylistTrack &operator=(PlaylistTrack &&) = default;
+    PlaylistTrack &operator=(PlaylistTrack &&) noexcept = default;
     PlaylistTrack(PlaylistTrack &&) noexcept = default;
     spotify::User _added_by;
     boost::posix_time::ptime _added_at{boost::gregorian::day_clock::universal_day(),

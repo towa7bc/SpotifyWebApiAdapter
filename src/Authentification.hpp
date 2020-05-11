@@ -36,9 +36,9 @@ class Authentification : public spotify::BaseModel {
 public:
     Authentification() = default;
     Authentification(const Authentification &) = default;
-    ~Authentification() = default;
+    ~Authentification() override = default;
     Authentification &operator=(const Authentification &) = default;
-    Authentification &operator=(Authentification &&) = default;
+    Authentification &operator=(Authentification &&) noexcept = default;
     Authentification(Authentification &&) noexcept = default;
     static std::string _client_id;
     static std::string _client_secret;

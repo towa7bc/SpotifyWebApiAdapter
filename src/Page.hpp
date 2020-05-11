@@ -28,9 +28,9 @@ class Page : public BaseModel {
 public:
     Page() = default;
     Page(const Page &) = default;
-    ~Page() = default;
+    ~Page() override = default;
     Page &operator=(const Page &) = default;
-    Page &operator=(Page &&) = default;
+    Page &operator=(Page &&) noexcept = default;
     Page(Page &&) noexcept = default;
     std::string _href;
     std::vector<T> _items;

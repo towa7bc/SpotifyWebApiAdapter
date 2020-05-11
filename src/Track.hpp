@@ -27,9 +27,9 @@ class Track : public BaseModel {
 public:
     Track() = default;
     Track(const Track &) = default;
-    ~Track() = default;
+    ~Track() override = default;
     Track &operator=(const Track &) = default;
-    Track &operator=(Track &&) = default;
+    Track &operator=(Track &&) noexcept = default;
     Track(Track &&) noexcept = default;
     std::vector<spotify::Artist> artists;
     std::vector<std::string> available_markets;
@@ -45,10 +45,10 @@ public:
     spotify::model::page<spotify::Track> tracks;
     std::string type;
     std::string uri;
-    int disc_number;
-    int duration;
-    bool explicit_;
-    int track_number;
+    int disc_number{};
+    int duration{};
+    bool explicit_{};
+    int track_number{};
     std::shared_ptr<const spotify::Album> album;
 };
 

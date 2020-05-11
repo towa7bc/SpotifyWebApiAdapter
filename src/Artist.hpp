@@ -29,9 +29,9 @@ class Artist : public BaseModel {
 public:
     Artist() = default;
     Artist(const Artist &) = default;
-    ~Artist() = default;
+    ~Artist() override = default;
     Artist &operator=(const Artist &) = default;
-    Artist &operator=(Artist &&) = default;
+    Artist &operator=(Artist &&) noexcept = default;
     Artist(Artist &&) noexcept = default;
     std::vector<std::string> _genres;
     std::string _external_url;
@@ -39,7 +39,7 @@ public:
     std::string _id;
     std::vector<Image> _images;
     std::string _name;
-    int _popularity;
+    int _popularity{};
     std::string _type;
     std::string _uri;
     static spotify::Artist get_artist(const std::string &artist_id);
@@ -54,8 +54,8 @@ public:
     spotify::Page<spotify::Album> get_albums();
     static std::vector<spotify::Track> get_top_tracks(const std::string &artist_id, const std::string &country_code = "US");
     [[nodiscard]] std::vector<spotify::Track> get_top_tracks(const std::string &country_code = "US") const;
-    static std::vector<Artist> get_related_artists(const std::string &artist_id, const std::string &country_code);
-    [[nodiscard]] std::vector<Artist> get_related_artists(const std::string &country_code) const;
+    static std::vector<Artist> get_related_artists(const std::string &artist_id, const std::string &country_code = "US");
+    [[nodiscard]] std::vector<Artist> get_related_artists(const std::string &country_code = "US") const;
 };
 
 }// namespace v1

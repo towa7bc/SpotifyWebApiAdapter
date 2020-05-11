@@ -15,9 +15,9 @@ class Playlist : public BaseModel {
 public:
     Playlist() = default;
     Playlist(const Playlist &) = default;
-    ~Playlist() = default;
+    ~Playlist() override = default;
     Playlist &operator=(const Playlist &) = default;
-    Playlist &operator=(Playlist &&) = default;
+    Playlist &operator=(Playlist &&) noexcept = default;
     Playlist(Playlist &&) noexcept = default;
 };
 

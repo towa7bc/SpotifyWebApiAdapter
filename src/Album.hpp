@@ -22,9 +22,9 @@ class Album : public BaseModel {
 public:
     Album() = default;
     Album(const Album &) = default;
-    ~Album() = default;
+    ~Album() override = default;
     Album &operator=(const Album &) = default;
-    Album &operator=(Album &&) = default;
+    Album &operator=(Album &&) noexcept = default;
     Album(Album &&) noexcept = default;
     enum class AlbumType {
         Album,
