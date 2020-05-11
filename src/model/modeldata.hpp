@@ -20,6 +20,8 @@ struct accesstoken {
     accesstoken(const accesstoken &) = default;
     ~accesstoken() = default;
     accesstoken &operator=(const accesstoken &) = default;
+    accesstoken &operator=(accesstoken &&) = default;
+    accesstoken(accesstoken &&) noexcept = default;
     std::string access_token;
     std::string token_type;
     int expires_in{0};
@@ -46,6 +48,8 @@ struct image {
     image() = default;
     ~image() = default;
     image &operator=(const image &) = default;
+    image &operator=(image &&) = default;
+    image(image &&) noexcept = default;
     int height{0};
     std::string url;
     int width{0};
@@ -74,6 +78,8 @@ struct page {
     ~page() = default;
     page &operator=(const page &) = default;
     page(const page &) = default;
+    page &operator=(page &&) = default;
+    page(page &&) noexcept = default;
     int limit{0};
     std::string href;
     std::string next;
@@ -112,6 +118,8 @@ struct artist {
     ~artist() = default;
     artist(const artist &) = default;
     artist &operator=(const artist &) = default;
+    artist &operator=(artist &&) = default;
+    artist(artist &&) noexcept = default;
     std::string name;
     std::string href;
     std::string id;
@@ -128,6 +136,8 @@ struct artist_array {
     ~artist_array() = default;
     artist_array(const artist_array &) = default;
     artist_array &operator=(const artist_array &) = default;
+    artist_array &operator=(artist_array &&) = default;
+    artist_array(artist_array &&) noexcept = default;
     std::vector<artist> artists;
 };
 
@@ -136,6 +146,8 @@ struct artist_search_result {
     ~artist_search_result() = default;
     artist_search_result(const artist_search_result &) = default;
     artist_search_result &operator=(const artist_search_result &) = default;
+    artist_search_result &operator=(artist_search_result &&) = default;
+    artist_search_result(artist_search_result &&) noexcept = default;
     spotify::model::page<artist> artists;
 };
 
@@ -187,6 +199,8 @@ struct followers {
     followers(const followers &) = default;
     ~followers() = default;
     followers &operator=(const followers &) = default;
+    followers &operator=(followers &&) = default;
+    followers(followers &&) noexcept = default;
     std::string href;
     int total{0};
 };
@@ -208,6 +222,8 @@ struct user {
     user(const user &) = default;
     ~user() = default;
     user &operator=(const user &) = default;
+    user &operator=(user &&) = default;
+    user(user &&) noexcept = default;
     std::string country;
     std::string display_name;
     std::string email;
@@ -254,6 +270,8 @@ struct album {
     album(const album &) = default;
     ~album() = default;
     album &operator=(const album &) = default;
+    album &operator=(album &&) = default;
+    album(album &&) noexcept = default;
     std::string album_type;
     std::vector<artist> artists;
     std::vector<std::string> available_markets;
@@ -277,6 +295,8 @@ struct track {
     track(const track &) = default;
     ~track() = default;
     track &operator=(const track &) = default;
+    track &operator=(track &&) = default;
+    track(track &&) noexcept = default;
     spotify::model::album album_;
     std::vector<artist> artists;
     std::vector<std::string> available_markets;
@@ -301,6 +321,8 @@ struct album_array {
     album_array(const album_array &) = default;
     ~album_array() = default;
     album_array &operator=(const album_array &) = default;
+    album_array &operator=(album_array &&) = default;
+    album_array(album_array &&) noexcept = default;
     std::vector<album> albums;
 };
 
@@ -309,6 +331,8 @@ struct album_search_result {
     album_search_result(const album_search_result &) = default;
     ~album_search_result() = default;
     album_search_result &operator=(const album_search_result &) = default;
+    album_search_result &operator=(album_search_result &&) = default;
+    album_search_result(album_search_result &&) noexcept = default;
     page<album> albums;
 };
 
@@ -317,6 +341,8 @@ struct track_array {
     track_array(const track_array &) = default;
     ~track_array() = default;
     track_array &operator=(const track_array &) = default;
+    track_array &operator=(track_array &&) = default;
+    track_array(track_array &&) noexcept = default;
     std::vector<track> tracks;
 };
 
@@ -325,6 +351,8 @@ struct track_search_result {
     track_search_result(const track_search_result &) = default;
     ~track_search_result() = default;
     track_search_result &operator=(const track_search_result &) = default;
+    track_search_result &operator=(track_search_result &&) = default;
+    track_search_result(track_search_result &&) noexcept = default;
     page<track> tracks;
 };
 
@@ -449,6 +477,8 @@ struct playlisttrack {
     playlisttrack(const playlisttrack &) = default;
     ~playlisttrack() = default;
     playlisttrack &operator=(const playlisttrack &) = default;
+    playlisttrack &operator=(playlisttrack &&) = default;
+    playlisttrack(playlisttrack &&) noexcept = default;
     spotify::model::user added_by;
     std::string added_at;
     spotify::model::track track_;
@@ -472,6 +502,8 @@ struct playlist {
     playlist(const playlist &) = default;
     ~playlist() = default;
     playlist &operator=(const playlist &) = default;
+    playlist &operator=(playlist &&) = default;
+    playlist(playlist &&) noexcept = default;
     std::string description;
     std::vector<std::string> external_urls;
     followers followers_;
@@ -500,6 +532,8 @@ struct featured_playlist_search_result {
     featured_playlist_search_result(const featured_playlist_search_result &) = default;
     ~featured_playlist_search_result() = default;
     featured_playlist_search_result &operator=(const featured_playlist_search_result &) = default;
+    featured_playlist_search_result &operator=(featured_playlist_search_result &&) = default;
+    featured_playlist_search_result(featured_playlist_search_result &&) noexcept = default;
     std::string message;
     page<playlist> playlists;
 };
@@ -562,6 +596,8 @@ struct playlistdata {
     playlistdata(const playlistdata &) = default;
     ~playlistdata() = default;
     playlistdata &operator=(const playlistdata &) = default;
+    playlistdata &operator=(playlistdata &&) = default;
+    playlistdata(playlistdata &&) noexcept = default;
     std::string name;
     bool is_public;
 };
@@ -582,6 +618,8 @@ struct savedtrack {
     savedtrack(const savedtrack &) = default;
     ~savedtrack() = default;
     savedtrack &operator=(const savedtrack &) = default;
+    savedtrack &operator=(savedtrack &&) = default;
+    savedtrack(savedtrack &&) noexcept = default;
     std::string added_at;
     track track_;
 };

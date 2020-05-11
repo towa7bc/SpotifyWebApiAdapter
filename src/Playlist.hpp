@@ -12,6 +12,13 @@ namespace spotify {
 inline namespace v1 {
 
 class Playlist : public BaseModel {
+public:
+    Playlist() = default;
+    Playlist(const Playlist &) = default;
+    ~Playlist() = default;
+    Playlist &operator=(const Playlist &) = default;
+    Playlist &operator=(Playlist &&) = default;
+    Playlist(Playlist &&) noexcept = default;
 };
 
 }// namespace v1

@@ -31,6 +31,8 @@ public:
     Artist(const Artist &) = default;
     ~Artist() = default;
     Artist &operator=(const Artist &) = default;
+    Artist &operator=(Artist &&) = default;
+    Artist(Artist &&) noexcept = default;
     std::vector<std::string> _genres;
     std::string _external_url;
     std::string _href;

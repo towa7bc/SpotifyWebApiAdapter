@@ -29,6 +29,8 @@ public:
     Track(const Track &) = default;
     ~Track() = default;
     Track &operator=(const Track &) = default;
+    Track &operator=(Track &&) = default;
+    Track(Track &&) noexcept = default;
     std::vector<spotify::Artist> artists;
     std::vector<std::string> available_markets;
     std::vector<std::string> external_id;

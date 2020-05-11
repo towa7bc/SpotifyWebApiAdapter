@@ -34,6 +34,12 @@ class Authentification : public spotify::BaseModel {
     using json_t = nlohmann::json;
 
 public:
+    Authentification() = default;
+    Authentification(const Authentification &) = default;
+    ~Authentification() = default;
+    Authentification &operator=(const Authentification &) = default;
+    Authentification &operator=(Authentification &&) = default;
+    Authentification(Authentification &&) noexcept = default;
     static std::string _client_id;
     static std::string _client_secret;
     static std::string _redirect_uri;

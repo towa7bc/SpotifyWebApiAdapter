@@ -24,6 +24,8 @@ public:
     Album(const Album &) = default;
     ~Album() = default;
     Album &operator=(const Album &) = default;
+    Album &operator=(Album &&) = default;
+    Album(Album &&) noexcept = default;
     enum class AlbumType {
         Album,
         Single,

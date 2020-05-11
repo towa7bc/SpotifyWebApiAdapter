@@ -16,6 +16,8 @@ struct User : public BaseModel {
     User(const User &) = default;
     ~User() = default;
     User &operator=(const User &) = default;
+    User &operator=(User &&) = default;
+    User(User &&) noexcept = default;
     int _height{0};
     std::string _url;
     int _width{0};

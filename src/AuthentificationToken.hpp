@@ -29,7 +29,11 @@ private:
 
 public:
     AuthentificationToken() = default;
-
+    AuthentificationToken(const AuthentificationToken &) = default;
+    ~AuthentificationToken() = default;
+    AuthentificationToken &operator=(const AuthentificationToken &) = default;
+    AuthentificationToken &operator=(AuthentificationToken &&) = default;
+    AuthentificationToken(AuthentificationToken &&) noexcept = default;
     auto setMHasExpired(bool mHasExpired) -> void;
     [[nodiscard]] auto isMHasExpired() const -> bool;
     auto getMAccessToken() -> const std::string &;

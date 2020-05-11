@@ -30,6 +30,8 @@ public:
     Page(const Page &) = default;
     ~Page() = default;
     Page &operator=(const Page &) = default;
+    Page &operator=(Page &&) = default;
+    Page(Page &&) noexcept = default;
     std::string _href;
     std::vector<T> _items;
     int _limit{0};
