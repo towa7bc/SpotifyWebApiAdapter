@@ -9,28 +9,12 @@ namespace spotify {
 inline namespace v1 {
 
 spotify::Artist spotify::Artist::get_artist(const std::string &artist_id) {
-    Artist artist_;
     auto local_future = stlab::async(stlab::default_executor, spotify::detail::HttpHelper::get1,
                                      "https://api.spotify.com/v1/artists/" + artist_id)
                         | ([](std::string_view s) { return json_t::parse(s); })
                         | ([](const json_t &j) { return j.get<spotify::model::artist>(); });
     auto local_obj = stlab::blocking_get(local_future);
-    artist_._external_url = local_obj.external_urls.at(0);
-    artist_._genres = local_obj.genres;
-    artist_._href = local_obj.href;
-    artist_._id = local_obj.id;
-    for (const auto &item : local_obj.images) {
-        Image elem;
-        elem.width = item.width;
-        elem._height = item.height;
-        elem._url = item.url;
-        artist_._images.push_back(elem);
-    }
-    artist_._name = local_obj.name;
-    const int base{10};
-    artist_._popularity = std::stoi(local_obj.popularity, nullptr, base);
-    artist_._type = local_obj.type;
-    artist_._uri = local_obj.uri;
+    Artist artist_(local_obj);
     return artist_;
 }
 
@@ -42,23 +26,7 @@ std::vector<spotify::Artist> spotify::Artist::get_artists(const std::vector<std:
                         | ([](const json_t &j) { return j.get<spotify::model::artist_array>(); });
     auto local_obj = stlab::blocking_get(local_future);
     for (const auto &item : local_obj.artists) {
-        Artist artist_;
-        artist_._external_url = item.external_urls.at(0);
-        artist_._genres = item.genres;
-        artist_._href = item.href;
-        artist_._id = item.id;
-        for (const spotify::model::image &image : item.images) {
-            Image elem;
-            elem.width = image.width;
-            elem._height = image.height;
-            elem._url = image.url;
-            artist_._images.push_back(elem);
-        }
-        artist_._name = item.name;
-        const int base{10};
-        artist_._popularity = std::stoi(item.popularity, nullptr, base);
-        artist_._type = item.type;
-        artist_._uri = item.uri;
+        Artist artist_(item);
         artists_list.push_back(artist_);
     }
     return artists_list;
@@ -104,23 +72,7 @@ spotify::Page<spotify::Artist> spotify::Artist::search(std::string &artistName,
     page._offset = local_obj.artists.offset;
     page._limit = local_obj.artists.limit;
     for (const spotify::model::artist &item : local_obj.artists.items) {
-        spotify::Artist artist_{};
-        artist_._href = item.href;
-        artist_._id = item.id;
-        artist_._uri = item.uri;
-        artist_._type = item.type;
-        const int base{10};
-        artist_._popularity = std::stoi(item.popularity, nullptr, base);
-        artist_._name = item.name;
-        artist_._genres = item.genres;
-        artist_._external_url = item.external_urls.at(0);
-        for (const spotify::model::image &image : item.images) {
-            Image elem;
-            elem.width = image.width;
-            elem._height = image.height;
-            elem._url = image.url;
-            artist_._images.push_back(elem);
-        }
+        spotify::Artist artist_(item);
         page._items.push_back(artist_);
     }
     return page;
@@ -159,23 +111,7 @@ std::vector<spotify::Artist> spotify::Artist::get_related_artists(const std::str
                         | ([](const json_t &j) { return j.get<spotify::model::artist_array>(); });
     auto local_obj = stlab::blocking_get(local_future);
     for (const auto &item : local_obj.artists) {
-        Artist artist_;
-        artist_._external_url = item.external_urls.at(0);
-        artist_._genres = item.genres;
-        artist_._href = item.href;
-        artist_._id = item.id;
-        for (const spotify::model::image &image : item.images) {
-            Image elem;
-            elem.width = image.width;
-            elem._height = image.height;
-            elem._url = image.url;
-            artist_._images.push_back(elem);
-        }
-        artist_._name = item.name;
-        const int base{10};
-        artist_._popularity = std::stoi(item.popularity, nullptr, base);
-        artist_._type = item.type;
-        artist_._uri = item.uri;
+        Artist artist_(item);
         artists_list.push_back(artist_);
     }
     return artists_list;
@@ -183,6 +119,38 @@ std::vector<spotify::Artist> spotify::Artist::get_related_artists(const std::str
 
 std::vector<spotify::Artist> spotify::Artist::get_related_artists(const std::string &country_code) const {
     return get_related_artists(this->_id, country_code);
+}
+
+spotify::Artist::Artist(const spotify::model::artist &t_artist) {
+    this->_external_url = t_artist.external_urls.at(0);
+    this->_genres = t_artist.genres;
+    this->_href = t_artist.href;
+    this->_id = t_artist.id;
+    for (const spotify::model::image &image : t_artist.images) {
+        Image elem(image);
+        this->_images.push_back(elem);
+    }
+    this->_name = t_artist.name;
+    const int base{10};
+    this->_popularity = std::stoi(t_artist.popularity, nullptr, base);
+    this->_type = t_artist.type;
+    this->_uri = t_artist.uri;
+}
+
+spotify::Artist::Artist(spotify::model::artist &&t_artist) noexcept {
+    this->_external_url = std::move(t_artist.external_urls.at(0));
+    this->_genres = std::move(t_artist.genres);
+    this->_href = std::move(t_artist.href);
+    this->_id = std::move(t_artist.id);
+    for (spotify::model::image &image : std::move(t_artist.images)) {
+        Image elem(std::move(image));
+        this->_images.push_back(std::move(elem));
+    }
+    this->_name = std::move(t_artist.name);
+    const int base{10};
+    this->_popularity = std::stoi(t_artist.popularity, nullptr, base);
+    this->_type = std::move(t_artist.type);
+    this->_uri = std::move(t_artist.uri);
 }
 
 }// namespace v1

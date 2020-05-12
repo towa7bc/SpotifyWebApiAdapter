@@ -124,11 +124,12 @@ void spotify::SpotifyNetworkManager::perform_get_request(std::string_view url) {
     performGetRequest(request);
 }
 
-void spotify::SpotifyNetworkManager::perform_get_request(std::string_view url, spotify::AuthentificationToken &token, bool include_bearer) {
+void spotify::SpotifyNetworkManager::perform_get_request(std::string_view url, const spotify::AuthentificationToken &token, bool include_bearer) {
     _asyncLogger->debug("perform_get_request called.");
+    auto local_token = token;
     QNetworkRequest request;
     if (include_bearer) {
-        request = createRequest(url, "Authorization: Bearer " + token.getMAccessToken(), "");
+        request = createRequest(url, "Authorization: Bearer " + local_token.getMAccessToken(), "");
     } else {
         request = createRequest(url, "application/x-www-form-urlencoded", "");
     }

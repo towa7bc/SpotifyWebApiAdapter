@@ -16,7 +16,7 @@ namespace detail {
 }
 
 /* static */ auto spotify::detail::HttpHelper::get2(
-        std::string_view url, spotify::AuthentificationToken &token, bool include_bearer) -> std::string {
+        std::string_view url, const spotify::AuthentificationToken &token, bool include_bearer) -> std::string {
     _manager.perform_get_request(url, token, include_bearer);
     return _manager.get_reply();
 }

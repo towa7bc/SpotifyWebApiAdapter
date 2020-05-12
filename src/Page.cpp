@@ -54,15 +54,7 @@ spotify::Page<T> spotify::Page<T>::get_next_page() {
         page._offset = p.offset;
         page._limit = p.limit;
         for (spotify::model::album &item : p.items) {
-            spotify::Album album_{};
-            item.album_type = str_toupper(item.album_type);
-            if (item.album_type == "ALBUM") {
-                album_._album_type = spotify::Album::AlbumType::Album;
-            } else if (item.album_type == "SINGLE") {
-                album_._album_type = spotify::Album::AlbumType::Single;
-            } else if (item.album_type == "COMPILATION") {
-                album_._album_type = spotify::Album::AlbumType::Compilation;
-            }
+            spotify::Album album_(item);
             page._items.push_back(album_);
         }
         return page;
@@ -78,23 +70,7 @@ spotify::Page<T> spotify::Page<T>::get_next_page() {
         page._offset = p.offset;
         page._limit = p.limit;
         for (const spotify::model::artist &item : p.items) {
-            spotify::Artist artist_{};
-            artist_._href = item.href;
-            artist_._id = item.id;
-            artist_._uri = item.uri;
-            artist_._type = item.type;
-            const int base{10};
-            artist_._popularity = std::stoi(item.popularity, nullptr, base);
-            artist_._name = item.name;
-            artist_._genres = item.genres;
-            artist_._external_url = item.external_urls.at(0);
-            for (const spotify::model::image &image : item.images) {
-                Image elem;
-                elem.width = image.width;
-                elem._height = image.height;
-                elem._url = image.url;
-                artist_._images.push_back(elem);
-            }
+            spotify::Artist artist_(item);
             page._items.push_back(artist_);
         }
         return page;
@@ -136,6 +112,70 @@ spotify::Page<T> spotify::Page<T>::get_next_page() {
         return page;
     }
     return nullptr;
+}
+
+template<typename T>
+spotify::Page<T>::Page(const model::page<spotify::model::track> &t_page) {
+    _href = t_page.href;
+    _limit = t_page.limit;
+    _offset = t_page.offset;
+    _total = t_page.total;
+    _previous = t_page.previous;
+    _next = t_page.next;
+    for (const auto &item : t_page.items) {
+        spotify::Track track_(item);
+        _items.push_back(track_);
+    }
+}
+
+template<typename T>
+spotify::Page<T>::Page(model::page<spotify::model::track> &&) noexcept {
+}
+
+template<typename T>
+spotify::Page<T>::Page(const model::page<spotify::model::album> &t_page) {
+    _href = t_page.href;
+    _limit = t_page.limit;
+    _offset = t_page.offset;
+    _total = t_page.total;
+    _previous = t_page.previous;
+    _next = t_page.next;
+    for (const auto &item : t_page.items) {
+        spotify::Album album_(item);
+        _items.push_back(album_);
+    }
+}
+
+template<typename T>
+spotify::Page<T>::Page(model::page<spotify::model::album> &&t_page) noexcept {
+    _href = t_page.href;
+    _limit = t_page.limit;
+    _offset = t_page.offset;
+    _total = t_page.total;
+    _previous = t_page.previous;
+    _next = t_page.next;
+    for (const auto &item : t_page.items) {
+        spotify::Album album_(item);
+        _items.push_back(album_);
+    }
+}
+
+template<typename T>
+Page<T>::Page(const model::page<spotify::model::playlisttrack> &t_page) {
+    _href = t_page.href;
+    _limit = t_page.limit;
+    _offset = t_page.offset;
+    _total = t_page.total;
+    _previous = t_page.previous;
+    _next = t_page.next;
+    for (const auto &item : t_page.items) {
+        spotify::PlaylistTrack plt_(item);
+        _items.push_back(plt_);
+    }
+}
+
+template<typename T>
+Page<T>::Page(model::page<spotify::model::playlisttrack> &&) noexcept {
 }
 
 }// namespace v1

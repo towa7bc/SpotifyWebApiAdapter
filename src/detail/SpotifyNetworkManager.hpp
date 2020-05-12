@@ -40,7 +40,7 @@ public:
                               const std::map<std::string, std::string> &postData) -> void;
     [[nodiscard]] auto get_reply() const -> std::string;
     void perform_get_request(std::string_view view);
-    void perform_get_request(std::string_view url, spotify::AuthentificationToken &token, bool include_bearer = true);
+    void perform_get_request(std::string_view url, const spotify::AuthentificationToken &token, bool include_bearer = true);
     [[maybe_unused]] void perform_post_request(std::string_view url, spotify::AuthentificationToken &token,
                                                const std::map<std::string, std::string> &postData, bool include_bearer = true);
     void perform_post_request(std::string_view url, AuthentificationToken &token,

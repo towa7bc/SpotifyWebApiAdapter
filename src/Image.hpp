@@ -5,6 +5,7 @@
 #ifndef SPOTIFYWEBAPIADAPTER_IMAGE_HPP
 #define SPOTIFYWEBAPIADAPTER_IMAGE_HPP
 
+#include "model/modeldata.hpp"
 #include <string>
 
 namespace spotify {
@@ -12,6 +13,8 @@ namespace spotify {
 inline namespace v1 {
 
 struct Image {
+    explicit Image(const spotify::model::image &);
+    explicit Image(spotify::model::image &&) noexcept;
     Image() = default;
     Image(const Image &) = default;
     ~Image() = default;
@@ -20,7 +23,7 @@ struct Image {
     Image(Image &&) noexcept = default;
     int _height{0};
     std::string _url;
-    int width{0};
+    int _width{0};
 };
 
 }// namespace v1

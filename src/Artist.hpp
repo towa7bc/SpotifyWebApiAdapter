@@ -27,6 +27,8 @@ class Artist : public BaseModel {
     using json_t = nlohmann::json;
 
 public:
+    explicit Artist(const spotify::model::artist &);
+    explicit Artist(spotify::model::artist &&) noexcept;
     Artist() = default;
     Artist(const Artist &) = default;
     ~Artist() override = default;

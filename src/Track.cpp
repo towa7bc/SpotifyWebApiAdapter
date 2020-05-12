@@ -4,8 +4,16 @@
 
 #include "Track.hpp"
 #include "Album.hpp"
-#include "Artist.hpp"
-#include "detail/BaseModel.hpp"
-#include "detail/HttpHelper.hpp"
-#include <algorithm>
-#include <vector>
+
+namespace spotify {
+
+inline namespace v1 {
+
+spotify::Track::Track(const spotify::model::track &) {
+}
+
+spotify::Track::Track(spotify::model::track &&) noexcept {
+}
+
+}// namespace v1
+}// namespace spotify
