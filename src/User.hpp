@@ -21,8 +21,10 @@ class Page;
 class Track;
 class Playlist;
 
-struct User : public BaseModel {
+class User : public BaseModel {
     using json_t = nlohmann::json;
+
+public:
     explicit User(const spotify::model::user &);
     User() = default;
     User(const User &) = default;

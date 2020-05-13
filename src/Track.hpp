@@ -48,7 +48,7 @@ public:
     int duration{};
     bool explicit_{};
     int track_number{};
-    std::shared_ptr<const spotify::Album> album;
+    std::shared_ptr<spotify::Album> album;
 };
 
 }// namespace v1

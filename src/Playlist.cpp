@@ -24,11 +24,11 @@ spotify::Playlist::Playlist(const spotify::model::playlist &pl) {
     _collaborative = pl.is_collaborative;
     _description = pl.description;
     _public = pl.is_public;
-    _owner = std::make_shared<const spotify::User>(pl.owner);
+    _owner = std::make_shared<spotify::User>(pl.owner);
     _followers._href = pl.followers_.href;
     _followers._total = pl.followers_.total;
     spotify::Page<spotify::PlaylistTrack> plt(pl.tracks);
-    _tracks = std::make_shared<const spotify::Page<spotify::PlaylistTrack>>(plt);
+    _tracks = std::make_shared<spotify::Page<spotify::PlaylistTrack>>(plt);
 }
 
 spotify::Page<spotify::Playlist> spotify::Playlist::get_users_playlists(std::string_view user_id, const spotify::AuthentificationToken &token) {

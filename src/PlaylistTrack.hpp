@@ -15,7 +15,7 @@ namespace spotify {
 inline namespace v1 {
 
 class Track;
-struct User;
+class User;
 
 struct PlaylistTrack {
     explicit PlaylistTrack(const spotify::model::playlisttrack &);
@@ -25,10 +25,10 @@ struct PlaylistTrack {
     PlaylistTrack &operator=(const PlaylistTrack &) = default;
     PlaylistTrack &operator=(PlaylistTrack &&) noexcept = default;
     PlaylistTrack(PlaylistTrack &&) noexcept = default;
-    std::shared_ptr<const spotify::User> _added_by;
+    std::shared_ptr<spotify::User> _added_by;
     boost::posix_time::ptime _added_at{boost::gregorian::day_clock::universal_day(),
                                        boost::posix_time::second_clock::universal_time().time_of_day()};
-    std::shared_ptr<const spotify::Track> _track;
+    std::shared_ptr<spotify::Track> _track;
 };
 
 }// namespace v1

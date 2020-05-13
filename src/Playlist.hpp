@@ -45,9 +45,9 @@ public:
     std::string _id;
     std::vector<spotify::Image> _images;
     std::string _name;
-    std::shared_ptr<const spotify::User> _owner;
+    std::shared_ptr<spotify::User> _owner;
     bool _public{false};
-    std::shared_ptr<const spotify::Page<spotify::PlaylistTrack>> _tracks;
+    std::shared_ptr<spotify::Page<spotify::PlaylistTrack>> _tracks;
     std::string _type;
     std::string _uri;
     static spotify::Page<spotify::Playlist> get_users_playlists(std::string_view user_id, const spotify::AuthentificationToken &token);

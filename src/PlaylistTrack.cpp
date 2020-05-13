@@ -8,9 +8,9 @@ namespace spotify {
 
 inline namespace v1 {
 
-spotify::PlaylistTrack::PlaylistTrack(const spotify::model::playlisttrack &t_plt) : _added_by(std::make_shared<const spotify::User>(t_plt.added_by)),
+spotify::PlaylistTrack::PlaylistTrack(const spotify::model::playlisttrack &t_plt) : _added_by(std::make_shared<spotify::User>(t_plt.added_by)),
                                                                                     _added_at(boost::posix_time::time_from_string(t_plt.added_at)),
-                                                                                    _track(std::make_shared<const spotify::Track>(t_plt.track_)) {
+                                                                                    _track(std::make_shared<spotify::Track>(t_plt.track_)) {
 }
 
 }// namespace v1
