@@ -23,6 +23,10 @@ add_library(project_warnings INTERFACE)
 include(cmake/CompilerWarnings.cmake)
 set_project_warnings(project_warnings)
 
+# extra compiler options
+include(cmake/ExtraOptions.cmake)
+set_project_extra_options(project_warnings)
+
 # sanitizer options if supported by compiler
 include(cmake/Sanitizers.cmake)
 enable_sanitizers(project_options)

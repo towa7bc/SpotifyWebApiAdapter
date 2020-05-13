@@ -129,25 +129,7 @@ spotify::Page<T>::Page(const model::page<spotify::model::track> &t_page) {
 }
 
 template<typename T>
-spotify::Page<T>::Page(model::page<spotify::model::track> &&) noexcept {
-}
-
-template<typename T>
 spotify::Page<T>::Page(const model::page<spotify::model::album> &t_page) {
-    _href = t_page.href;
-    _limit = t_page.limit;
-    _offset = t_page.offset;
-    _total = t_page.total;
-    _previous = t_page.previous;
-    _next = t_page.next;
-    for (const auto &item : t_page.items) {
-        spotify::Album album_(item);
-        _items.push_back(album_);
-    }
-}
-
-template<typename T>
-spotify::Page<T>::Page(model::page<spotify::model::album> &&t_page) noexcept {
     _href = t_page.href;
     _limit = t_page.limit;
     _offset = t_page.offset;
@@ -172,10 +154,6 @@ Page<T>::Page(const model::page<spotify::model::playlisttrack> &t_page) {
         spotify::PlaylistTrack plt_(item);
         _items.push_back(plt_);
     }
-}
-
-template<typename T>
-Page<T>::Page(model::page<spotify::model::playlisttrack> &&) noexcept {
 }
 
 }// namespace v1

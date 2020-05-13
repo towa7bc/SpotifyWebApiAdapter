@@ -24,7 +24,6 @@ class Album : public BaseModel {
 
 public:
     explicit Album(const spotify::model::album &);
-    explicit Album(spotify::model::album &&) noexcept;
     Album() = default;
     Album(const Album &) = default;
     ~Album() override = default;

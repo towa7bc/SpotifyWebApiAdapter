@@ -26,7 +26,6 @@ class Track : public BaseModel {
 
 public:
     explicit Track(const spotify::model::track &);
-    explicit Track(spotify::model::track &&) noexcept;
     Track() = default;
     Track(const Track &) = default;
     ~Track() override = default;

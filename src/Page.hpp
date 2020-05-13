@@ -27,11 +27,8 @@ class Page : public BaseModel {
 
 public:
     explicit Page(const spotify::model::page<spotify::model::track> &);
-    explicit Page(spotify::model::page<spotify::model::track> &&) noexcept;
     explicit Page(const spotify::model::page<spotify::model::album> &);
-    explicit Page(spotify::model::page<spotify::model::album> &&) noexcept;
     explicit Page(const spotify::model::page<spotify::model::playlisttrack> &);
-    explicit Page(spotify::model::page<spotify::model::playlisttrack> &&) noexcept;
     Page() = default;
     Page(const Page &) = default;
     ~Page() override = default;

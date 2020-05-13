@@ -28,8 +28,5 @@ spotify::Playlist::Playlist(const spotify::model::playlist &pl) {
     _tracks = std::make_shared<const spotify::Page<spotify::PlaylistTrack>>(plt);
 }
 
-spotify::Playlist::Playlist(spotify::model::playlist &&) noexcept {
-}
-
 }// namespace v1
 }// namespace spotify

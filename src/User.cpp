@@ -11,8 +11,5 @@ inline namespace v1 {
 spotify::User::User(const spotify::model::user &) {
 }
 
-spotify::User::User(spotify::model::user &&) noexcept {
-}
-
 }// namespace v1
 }// namespace spotify

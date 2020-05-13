@@ -15,7 +15,6 @@ inline namespace v1 {
 
 struct User : public BaseModel {
     explicit User(const spotify::model::user &);
-    explicit User(spotify::model::user &&) noexcept;
     User() = default;
     User(const User &) = default;
     ~User() override = default;

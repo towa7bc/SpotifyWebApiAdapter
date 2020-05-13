@@ -18,7 +18,6 @@ class Track;
 
 struct PlaylistTrack {
     explicit PlaylistTrack(const spotify::model::playlisttrack &);
-    explicit PlaylistTrack(spotify::model::playlisttrack &&) noexcept;
     PlaylistTrack() = default;
     PlaylistTrack(const PlaylistTrack &) = default;
     ~PlaylistTrack() = default;
