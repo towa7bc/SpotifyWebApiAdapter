@@ -137,12 +137,13 @@ void spotify::SpotifyNetworkManager::perform_get_request(std::string_view url, c
 }
 
 auto spotify::SpotifyNetworkManager::perform_post_request(
-        std::string_view url, spotify::AuthentificationToken &token,
+        std::string_view url, const spotify::AuthentificationToken &token,
         const std::map<std::string, std::string> &postData, bool include_bearer) -> void {
     _asyncLogger->debug("perform_post_request called.");
+    auto local_token = token;
     QNetworkRequest request;
     if (include_bearer) {
-        request = createRequest(url, "Authorization: Bearer " + token.getMAccessToken(), "");
+        request = createRequest(url, "Authorization: Bearer " + local_token.getMAccessToken(), "");
     } else {
         request = createRequest(url, "application/x-www-form-urlencoded", "");
     }
@@ -156,12 +157,13 @@ auto spotify::SpotifyNetworkManager::perform_post_request(
 }
 
 auto spotify::SpotifyNetworkManager::perform_post_request(
-        std::string_view url, spotify::AuthentificationToken &token,
+        std::string_view url, const spotify::AuthentificationToken &token,
         std::string_view json_string, bool include_bearer) -> void {
     _asyncLogger->debug("perform_post_request called.");
+    auto local_token = token;
     QNetworkRequest request;
     if (include_bearer) {
-        request = createRequest(url, "Authorization: Bearer " + token.getMAccessToken(), "application/json");
+        request = createRequest(url, "Authorization: Bearer " + local_token.getMAccessToken(), "application/json");
     } else {
         request = createRequest(url, "application/json", "");
     }
@@ -169,12 +171,13 @@ auto spotify::SpotifyNetworkManager::perform_post_request(
 }
 
 auto spotify::SpotifyNetworkManager::perform_put_request(
-        std::string_view url, spotify::AuthentificationToken &token,
+        std::string_view url, const spotify::AuthentificationToken &token,
         const std::map<std::string, std::string> &postData, bool include_bearer) -> void {
     _asyncLogger->debug("perform_put_request called.");
+    auto local_token = token;
     QNetworkRequest request;
     if (include_bearer) {
-        request = createRequest(url, "Authorization: Bearer " + token.getMAccessToken(), "");
+        request = createRequest(url, "Authorization: Bearer " + local_token.getMAccessToken(), "");
     } else {
         request = createRequest(url, "application/x-www-form-urlencoded", "");
     }
@@ -188,12 +191,13 @@ auto spotify::SpotifyNetworkManager::perform_put_request(
 }
 
 auto spotify::SpotifyNetworkManager::perform_put_request(
-        std::string_view url, spotify::AuthentificationToken &token,
+        std::string_view url, const spotify::AuthentificationToken &token,
         std::string_view json_string, bool include_bearer) -> void {
     _asyncLogger->debug("perform_put_request called.");
+    auto local_token = token;
     QNetworkRequest request;
     if (include_bearer) {
-        request = createRequest(url, "Authorization: Bearer " + token.getMAccessToken(), "application/json");
+        request = createRequest(url, "Authorization: Bearer " + local_token.getMAccessToken(), "application/json");
     } else {
         request = createRequest(url, "application/json", "");
     }
@@ -201,11 +205,12 @@ auto spotify::SpotifyNetworkManager::perform_put_request(
 }
 
 auto spotify::SpotifyNetworkManager::perform_delete_request(
-        std::string_view url, spotify::AuthentificationToken &token, bool include_bearer) -> void {
+        std::string_view url, const spotify::AuthentificationToken &token, bool include_bearer) -> void {
     _asyncLogger->debug("perform_delete_request called.");
+    auto local_token = token;
     QNetworkRequest request;
     if (include_bearer) {
-        request = createRequest(url, "Authorization: Bearer " + token.getMAccessToken(), "");
+        request = createRequest(url, "Authorization: Bearer " + local_token.getMAccessToken(), "");
     } else {
         request = createRequest(url, "application/x-www-form-urlencoded", "");
     }

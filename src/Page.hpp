@@ -27,8 +27,11 @@ class Page : public BaseModel {
 
 public:
     explicit Page(const spotify::model::page<spotify::model::track> &);
+    explicit Page(const spotify::model::page<spotify::model::savedtrack> &);
     explicit Page(const spotify::model::page<spotify::model::album> &);
     explicit Page(const spotify::model::page<spotify::model::playlisttrack> &);
+    explicit Page(const spotify::model::page<spotify::model::playlist> &);
+    explicit Page(const spotify::model::page<spotify::model::artist> &);
     Page() = default;
     Page(const Page &) = default;
     ~Page() override = default;
@@ -47,6 +50,7 @@ public:
     [[nodiscard]] bool isHasPreviousPage() const;
     void setHasPreviousPage(bool hasPreviousPage);
     Page<T> get_next_page();
+    Page<T> get_previous_page();
 
 private:
     bool HasPreviousPage{false};

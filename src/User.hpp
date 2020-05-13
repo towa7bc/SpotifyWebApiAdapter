@@ -5,7 +5,9 @@
 #ifndef SPOTIFYWEBAPIADAPTER_USER_HPP
 #define SPOTIFYWEBAPIADAPTER_USER_HPP
 
+#include "AuthentificationToken.hpp"
 #include "Image.hpp"
+#include "Playlist.hpp"
 #include "detail/BaseModel.hpp"
 #include "model/modeldata.hpp"
 
@@ -13,7 +15,14 @@ namespace spotify {
 
 inline namespace v1 {
 
+template<typename>
+class Page;
+
+class Track;
+class Playlist;
+
 struct User : public BaseModel {
+    using json_t = nlohmann::json;
     explicit User(const spotify::model::user &);
     User() = default;
     User(const User &) = default;
@@ -31,6 +40,15 @@ struct User : public BaseModel {
     std::string _product;
     std::string _type;
     std::string _uri;
+    static spotify::User get_user(std::string_view user_id);
+    static spotify::User get_current_user_profile(const spotify::AuthentificationToken &token);
+    [[nodiscard]] spotify::Page<spotify::Playlist> get_playlists(const spotify::AuthentificationToken &token) const;
+    static spotify::Page<spotify::Track> get_user_saved_tracks(const spotify::AuthentificationToken &token, int limit = 20, int offset = 0);
+    spotify::Page<spotify::Track> get_saved_tracks(const spotify::AuthentificationToken &token, int limit = 20, int offset = 0);
+    void save_tracks(const std::vector<std::string> &ids, const spotify::AuthentificationToken &token);
+    void delete_tracks(const std::vector<std::string> &ids, const spotify::AuthentificationToken &token);
+    bool are_saved(const std::vector<std::string> &ids, const spotify::AuthentificationToken &token);
+    bool is_saved(std::string_view id, const spotify::AuthentificationToken &token);
 };
 
 }// namespace v1

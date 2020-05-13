@@ -45,70 +45,72 @@ spotify::Page<T> spotify::Page<T>::get_next_page() {
     json_t j_obj = json_t::parse(stlab::blocking_get(local_future));
 
     if constexpr (std::is_same_v<T, spotify::Album>) {
-        Page<spotify::Album> page;
         auto p = j_obj.get<spotify::model::page<spotify::model::album>>();
-        page._next = p.next;
-        page._previous = p.previous;
-        page._href = p.href;
-        page._total = p.total;
-        page._offset = p.offset;
-        page._limit = p.limit;
-        for (spotify::model::album &item : p.items) {
-            spotify::Album album_(item);
-            page._items.push_back(album_);
-        }
+        Page<spotify::Album> page(p);
         return page;
     }
 
     if constexpr (std::is_same_v<T, spotify::Artist>) {
-        Page<spotify::Artist> page;
         auto p = j_obj.get<spotify::model::page<spotify::model::artist>>();
-        page._next = p.next;
-        page._previous = p.previous;
-        page._href = p.href;
-        page._total = p.total;
-        page._offset = p.offset;
-        page._limit = p.limit;
-        for (const spotify::model::artist &item : p.items) {
-            spotify::Artist artist_(item);
-            page._items.push_back(artist_);
-        }
+        Page<spotify::Artist> page(p);
         return page;
     }
 
     if constexpr (std::is_same_v<T, spotify::Track>) {
-        Page<spotify::Track> page;
         auto p = j_obj.get<spotify::model::page<spotify::model::track>>();
-        page._next = p.next;
-        page._previous = p.previous;
-        page._href = p.href;
-        page._total = p.total;
-        page._offset = p.offset;
-        page._limit = p.limit;
+        Page<spotify::Track> page(p);
         return page;
     }
 
     if constexpr (std::is_same_v<T, spotify::Playlist>) {
-        Page<spotify::Playlist> page;
         auto p = j_obj.get<spotify::model::page<spotify::model::playlist>>();
-        page._next = p.next;
-        page._previous = p.previous;
-        page._href = p.href;
-        page._total = p.total;
-        page._offset = p.offset;
-        page._limit = p.limit;
+        Page<spotify::Playlist> page(p);
         return page;
     }
 
     if constexpr (std::is_same_v<T, spotify::PlaylistTrack>) {
-        Page<spotify::PlaylistTrack> page;
         auto p = j_obj.get<spotify::model::page<spotify::model::playlisttrack>>();
-        page._next = p.next;
-        page._previous = p.previous;
-        page._href = p.href;
-        page._total = p.total;
-        page._offset = p.offset;
-        page._limit = p.limit;
+        Page<spotify::PlaylistTrack> page(p);
+        return page;
+    }
+    return nullptr;
+}
+
+template<typename T>
+spotify::Page<T> spotify::Page<T>::get_previous_page() {
+    if (!isHasPreviousPage()) {
+        throw PageNotFoundException();
+    }
+    auto local_future = stlab::async(stlab::default_executor, spotify::detail::HttpHelper::get1, _previous);
+    json_t j_obj = json_t::parse(stlab::blocking_get(local_future));
+
+    if constexpr (std::is_same_v<T, spotify::Album>) {
+        auto p = j_obj.get<spotify::model::page<spotify::model::album>>();
+        Page<spotify::Album> page(p);
+        return page;
+    }
+
+    if constexpr (std::is_same_v<T, spotify::Artist>) {
+        auto p = j_obj.get<spotify::model::page<spotify::model::artist>>();
+        Page<spotify::Artist> page(p);
+        return page;
+    }
+
+    if constexpr (std::is_same_v<T, spotify::Track>) {
+        auto p = j_obj.get<spotify::model::page<spotify::model::track>>();
+        Page<spotify::Track> page(p);
+        return page;
+    }
+
+    if constexpr (std::is_same_v<T, spotify::Playlist>) {
+        auto p = j_obj.get<spotify::model::page<spotify::model::playlist>>();
+        Page<spotify::Playlist> page(p);
+        return page;
+    }
+
+    if constexpr (std::is_same_v<T, spotify::PlaylistTrack>) {
+        auto p = j_obj.get<spotify::model::page<spotify::model::playlisttrack>>();
+        Page<spotify::PlaylistTrack> page(p);
         return page;
     }
     return nullptr;
@@ -152,6 +154,48 @@ Page<T>::Page(const model::page<spotify::model::playlisttrack> &t_page) {
     _next = t_page.next;
     for (const auto &item : t_page.items) {
         spotify::PlaylistTrack plt_(item);
+        _items.push_back(plt_);
+    }
+}
+
+template<typename T>
+Page<T>::Page(const model::page<spotify::model::playlist> &t_page) {
+    _href = t_page.href;
+    _limit = t_page.limit;
+    _offset = t_page.offset;
+    _total = t_page.total;
+    _previous = t_page.previous;
+    _next = t_page.next;
+    for (const auto &item : t_page.items) {
+        spotify::Playlist plt_(item);
+        _items.push_back(plt_);
+    }
+}
+
+template<typename T>
+Page<T>::Page(const spotify::model::page<spotify::model::artist> &t_page) {
+    _href = t_page.href;
+    _limit = t_page.limit;
+    _offset = t_page.offset;
+    _total = t_page.total;
+    _previous = t_page.previous;
+    _next = t_page.next;
+    for (const auto &item : t_page.items) {
+        spotify::Artist plt_(item);
+        _items.push_back(plt_);
+    }
+}
+
+template<typename T>
+Page<T>::Page(const model::page<spotify::model::savedtrack> &t_page) {
+    _href = t_page.href;
+    _limit = t_page.limit;
+    _offset = t_page.offset;
+    _total = t_page.total;
+    _previous = t_page.previous;
+    _next = t_page.next;
+    for (const auto &item : t_page.items) {
+        spotify::Track plt_(item);
         _items.push_back(plt_);
     }
 }

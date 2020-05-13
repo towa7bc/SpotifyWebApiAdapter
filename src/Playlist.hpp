@@ -22,7 +22,13 @@ class Page;
 
 struct Image;
 
+class AuthentificationToken;
+
+class Track;
+
 class Playlist : public BaseModel {
+    using json_t = nlohmann::json;
+
 public:
     explicit Playlist(const spotify::model::playlist &);
     Playlist() = default;
@@ -44,6 +50,37 @@ public:
     std::shared_ptr<const spotify::Page<spotify::PlaylistTrack>> _tracks;
     std::string _type;
     std::string _uri;
+    static spotify::Page<spotify::Playlist> get_users_playlists(std::string_view user_id, const spotify::AuthentificationToken &token);
+    static spotify::Page<spotify::Playlist> get_users_playlists(const spotify::User &user, const spotify::AuthentificationToken &token);
+    static spotify::Page<spotify::Playlist> get_playlist(std::string_view user_id,
+                                                         std::string_view playlist_id,
+                                                         const spotify::AuthentificationToken &token);
+    static spotify::Page<spotify::Playlist> get_playlist(const spotify::User &user,
+                                                         std::string_view playlist_id,
+                                                         const spotify::AuthentificationToken &token);
+    static spotify::Page<spotify::PlaylistTrack> get_playlist_tracks(std::string_view user_id,
+                                                                     std::string_view playlist_id,
+                                                                     const spotify::AuthentificationToken &token);
+    [[nodiscard]] spotify::Page<spotify::PlaylistTrack> get_playlist_tracks(const spotify::AuthentificationToken &token) const;
+    void add_track(const spotify::Track &track, spotify::AuthentificationToken &token) const;
+    void add_tracks(const std::vector<spotify::Track> &track_uris, spotify::AuthentificationToken &token) const;
+    static spotify::Playlist create_playlist(std::string_view user_id,
+                                             std::string_view name,
+                                             bool is_public,
+                                             const spotify::AuthentificationToken &token);
+    static void update_users_playlist(std::string_view user_id, std::string_view playlist_id,
+                                      std::string_view name,
+                                      bool is_public,
+                                      const spotify::AuthentificationToken &token);
+    void update_users_playlist(std::string_view name,
+                               bool is_public,
+                               const spotify::AuthentificationToken &token) const;
+    static spotify::Page<spotify::Playlist> get_featured_playlists(const spotify::AuthentificationToken &token,
+                                                                   std::string_view locale = "",
+                                                                   std::string_view country = "",
+                                                                   std::string_view timestamp = "",
+                                                                   int limit = 20,
+                                                                   int offset = 0);
 };
 
 }// namespace v1

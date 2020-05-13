@@ -19,13 +19,13 @@ inline namespace v1 {
 
 class Album;
 class Artist;
-struct Image;
 
 class Track : public BaseModel {
     using json_t = nlohmann::json;
 
 public:
     explicit Track(const spotify::model::track &);
+    explicit Track(const spotify::model::savedtrack &);
     Track() = default;
     Track(const Track &) = default;
     ~Track() override = default;
@@ -39,11 +39,9 @@ public:
     std::vector<std::string> genres;
     std::string href;
     std::string id;
-    std::vector<spotify::Image> images;
     std::string name;
     std::string popularity;
     std::string preview_url;
-    spotify::model::page<spotify::Track> tracks;
     std::string type;
     std::string uri;
     int disc_number{};

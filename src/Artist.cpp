@@ -39,22 +39,22 @@ spotify::Page<spotify::Artist> spotify::Artist::search(std::string &artistName,
                                                        std::string &isrc,
                                                        int limit,
                                                        int offset) {
-    replace_all(artistName, " ", "%20");
+    artistName = replace_all(artistName, " ", "%20");
     std::string queryString = "https://api.spotify.com/v1/search?q=artist:" + artistName;
     if (!year.empty()) {
-        replace_all(year, " ", "%20");
+        year = replace_all(year, " ", "%20");
         queryString += "%20:year:" + year;
     }
     if (!genre.empty()) {
-        replace_all(genre, " ", "%20");
+        genre = replace_all(genre, " ", "%20");
         queryString += "%20:genre:" + genre;
     }
     if (!upc.empty()) {
-        replace_all(upc, " ", "%20");
+        upc = replace_all(upc, " ", "%20");
         queryString += "%20:upc:" + upc;
     }
     if (!isrc.empty()) {
-        replace_all(isrc, " ", "%20");
+        isrc = replace_all(isrc, " ", "%20");
         queryString += "%20:isrc:" + isrc;
     }
     queryString += "&limit=" + std::to_string(limit);
