@@ -31,6 +31,7 @@ class Playlist : public BaseModel {
 
 public:
     explicit Playlist(const spotify::model::playlist &);
+    explicit Playlist(spotify::model::playlist &&) noexcept;
     Playlist() = default;
     Playlist(const Playlist &) = default;
     ~Playlist() override = default;

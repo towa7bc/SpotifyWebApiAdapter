@@ -14,6 +14,7 @@ inline namespace v1 {
 
 struct Image {
     explicit Image(const spotify::model::image &);
+    explicit Image(spotify::model::image &&) noexcept;
     Image() = default;
     Image(const Image &) = default;
     ~Image() = default;

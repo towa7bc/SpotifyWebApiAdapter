@@ -12,5 +12,9 @@ Followers::Followers(const spotify::model::followers &t_followers) : _total(t_fo
                                                                      _href(t_followers.href) {
 }
 
+Followers::Followers(spotify::model::followers &&t_followers) noexcept : _total(t_followers.total),
+                                                                         _href(std::move(t_followers.href)) {
+}
+
 }// namespace v1
 }// namespace spotify

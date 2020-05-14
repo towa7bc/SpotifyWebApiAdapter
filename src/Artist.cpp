@@ -137,5 +137,21 @@ spotify::Artist::Artist(const spotify::model::artist &t_artist) : _genres(t_arti
     this->_popularity = std::stoi(t_artist.popularity, nullptr, base);
 }
 
+spotify::Artist::Artist(spotify::model::artist &&t_artist) noexcept : _genres(std::move(t_artist.genres)),
+                                                                      _external_url(std::move(t_artist.external_urls.at(0))),
+                                                                      _href(std::move(t_artist.href)),
+                                                                      _id(std::move(t_artist.id)),
+                                                                      _name(std::move(t_artist.name)),
+                                                                      _type(std::move(t_artist.type)),
+                                                                      _uri(std::move(t_artist.uri)) {
+    this->_images.reserve(t_artist.images.capacity());
+    for (auto &image : t_artist.images) {
+        Image elem(std::move(image));
+        this->_images.push_back(std::move(elem));
+    }
+    const int base{10};
+    this->_popularity = std::stoi(std::move(t_artist.popularity), nullptr, base);
+}
+
 }// namespace v1
 }// namespace spotify

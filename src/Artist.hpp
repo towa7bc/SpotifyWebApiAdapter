@@ -28,6 +28,7 @@ class Artist : public BaseModel {
 
 public:
     explicit Artist(const spotify::model::artist &);
+    explicit Artist(spotify::model::artist &&t_artist) noexcept;
     Artist() = default;
     Artist(const Artist &) = default;
     ~Artist() override = default;

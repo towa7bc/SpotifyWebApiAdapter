@@ -26,6 +26,7 @@ class User : public BaseModel {
 
 public:
     explicit User(const spotify::model::user &);
+    explicit User(spotify::model::user &&) noexcept;
     User() = default;
     User(const User &) = default;
     ~User() override = default;

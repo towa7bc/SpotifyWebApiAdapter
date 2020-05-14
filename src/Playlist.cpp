@@ -29,6 +29,25 @@ spotify::Playlist::Playlist(const spotify::model::playlist &pl) : _collaborative
     }
 }
 
+spotify::Playlist::Playlist(spotify::model::playlist &&pl) noexcept : _collaborative(pl.is_collaborative),
+                                                                      _description(std::move(pl.description)),
+                                                                      _external_url(std::move(pl.external_urls.at(0))),
+                                                                      _followers(pl.followers_),
+                                                                      _href(std::move(pl.href)),
+                                                                      _id(std::move(pl.id)),
+                                                                      _name(std::move(pl.name)),
+                                                                      _owner(std::make_shared<spotify::User>(pl.owner)),
+                                                                      _public(pl.is_public),
+                                                                      _tracks(std::make_shared<spotify::Page<spotify::PlaylistTrack>>(pl.tracks)),
+                                                                      _type(std::move(pl.type)),
+                                                                      _uri(std::move(pl.uri)) {
+    _images.reserve(pl.images.capacity());
+    for (auto &item : pl.images) {
+        spotify::Image image(std::move(item));
+        _images.push_back(std::move(image));
+    }
+}
+
 spotify::Page<spotify::Playlist> spotify::Playlist::get_users_playlists(std::string_view user_id, const spotify::AuthentificationToken &token) {
     bool include_bearer{true};
     auto local_future = stlab::async(stlab::default_executor, spotify::detail::HttpHelper::get2,

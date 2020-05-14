@@ -25,6 +25,21 @@ spotify::User::User(const spotify::model::user &t_user) : _country(t_user.countr
     }
 }
 
+spotify::User::User(spotify::model::user &&t_user) noexcept : _country(std::move(t_user.country)),
+                                                              _displayName(std::move(t_user.display_name)),
+                                                              _external_url(std::move(t_user.external_urls.at(0))),
+                                                              _href(std::move(t_user.href)),
+                                                              _id(std::move(t_user.id)),
+                                                              _product(std::move(t_user.product)),
+                                                              _type(std::move(t_user.type)),
+                                                              _uri(std::move(t_user.uri)) {
+    _images.reserve(t_user.images.capacity());
+    for (auto &imag : t_user.images) {
+        Image image(std::move(imag));
+        _images.push_back(std::move(image));
+    }
+}
+
 spotify::User spotify::User::get_user(std::string_view user_id) {
     auto local_future = stlab::async(stlab::default_executor, spotify::detail::HttpHelper::get1,
                                      "https://api.spotify.com/v1/users/" + std::string(user_id))

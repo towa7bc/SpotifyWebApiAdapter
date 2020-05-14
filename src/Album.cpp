@@ -103,6 +103,39 @@ spotify::Album::Album(const spotify::model::album &t_album) : _availableMarkets(
     _release_date = boost::posix_time::time_from_string(t_album.release_date);
 }
 
+spotify::Album::Album(spotify::model::album &&t_album) noexcept : _availableMarkets(std::move(t_album.available_markets)),
+                                                                  _external_id(std::move(t_album.external_ids.at(0))),
+                                                                  _external_url(std::move(t_album.external_urls.at(0))),
+                                                                  _genres(std::move(t_album.genres)),
+                                                                  _href(std::move(t_album.href)),
+                                                                  _id(std::move(t_album.id)),
+                                                                  _name(std::move(t_album.name)),
+                                                                  _release_date_precision(std::move(t_album.release_date_precision)),
+                                                                  _type(std::move(t_album.type)),
+                                                                  _uri(std::move(t_album.uri)),
+                                                                  _ptracks(std::make_shared<spotify::Page<spotify::Track>>(t_album.tracks)) {
+    if (str_toupper(std::move(t_album.album_type)) == "ALBUM") {
+        this->_album_type = spotify::Album::AlbumType::Album;
+    } else if (str_toupper(std::move(t_album.album_type)) == "SINGLE") {
+        this->_album_type = spotify::Album::AlbumType::Single;
+    } else if (str_toupper(std::move(t_album.album_type)) == "COMPILATION") {
+        this->_album_type = spotify::Album::AlbumType::Compilation;
+    }
+    this->_images.reserve(t_album.images.capacity());
+    for (auto &image : t_album.images) {
+        Image elem(std::move(image));
+        this->_images.push_back(std::move(elem));
+    }
+    this->_artists.reserve(t_album.artists.capacity());
+    for (auto &artist : t_album.artists) {
+        Artist elem(std::move(artist));
+        this->_artists.push_back(std::move(elem));
+    }
+    const int base{10};
+    _popularity = std::stoi(std::move(t_album.popularity), nullptr, base);
+    _release_date = boost::posix_time::time_from_string(t_album.release_date);
+}
+
 spotify::Album spotify::Album::get_album(std::string_view album_id) {
     auto local_future = stlab::async(stlab::default_executor, spotify::detail::HttpHelper::get1,
                                      "https://api.spotify.com/v1/albums/" + std::string(album_id))
