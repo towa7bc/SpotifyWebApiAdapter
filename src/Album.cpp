@@ -175,7 +175,7 @@ spotify::Page<spotify::Track> spotify::v1::Album::get_album_tracks(int limit, in
     return get_album_tracks(this->_id, limit, offset);
 }
 
-spotify::Page<spotify::Album> spotify::v1::Album::get_new_releases(const spotify::AuthentificationToken &token,
+spotify::Page<spotify::Album> spotify::v1::Album::get_new_releases(const spotify::AuthenticationToken &token,
                                                                    std::string_view country,
                                                                    int limit,
                                                                    int offset) {

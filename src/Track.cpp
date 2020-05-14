@@ -78,5 +78,28 @@ Track::Track(const model::savedtrack &t_track) : available_markets(t_track.track
     }
 }
 
+Track::Track(model::savedtrack &&t_track) noexcept : available_markets(std::move(t_track.track_.available_markets)),
+                                                     external_id(std::move(t_track.track_.external_ids)),
+                                                     external_url(std::move(t_track.track_.external_urls)),
+                                                     genres(std::move(t_track.track_.genres)),
+                                                     href(std::move(t_track.track_.href)),
+                                                     id(std::move(t_track.track_.id)),
+                                                     name(std::move(t_track.track_.name)),
+                                                     popularity(std::move(t_track.track_.popularity)),
+                                                     preview_url(std::move(t_track.track_.preview_url)),
+                                                     type(std::move(t_track.track_.type)),
+                                                     uri(std::move(t_track.track_.uri)),
+                                                     disc_number(t_track.track_.disc_number),
+                                                     duration(t_track.track_.duration_ms),
+                                                     explicit_(t_track.track_.is_explicit),
+                                                     track_number(t_track.track_.track_number),
+                                                     album(std::make_shared<spotify::Album>(t_track.track_.album_)) {
+    artists.reserve(t_track.track_.artists.capacity());
+    for (auto &item : t_track.track_.artists) {
+        Artist artist(std::move(item));
+        artists.push_back(std::move(artist));
+    }
+}
+
 }// namespace v1
 }// namespace spotify

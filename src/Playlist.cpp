@@ -48,7 +48,7 @@ spotify::Playlist::Playlist(spotify::model::playlist &&pl) noexcept : _collabora
     }
 }
 
-spotify::Page<spotify::Playlist> spotify::Playlist::get_users_playlists(std::string_view user_id, const spotify::AuthentificationToken &token) {
+spotify::Page<spotify::Playlist> spotify::Playlist::get_users_playlists(std::string_view user_id, const spotify::AuthenticationToken &token) {
     bool include_bearer{true};
     auto local_future = stlab::async(stlab::default_executor, spotify::detail::HttpHelper::get2,
                                      "https://api.spotify.com/v1/users/" + std::string(user_id) + "/playlists", token, include_bearer)
@@ -59,13 +59,13 @@ spotify::Page<spotify::Playlist> spotify::Playlist::get_users_playlists(std::str
     return play_list;
 }
 
-spotify::Page<spotify::Playlist> spotify::Playlist::get_users_playlists(const spotify::User &user, const spotify::AuthentificationToken &token) {
+spotify::Page<spotify::Playlist> spotify::Playlist::get_users_playlists(const spotify::User &user, const spotify::AuthenticationToken &token) {
     return get_users_playlists(user._id, token);
 }
 
 spotify::Page<spotify::Playlist> spotify::Playlist::get_playlist(std::string_view user_id,
                                                                  std::string_view playlist_id,
-                                                                 const spotify::AuthentificationToken &token) {
+                                                                 const spotify::AuthenticationToken &token) {
     bool include_bearer{true};
     auto local_future = stlab::async(stlab::default_executor, spotify::detail::HttpHelper::get2,
                                      "https://api.spotify.com/v1/users/" + std::string(user_id) + "/playlists/" + std::string(playlist_id),
@@ -79,13 +79,13 @@ spotify::Page<spotify::Playlist> spotify::Playlist::get_playlist(std::string_vie
 
 spotify::Page<spotify::Playlist> spotify::Playlist::get_playlist(const spotify::User &user,
                                                                  std::string_view playlist_id,
-                                                                 const spotify::AuthentificationToken &token) {
+                                                                 const spotify::AuthenticationToken &token) {
     return get_playlist(user._id, playlist_id, token);
 }
 
 spotify::Page<spotify::PlaylistTrack> spotify::Playlist::get_playlist_tracks(std::string_view user_id,
                                                                              std::string_view playlist_id,
-                                                                             const spotify::AuthentificationToken &token) {
+                                                                             const spotify::AuthenticationToken &token) {
     bool include_bearer{true};
     auto local_future = stlab::async(stlab::default_executor, spotify::detail::HttpHelper::get2,
                                      "https://api.spotify.com/v1/users/" + std::string(user_id) + "/playlists/" + std::string(playlist_id) + "/tracks",
@@ -97,11 +97,11 @@ spotify::Page<spotify::PlaylistTrack> spotify::Playlist::get_playlist_tracks(std
     return play_list;
 }
 
-spotify::Page<spotify::PlaylistTrack> spotify::Playlist::get_playlist_tracks(const spotify::AuthentificationToken &token) const {
+spotify::Page<spotify::PlaylistTrack> spotify::Playlist::get_playlist_tracks(const spotify::AuthenticationToken &token) const {
     return get_playlist_tracks(_owner->_id, _id, token);
 }
 
-void spotify::Playlist::add_track(const spotify::Track &track, spotify::AuthentificationToken &token) const {
+void spotify::Playlist::add_track(const spotify::Track &track, spotify::AuthenticationToken &token) const {
     bool include_bearer{true};
     std::map<std::string, std::string> d;
     auto local_future = stlab::async(stlab::default_executor, spotify::detail::HttpHelper::post2,
@@ -111,7 +111,7 @@ void spotify::Playlist::add_track(const spotify::Track &track, spotify::Authenti
     auto local_obj = stlab::blocking_get(local_future);
 }
 
-void spotify::Playlist::add_tracks(const std::vector<spotify::Track> &track_uris, spotify::AuthentificationToken &token) const {
+void spotify::Playlist::add_tracks(const std::vector<spotify::Track> &track_uris, spotify::AuthenticationToken &token) const {
     std::vector<std::string> uris;
     std::transform(track_uris.begin(), track_uris.end(), uris.begin(),
                    [](const spotify::Track &track) -> std::string { return track.uri; });
@@ -128,7 +128,7 @@ void spotify::Playlist::add_tracks(const std::vector<spotify::Track> &track_uris
 spotify::Playlist spotify::Playlist::create_playlist(std::string_view user_id,
                                                      std::string_view name,
                                                      bool is_public,
-                                                     const spotify::AuthentificationToken &token) {
+                                                     const spotify::AuthenticationToken &token) {
     bool include_bearer{true};
     spotify::model::playlistdata pd;
     pd.name = name;
@@ -146,7 +146,7 @@ spotify::Playlist spotify::Playlist::create_playlist(std::string_view user_id,
 void spotify::Playlist::update_users_playlist(std::string_view user_id, std::string_view playlist_id,
                                               std::string_view name,
                                               bool is_public,
-                                              const spotify::AuthentificationToken &token) {
+                                              const spotify::AuthenticationToken &token) {
     bool include_bearer{true};
     spotify::model::playlistdata pd;
     pd.name = name;
@@ -159,11 +159,11 @@ void spotify::Playlist::update_users_playlist(std::string_view user_id, std::str
 
 void spotify::Playlist::update_users_playlist(std::string_view name,
                                               bool is_public,
-                                              const spotify::AuthentificationToken &token) const {
+                                              const spotify::AuthenticationToken &token) const {
     update_users_playlist(_owner->_id, _id, name, is_public, token);
 }
 
-spotify::Page<spotify::Playlist> spotify::Playlist::get_featured_playlists(const spotify::AuthentificationToken &token,
+spotify::Page<spotify::Playlist> spotify::Playlist::get_featured_playlists(const spotify::AuthenticationToken &token,
                                                                            std::string_view locale,
                                                                            std::string_view country,
                                                                            std::string_view timestamp,

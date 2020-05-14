@@ -65,7 +65,7 @@ public:
     static std::vector<spotify::Album> get_albums(const std::vector<std::string> &album_ids);
     static spotify::Page<spotify::Track> get_album_tracks(std::string_view album_id, int limit = 20, int offset = 0);
     [[nodiscard]] spotify::Page<spotify::Track> get_album_tracks(int limit, int offset) const;
-    spotify::Page<spotify::Album> get_new_releases(const spotify::AuthentificationToken &token,
+    spotify::Page<spotify::Album> get_new_releases(const spotify::AuthenticationToken &token,
                                                    std::string_view country,
                                                    int limit,
                                                    int offset);

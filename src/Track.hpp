@@ -27,6 +27,7 @@ public:
     explicit Track(const spotify::model::track &);
     explicit Track(spotify::model::track &&) noexcept;
     explicit Track(const spotify::model::savedtrack &);
+    explicit Track(model::savedtrack &&t_track) noexcept;
     Track() = default;
     Track(const Track &) = default;
     ~Track() override = default;

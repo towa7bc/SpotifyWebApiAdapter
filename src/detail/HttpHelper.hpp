@@ -5,7 +5,7 @@
 #ifndef SPOTIFYWEBAPIADAPTER_HTTPHELPER_HPP
 #define SPOTIFYWEBAPIADAPTER_HTTPHELPER_HPP
 
-#include "../AuthentificationToken.hpp"
+#include "../AuthenticationToken.hpp"
 //#include "../model/playlistdata.hpp"
 #include "../model/modeldata.hpp"
 #include "SpotifyNetworkManager.hpp"
@@ -21,7 +21,7 @@ inline namespace v1 {
 
 class SpotifyNetworkManager;
 
-class AuthentificationToken;
+class AuthenticationToken;
 
 namespace detail {
 
@@ -31,17 +31,17 @@ private:
 
 public:
     static auto post1(std::string_view url, const std::map<std::string, std::string> &postData) -> std::string;
-    static auto post2(std::string_view url, const spotify::AuthentificationToken &token,
+    static auto post2(std::string_view url, const spotify::AuthenticationToken &token,
                       const std::map<std::string, std::string> &postData, bool include_bearer) -> std::string;
-    static auto post3(std::string_view url, const spotify::AuthentificationToken &token,
+    static auto post3(std::string_view url, const spotify::AuthenticationToken &token,
                       const spotify::model::playlistdata &pD, bool include_bearer = true) -> std::string;
     static auto get1(std::string_view url) -> std::string;
-    static auto get2(std::string_view url, const spotify::AuthentificationToken &token, bool include_bearer) -> std::string;
-    static std::string put1(std::string_view url, const spotify::AuthentificationToken &token,
+    static auto get2(std::string_view url, const spotify::AuthenticationToken &token, bool include_bearer) -> std::string;
+    static std::string put1(std::string_view url, const spotify::AuthenticationToken &token,
                             const std::map<std::string, std::string> &postData, bool include_bearer);
-    static std::string put2(std::string_view url, const spotify::AuthentificationToken &token,
+    static std::string put2(std::string_view url, const spotify::AuthenticationToken &token,
                             const model::playlistdata &pD, bool include_bearer);
-    static std::string delete_(std::string_view url, const spotify::AuthentificationToken &token, bool include_bearer);
+    static std::string delete_(std::string_view url, const spotify::AuthenticationToken &token, bool include_bearer);
 };
 
 }// namespace detail

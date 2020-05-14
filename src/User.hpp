@@ -5,7 +5,7 @@
 #ifndef SPOTIFYWEBAPIADAPTER_USER_HPP
 #define SPOTIFYWEBAPIADAPTER_USER_HPP
 
-#include "AuthentificationToken.hpp"
+#include "AuthenticationToken.hpp"
 #include "Image.hpp"
 #include "Playlist.hpp"
 #include "detail/BaseModel.hpp"
@@ -44,14 +44,14 @@ public:
     std::string _type;
     std::string _uri;
     static spotify::User get_user(std::string_view user_id);
-    static spotify::User get_current_user_profile(const spotify::AuthentificationToken &token);
-    [[nodiscard]] spotify::Page<spotify::Playlist> get_playlists(const spotify::AuthentificationToken &token) const;
-    static spotify::Page<spotify::Track> get_user_saved_tracks(const spotify::AuthentificationToken &token, int limit = 20, int offset = 0);
-    spotify::Page<spotify::Track> get_saved_tracks(const spotify::AuthentificationToken &token, int limit = 20, int offset = 0);
-    void save_tracks(const std::vector<std::string> &ids, const spotify::AuthentificationToken &token);
-    void delete_tracks(const std::vector<std::string> &ids, const spotify::AuthentificationToken &token);
-    bool are_saved(const std::vector<std::string> &ids, const spotify::AuthentificationToken &token);
-    bool is_saved(std::string_view id, const spotify::AuthentificationToken &token);
+    static spotify::User get_current_user_profile(const spotify::AuthenticationToken &token);
+    [[nodiscard]] spotify::Page<spotify::Playlist> get_playlists(const spotify::AuthenticationToken &token) const;
+    static spotify::Page<spotify::Track> get_user_saved_tracks(const spotify::AuthenticationToken &token, int limit = 20, int offset = 0);
+    spotify::Page<spotify::Track> get_saved_tracks(const spotify::AuthenticationToken &token, int limit = 20, int offset = 0);
+    void save_tracks(const std::vector<std::string> &ids, const spotify::AuthenticationToken &token);
+    void delete_tracks(const std::vector<std::string> &ids, const spotify::AuthenticationToken &token);
+    bool are_saved(const std::vector<std::string> &ids, const spotify::AuthenticationToken &token);
+    bool is_saved(std::string_view id, const spotify::AuthenticationToken &token);
 };
 
 }// namespace v1

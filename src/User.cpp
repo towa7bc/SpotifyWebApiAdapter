@@ -50,7 +50,7 @@ spotify::User spotify::User::get_user(std::string_view user_id) {
     return user;
 }
 
-spotify::User spotify::User::get_current_user_profile(const spotify::AuthentificationToken &token) {
+spotify::User spotify::User::get_current_user_profile(const spotify::AuthenticationToken &token) {
     bool include_bearer{true};
     auto local_future = stlab::async(stlab::default_executor, spotify::detail::HttpHelper::get2,
                                      "https://api.spotify.com/v1/me", token, include_bearer)
@@ -61,11 +61,11 @@ spotify::User spotify::User::get_current_user_profile(const spotify::Authentific
     return user;
 }
 
-spotify::Page<spotify::Playlist> spotify::User::get_playlists(const spotify::AuthentificationToken &token) const {
+spotify::Page<spotify::Playlist> spotify::User::get_playlists(const spotify::AuthenticationToken &token) const {
     return spotify::Playlist::get_users_playlists(_id, token);
 }
 
-spotify::Page<spotify::Track> spotify::User::get_user_saved_tracks(const spotify::AuthentificationToken &token, int limit, int offset) {
+spotify::Page<spotify::Track> spotify::User::get_user_saved_tracks(const spotify::AuthenticationToken &token, int limit, int offset) {
     bool include_bearer{true};
     auto local_future = stlab::async(stlab::default_executor, spotify::detail::HttpHelper::get2,
                                      "https://api.spotify.com/v1/me/tracks?limit=" + std::to_string(limit) + "&offset=" + std::to_string(offset),
@@ -77,11 +77,11 @@ spotify::Page<spotify::Track> spotify::User::get_user_saved_tracks(const spotify
     return track;
 }
 
-spotify::Page<spotify::Track> spotify::User::get_saved_tracks(const spotify::AuthentificationToken &token, int limit, int offset) {
+spotify::Page<spotify::Track> spotify::User::get_saved_tracks(const spotify::AuthenticationToken &token, int limit, int offset) {
     return get_user_saved_tracks(token, limit, offset);
 }
 
-void spotify::User::save_tracks(const std::vector<std::string> &ids, const spotify::AuthentificationToken &token) {
+void spotify::User::save_tracks(const std::vector<std::string> &ids, const spotify::AuthenticationToken &token) {
     auto uri = create_comma_separated_List(ids);
     bool include_bearer{true};
     spotify::model::playlistdata pd;
@@ -91,7 +91,7 @@ void spotify::User::save_tracks(const std::vector<std::string> &ids, const spoti
     auto local_obj = stlab::blocking_get(local_future);
 }
 
-void spotify::User::delete_tracks(const std::vector<std::string> &ids, const spotify::AuthentificationToken &token) {
+void spotify::User::delete_tracks(const std::vector<std::string> &ids, const spotify::AuthenticationToken &token) {
     auto uri = create_comma_separated_List(ids);
     bool include_bearer{true};
     auto local_future = stlab::async(stlab::default_executor, spotify::detail::HttpHelper::delete_,
@@ -100,7 +100,7 @@ void spotify::User::delete_tracks(const std::vector<std::string> &ids, const spo
     auto local_obj = stlab::blocking_get(local_future);
 }
 
-bool spotify::User::are_saved(const std::vector<std::string> &ids, const spotify::AuthentificationToken &token) {
+bool spotify::User::are_saved(const std::vector<std::string> &ids, const spotify::AuthenticationToken &token) {
     auto uri = create_comma_separated_List(ids);
     bool include_bearer{true};
     auto local_future = stlab::async(stlab::default_executor, spotify::detail::HttpHelper::get2,
@@ -113,7 +113,7 @@ bool spotify::User::are_saved(const std::vector<std::string> &ids, const spotify
     return bool_string.find("TRUE") != std::string::npos;
 }
 
-bool spotify::User::is_saved(std::string_view id, const spotify::AuthentificationToken &token) {
+bool spotify::User::is_saved(std::string_view id, const spotify::AuthenticationToken &token) {
     std::vector<std::string> ids{std::string(id)};
     return are_saved(ids, token);
 }

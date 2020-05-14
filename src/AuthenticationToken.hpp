@@ -5,7 +5,7 @@
 #ifndef SPOTIFYWEBAPI_AUTHENTIFICATIONTOKEN_H
 #define SPOTIFYWEBAPI_AUTHENTIFICATIONTOKEN_H
 
-#include "Authentification.hpp"
+#include "Authentication.hpp"
 #include <boost/date_time/c_local_time_adjustor.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <nlohmann/json.hpp>
@@ -15,7 +15,7 @@ namespace spotify {
 
 inline namespace v1 {
 
-class AuthentificationToken {
+class AuthenticationToken {
     using date_time_t = boost::posix_time::ptime;
     using json_t = nlohmann::json;
 
@@ -28,12 +28,12 @@ private:
     json_t _json;
 
 public:
-    AuthentificationToken() = default;
-    AuthentificationToken(const AuthentificationToken &) = default;
-    ~AuthentificationToken() = default;
-    AuthentificationToken &operator=(const AuthentificationToken &) = default;
-    AuthentificationToken &operator=(AuthentificationToken &&) noexcept = default;
-    AuthentificationToken(AuthentificationToken &&) noexcept = default;
+    AuthenticationToken() = default;
+    AuthenticationToken(const AuthenticationToken &) = default;
+    ~AuthenticationToken() = default;
+    AuthenticationToken &operator=(const AuthenticationToken &) = default;
+    AuthenticationToken &operator=(AuthenticationToken &&) noexcept = default;
+    AuthenticationToken(AuthenticationToken &&) noexcept = default;
     auto setMHasExpired(bool mHasExpired) -> void;
     [[nodiscard]] auto isMHasExpired() const -> bool;
     auto getMAccessToken() -> const std::string &;

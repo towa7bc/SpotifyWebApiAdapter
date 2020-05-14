@@ -2,8 +2,8 @@
 // Created by Michael Wittmann on 01/05/2020.
 //
 
-#ifndef SPOTIFYWEBAPIADAPTER_AUTHENTIFICATION_HPP
-#define SPOTIFYWEBAPIADAPTER_AUTHENTIFICATION_HPP
+#ifndef SPOTIFYWEBAPIADAPTER_AUTHENTICATION_HPP
+#define SPOTIFYWEBAPIADAPTER_AUTHENTICATION_HPP
 
 #if !defined(STLAB_CPP_VERSION_PRIVATE)
 #define STLAB_CPP_VERSION_PRIVATE() 20
@@ -11,7 +11,7 @@
 
 #define STLAB_FUTURE_COROUTINE_SUPPORT
 
-#include "AuthentificationToken.hpp"
+#include "AuthenticationToken.hpp"
 #include "detail/BaseModel.hpp"
 #include "detail/HttpHelper.hpp"
 #include "model/modeldata.hpp"
@@ -27,23 +27,23 @@ namespace spotify {
 
 inline namespace v1 {
 
-class AuthentificationToken;
+class AuthenticationToken;
 
-class Authentification : public spotify::BaseModel {
+class Authentication : public spotify::BaseModel {
     using date_time_t = boost::posix_time::ptime;
     using json_t = nlohmann::json;
 
 public:
-    Authentification() = default;
-    Authentification(const Authentification &) = default;
-    ~Authentification() override = default;
-    Authentification &operator=(const Authentification &) = default;
-    Authentification &operator=(Authentification &&) noexcept = default;
-    Authentification(Authentification &&) noexcept = default;
+    Authentication() = delete;
+    Authentication(const Authentication &) = delete;
+    ~Authentication() override = default;
+    Authentication &operator=(const Authentication &) = delete;
+    Authentication &operator=(Authentication &&) noexcept = delete;
+    Authentication(Authentication &&) noexcept = delete;
     static std::string _client_id;
     static std::string _client_secret;
     static std::string _redirect_uri;
-    static auto get_access_token(std::string_view code) -> spotify::AuthentificationToken;
+    static auto get_access_token(std::string_view code) -> spotify::AuthenticationToken;
 };
 
 }// namespace v1

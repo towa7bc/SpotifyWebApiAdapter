@@ -16,13 +16,13 @@ class Browse {
     using json_t = nlohmann::json;
 
 public:
-    static spotify::Page<spotify::Playlist> get_featured_playlists(const spotify::AuthentificationToken &token,
+    static spotify::Page<spotify::Playlist> get_featured_playlists(const spotify::AuthenticationToken &token,
                                                                    std::string_view locale = "",
                                                                    std::string_view country = "",
                                                                    std::string_view timestamp = "",
                                                                    int limit = 20,
                                                                    int offset = 0);
-    static spotify::Page<spotify::Album> get_new_releases(const spotify::AuthentificationToken &token,
+    static spotify::Page<spotify::Album> get_new_releases(const spotify::AuthenticationToken &token,
                                                           std::string_view country = "",
                                                           int limit = 20,
                                                           int offset = 0);

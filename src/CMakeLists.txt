@@ -2,8 +2,8 @@
 add_library(SpotifyWebApiAdapter
         detail/SpotifyNetworkManager.hpp detail/SpotifyNetworkManager.cpp
         detail/BaseModel.hpp detail/BaseModel.cpp detail/HttpHelper.hpp detail/HttpHelper.cpp model/modeldata.hpp
-        model/modeldata.cpp AuthentificationToken.hpp AuthentificationToken.cpp
-        Authentification.hpp Authentification.cpp User.hpp User.cpp PlaylistTrack.hpp PlaylistTrack.cpp Image.hpp Image.cpp
+        model/modeldata.cpp AuthenticationToken.hpp AuthenticationToken.cpp
+        Authentication.hpp Authentication.cpp User.hpp User.cpp PlaylistTrack.hpp PlaylistTrack.cpp Image.hpp Image.cpp
         Artist.hpp Artist.cpp Track.hpp Track.cpp Album.hpp Album.cpp Page.hpp Page.cpp Playlist.hpp Playlist.cpp Browse.cpp Browse.hpp Followers.hpp Followers.cpp)
 
 if ($ENV{CLION_IDE})

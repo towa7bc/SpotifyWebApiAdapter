@@ -14,13 +14,13 @@
 #include <spdlog/async.h>
 #include <spdlog/sinks/rotating_file_sink.h>
 
-#include "../AuthentificationToken.hpp"
+#include "../AuthenticationToken.hpp"
 
 namespace spotify {
 
 inline namespace v1 {
 
-class AuthentificationToken;
+class AuthenticationToken;
 
 class SpotifyNetworkManager : public QObject {
     Q_OBJECT
@@ -40,14 +40,14 @@ public:
                               const std::map<std::string, std::string> &postData) -> void;
     [[nodiscard]] auto get_reply() const -> std::string;
     void perform_get_request(std::string_view view);
-    void perform_get_request(std::string_view url, const spotify::AuthentificationToken &token, bool include_bearer = true);
-    [[maybe_unused]] void perform_post_request(std::string_view url, const spotify::AuthentificationToken &token,
+    void perform_get_request(std::string_view url, const spotify::AuthenticationToken &token, bool include_bearer = true);
+    [[maybe_unused]] void perform_post_request(std::string_view url, const spotify::AuthenticationToken &token,
                                                const std::map<std::string, std::string> &postData, bool include_bearer = true);
-    void perform_post_request(std::string_view url, const AuthentificationToken &token,
+    void perform_post_request(std::string_view url, const AuthenticationToken &token,
                               std::string_view json_string, bool include_bearer = true);
-    void perform_put_request(std::string_view url, const AuthentificationToken &token, const std::map<std::string, std::string> &postData, bool include_bearer);
-    void perform_put_request(std::string_view url, const AuthentificationToken &token, std::string_view json_string, bool include_bearer);
-    void perform_delete_request(std::string_view url, const AuthentificationToken &token, bool include_bearer);
+    void perform_put_request(std::string_view url, const AuthenticationToken &token, const std::map<std::string, std::string> &postData, bool include_bearer);
+    void perform_put_request(std::string_view url, const AuthenticationToken &token, std::string_view json_string, bool include_bearer);
+    void perform_delete_request(std::string_view url, const AuthenticationToken &token, bool include_bearer);
 
 private:
     static constexpr int dim = 33;

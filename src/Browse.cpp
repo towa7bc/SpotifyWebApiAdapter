@@ -8,7 +8,7 @@ namespace spotify {
 
 inline namespace v1 {
 
-spotify::Page<spotify::Playlist> Browse::get_featured_playlists(const spotify::AuthentificationToken &token, std::string_view locale,
+spotify::Page<spotify::Playlist> Browse::get_featured_playlists(const spotify::AuthenticationToken &token, std::string_view locale,
                                                                 std::string_view country, std::string_view timestamp, int limit, int offset) {
     std::string queryString = "https://api.spotify.com/v1/browse/featured-playlists?";
     queryString += "limit=" + std::to_string(limit);
@@ -41,7 +41,7 @@ spotify::Page<spotify::Playlist> Browse::get_featured_playlists(const spotify::A
     return play_list;
 }
 
-spotify::Page<spotify::Album> Browse::get_new_releases(const AuthentificationToken &token, std::string_view country, int limit, int offset) {
+spotify::Page<spotify::Album> Browse::get_new_releases(const AuthenticationToken &token, std::string_view country, int limit, int offset) {
     std::string queryString = "https://api.spotify.com/v1/browse/new-releases?";
     queryString += "limit=" + std::to_string(limit);
     queryString += "&offset=" + std::to_string(offset);

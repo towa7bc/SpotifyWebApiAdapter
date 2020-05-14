@@ -2,21 +2,21 @@
 // Created by Michael Wittmann on 03/05/2020.
 //
 
-#include "Authentification.hpp"
+#include "Authentication.hpp"
 
 namespace spotify {
 
 inline namespace v1 {
 
-/* static */ auto spotify::Authentification::get_access_token(std::string_view code)
-        -> spotify::AuthentificationToken {
-    AuthentificationToken auth_token;
+/* static */ auto spotify::Authentication::get_access_token(std::string_view code)
+        -> spotify::AuthenticationToken {
+    AuthenticationToken auth_token;
     std::map<std::string, std::string> postData;
-    postData.at("grant_type") = "authorization_code";
-    postData.at("code") = code;
-    postData.at("redirect_uri") = _redirect_uri;
-    postData.at("client_id") = _client_id;
-    postData.at("client_secret") = _client_secret;
+    postData["grant_type"] = "authorization_code";
+    postData["code"] = code;
+    postData["redirect_uri"] = _redirect_uri;
+    postData["client_id"] = _client_id;
+    postData["client_secret"] = _client_secret;
     auto local_future = stlab::async(stlab::default_executor, spotify::detail::HttpHelper::post1,
                                      "https://accounts.spotify.com/api/token", postData)
                         | ([](std::string_view s) { return json_t::parse(s); })
