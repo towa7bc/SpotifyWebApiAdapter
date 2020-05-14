@@ -18,9 +18,10 @@ spotify::User::User(const spotify::model::user &t_user) : _country(t_user.countr
                                                           _product(t_user.product),
                                                           _type(t_user.type),
                                                           _uri(t_user.uri) {
+    _images.reserve(t_user.images.capacity());
     for (const auto &imag : t_user.images) {
         Image image(imag);
-        _images.push_back(image);
+        _images.push_back(std::move(image));
     }
 }
 

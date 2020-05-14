@@ -121,20 +121,20 @@ std::vector<spotify::Artist> spotify::Artist::get_related_artists(const std::str
     return get_related_artists(this->_id, country_code);
 }
 
-spotify::Artist::Artist(const spotify::model::artist &t_artist) {
-    this->_external_url = t_artist.external_urls.at(0);
-    this->_genres = t_artist.genres;
-    this->_href = t_artist.href;
-    this->_id = t_artist.id;
+spotify::Artist::Artist(const spotify::model::artist &t_artist) : _genres(t_artist.genres),
+                                                                  _external_url(t_artist.external_urls.at(0)),
+                                                                  _href(t_artist.href),
+                                                                  _id(t_artist.id),
+                                                                  _name(t_artist.name),
+                                                                  _type(t_artist.type),
+                                                                  _uri(t_artist.uri) {
+    this->_images.reserve(t_artist.images.capacity());
     for (const spotify::model::image &image : t_artist.images) {
         Image elem(image);
-        this->_images.push_back(elem);
+        this->_images.push_back(std::move(elem));
     }
-    this->_name = t_artist.name;
     const int base{10};
     this->_popularity = std::stoi(t_artist.popularity, nullptr, base);
-    this->_type = t_artist.type;
-    this->_uri = t_artist.uri;
 }
 
 }// namespace v1

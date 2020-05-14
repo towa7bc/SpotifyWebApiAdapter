@@ -70,7 +70,17 @@ spotify::Page<spotify::Album> spotify::Album::search(std::string &albumName,
     return page;
 }
 
-spotify::Album::Album(const spotify::model::album &t_album) {
+spotify::Album::Album(const spotify::model::album &t_album) : _availableMarkets(t_album.available_markets),
+                                                              _external_id(t_album.external_ids.at(0)),
+                                                              _external_url(t_album.external_urls.at(0)),
+                                                              _genres(t_album.genres),
+                                                              _href(t_album.href),
+                                                              _id(t_album.id),
+                                                              _name(t_album.name),
+                                                              _release_date_precision(t_album.release_date_precision),
+                                                              _type(t_album.type),
+                                                              _uri(t_album.uri),
+                                                              _ptracks(std::make_shared<spotify::Page<spotify::Track>>(t_album.tracks)) {
     if (str_toupper(t_album.album_type) == "ALBUM") {
         this->_album_type = spotify::Album::AlbumType::Album;
     } else if (str_toupper(t_album.album_type) == "SINGLE") {
@@ -78,24 +88,19 @@ spotify::Album::Album(const spotify::model::album &t_album) {
     } else if (str_toupper(t_album.album_type) == "COMPILATION") {
         this->_album_type = spotify::Album::AlbumType::Compilation;
     }
-    _type = t_album.type;
-    _href = t_album.href;
+    this->_images.reserve(t_album.images.capacity());
     for (const spotify::model::image &image : t_album.images) {
         Image elem(image);
-        this->_images.push_back(elem);
+        this->_images.push_back(std::move(elem));
     }
-    _external_url = t_album.external_urls.at(0);
-    _external_id = t_album.external_ids.at(0);
-    _genres = t_album.genres;
-    _name = t_album.name;
+    this->_artists.reserve(t_album.artists.capacity());
+    for (const spotify::model::artist &artist : t_album.artists) {
+        Artist elem(artist);
+        this->_artists.push_back(std::move(elem));
+    }
     const int base{10};
     _popularity = std::stoi(t_album.popularity, nullptr, base);
-    _uri = t_album.uri;
-    _id = t_album.id;
-    _availableMarkets = t_album.available_markets;
     _release_date = boost::posix_time::time_from_string(t_album.release_date);
-    _release_date_precision = t_album.release_date_precision;
-    _ptracks = std::make_shared<spotify::Page<spotify::Track>>(t_album.tracks);
 }
 
 spotify::Album spotify::Album::get_album(std::string_view album_id) {

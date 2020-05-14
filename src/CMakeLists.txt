@@ -4,7 +4,7 @@ add_library(SpotifyWebApiAdapter
         detail/BaseModel.hpp detail/BaseModel.cpp detail/HttpHelper.hpp detail/HttpHelper.cpp model/modeldata.hpp
         model/modeldata.cpp AuthentificationToken.hpp AuthentificationToken.cpp
         Authentification.hpp Authentification.cpp User.hpp User.cpp PlaylistTrack.hpp PlaylistTrack.cpp Image.hpp Image.cpp
-        Artist.hpp Artist.cpp Track.hpp Track.cpp Album.hpp Album.cpp Page.hpp Page.cpp Playlist.hpp Playlist.cpp Browse.cpp Browse.hpp Followers.hpp)
+        Artist.hpp Artist.cpp Track.hpp Track.cpp Album.hpp Album.cpp Page.hpp Page.cpp Playlist.hpp Playlist.cpp Browse.cpp Browse.hpp Followers.hpp Followers.cpp)
 
 if ($ENV{CLION_IDE})
     set(CMAKE_PREFIX_PATH /Users/michaelwittmann/Qt/5.14.2/clang_64/lib/cmake/Qt5;/usr/local/include/stlab)

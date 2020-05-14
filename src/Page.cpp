@@ -124,9 +124,10 @@ spotify::Page<T>::Page(const model::page<spotify::model::track> &t_page) {
     _total = t_page.total;
     _previous = t_page.previous;
     _next = t_page.next;
+    _items.reserve(t_page.items.capacity());
     for (const auto &item : t_page.items) {
         spotify::Track track_(item);
-        _items.push_back(track_);
+        _items.push_back(std::move(track_));
     }
 }
 
@@ -138,9 +139,10 @@ spotify::Page<T>::Page(const model::page<spotify::model::album> &t_page) {
     _total = t_page.total;
     _previous = t_page.previous;
     _next = t_page.next;
+    _items.reserve(t_page.items.capacity());
     for (const auto &item : t_page.items) {
         spotify::Album album_(item);
-        _items.push_back(album_);
+        _items.push_back(std::move(album_));
     }
 }
 
@@ -152,9 +154,10 @@ Page<T>::Page(const model::page<spotify::model::playlisttrack> &t_page) {
     _total = t_page.total;
     _previous = t_page.previous;
     _next = t_page.next;
+    _items.reserve(t_page.items.capacity());
     for (const auto &item : t_page.items) {
         spotify::PlaylistTrack plt_(item);
-        _items.push_back(plt_);
+        _items.push_back(std::move(plt_));
     }
 }
 
@@ -166,9 +169,10 @@ Page<T>::Page(const model::page<spotify::model::playlist> &t_page) {
     _total = t_page.total;
     _previous = t_page.previous;
     _next = t_page.next;
+    _items.reserve(t_page.items.capacity());
     for (const auto &item : t_page.items) {
         spotify::Playlist plt_(item);
-        _items.push_back(plt_);
+        _items.push_back(std::move(plt_));
     }
 }
 
@@ -180,9 +184,10 @@ Page<T>::Page(const spotify::model::page<spotify::model::artist> &t_page) {
     _total = t_page.total;
     _previous = t_page.previous;
     _next = t_page.next;
+    _items.reserve(t_page.items.capacity());
     for (const auto &item : t_page.items) {
         spotify::Artist plt_(item);
-        _items.push_back(plt_);
+        _items.push_back(std::move(plt_));
     }
 }
 
@@ -194,9 +199,10 @@ Page<T>::Page(const model::page<spotify::model::savedtrack> &t_page) {
     _total = t_page.total;
     _previous = t_page.previous;
     _next = t_page.next;
+    _items.reserve(t_page.items.capacity());
     for (const auto &item : t_page.items) {
         spotify::Track plt_(item);
-        _items.push_back(plt_);
+        _items.push_back(std::move(plt_));
     }
 }
 

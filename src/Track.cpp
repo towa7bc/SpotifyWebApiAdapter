@@ -25,9 +25,10 @@ spotify::Track::Track(const spotify::model::track &t_track) : available_markets(
                                                               explicit_(t_track.is_explicit),
                                                               track_number(t_track.track_number),
                                                               album(std::make_shared<spotify::Album>(t_track.album_)) {
+    artists.reserve(t_track.artists.capacity());
     for (const auto &item : t_track.artists) {
         Artist artist(item);
-        artists.push_back(artist);
+        artists.push_back(std::move(artist));
     }
 }
 
@@ -47,9 +48,10 @@ Track::Track(const model::savedtrack &t_track) : available_markets(t_track.track
                                                  explicit_(t_track.track_.is_explicit),
                                                  track_number(t_track.track_.track_number),
                                                  album(std::make_shared<spotify::Album>(t_track.track_.album_)) {
+    artists.reserve(t_track.track_.artists.capacity());
     for (const auto &item : t_track.track_.artists) {
         Artist artist(item);
-        artists.push_back(artist);
+        artists.push_back(std::move(artist));
     }
 }
 
