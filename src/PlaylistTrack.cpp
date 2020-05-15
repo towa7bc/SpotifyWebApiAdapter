@@ -8,14 +8,14 @@ namespace spotify {
 
 inline namespace v1 {
 
-spotify::PlaylistTrack::PlaylistTrack(const spotify::model::playlisttrack &t_plt) : _added_by(std::make_shared<spotify::User>(t_plt.added_by)),
-                                                                                    _added_at(boost::posix_time::time_from_string(t_plt.added_at)),
-                                                                                    _track(create_ref<spotify::Track>(t_plt.track_)) {
+PlaylistTrack::PlaylistTrack(const model::playlisttrack &t_plt) : _added_by(create_ref<User>(t_plt.added_by)),
+                                                                  _added_at(boost::posix_time::time_from_string(t_plt.added_at)),
+                                                                  _track(create_ref<Track>(t_plt.track_)) {
 }
 
-spotify::PlaylistTrack::PlaylistTrack(spotify::model::playlisttrack &&t_plt) noexcept : _added_by(std::make_shared<spotify::User>(t_plt.added_by)),
-                                                                                        _added_at(boost::posix_time::time_from_string(t_plt.added_at)),
-                                                                                        _track(create_ref<spotify::Track>(t_plt.track_)) {
+PlaylistTrack::PlaylistTrack(model::playlisttrack &&t_plt) noexcept : _added_by(create_ref<User>(t_plt.added_by)),
+                                                                      _added_at(boost::posix_time::time_from_string(t_plt.added_at)),
+                                                                      _track(create_ref<Track>(t_plt.track_)) {
 }
 
 }// namespace v1

@@ -25,8 +25,8 @@ class User : public BaseModel {
     using json_t = nlohmann::json;
 
 public:
-    explicit User(const spotify::model::user &);
-    explicit User(spotify::model::user &&) noexcept;
+    explicit User(const model::user &);
+    explicit User(model::user &&) noexcept;
     User() = default;
     User(const User &) = default;
     ~User() override = default;
@@ -39,19 +39,19 @@ public:
     std::string _external_url;
     std::string _href;
     std::string _id;
-    std::vector<spotify::Image> _images;
+    std::vector<Image> _images;
     std::string _product;
     std::string _type;
     std::string _uri;
-    static spotify::User get_user(std::string_view user_id);
-    static spotify::User get_current_user_profile(const spotify::AuthenticationToken &token);
-    [[nodiscard]] spotify::Page<spotify::Playlist> get_playlists(const spotify::AuthenticationToken &token) const;
-    static spotify::Page<spotify::Track> get_user_saved_tracks(const spotify::AuthenticationToken &token, int limit = 20, int offset = 0);
-    spotify::Page<spotify::Track> get_saved_tracks(const spotify::AuthenticationToken &token, int limit = 20, int offset = 0);
-    void save_tracks(const std::vector<std::string> &ids, const spotify::AuthenticationToken &token);
-    void delete_tracks(const std::vector<std::string> &ids, const spotify::AuthenticationToken &token);
-    bool are_saved(const std::vector<std::string> &ids, const spotify::AuthenticationToken &token);
-    bool is_saved(std::string_view id, const spotify::AuthenticationToken &token);
+    static User get_user(std::string_view user_id);
+    static User get_current_user_profile(const AuthenticationToken &token);
+    [[nodiscard]] Page<Playlist> get_playlists(const AuthenticationToken &token) const;
+    static Page<spotify::Track> get_user_saved_tracks(const AuthenticationToken &token, int limit = 20, int offset = 0);
+    Page<Track> get_saved_tracks(const AuthenticationToken &token, int limit = 20, int offset = 0);
+    void save_tracks(const std::vector<std::string> &ids, const AuthenticationToken &token);
+    void delete_tracks(const std::vector<std::string> &ids, const AuthenticationToken &token);
+    bool are_saved(const std::vector<std::string> &ids, const AuthenticationToken &token);
+    bool is_saved(std::string_view id, const AuthenticationToken &token);
 };
 
 }// namespace v1

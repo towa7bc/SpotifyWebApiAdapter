@@ -8,8 +8,8 @@ namespace spotify {
 
 inline namespace v1 {
 
-/* static */ auto spotify::Authentication::get_access_token(std::string_view code)
-        -> spotify::AuthenticationToken {
+/* static */ auto Authentication::get_access_token(std::string_view code)
+        -> AuthenticationToken {
     AuthenticationToken auth_token;
     std::map<std::string, std::string> postData;
     postData["grant_type"] = "authorization_code";
@@ -17,7 +17,7 @@ inline namespace v1 {
     postData["redirect_uri"] = _redirect_uri;
     postData["client_id"] = _client_id;
     postData["client_secret"] = _client_secret;
-    auto local_future = stlab::async(stlab::default_executor, spotify::detail::HttpHelper::post1,
+    auto local_future = stlab::async(stlab::default_executor, detail::HttpHelper::post1,
                                      "https://accounts.spotify.com/api/token", postData)
                         | ([](std::string_view s) { return json_t::parse(s); })
                         | ([](const json_t &j) { return j.get<model::accesstoken>(); });

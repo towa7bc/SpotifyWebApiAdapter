@@ -29,7 +29,7 @@ inline namespace v1 {
 
 class AuthenticationToken;
 
-class Authentication : public spotify::BaseModel {
+class Authentication : public BaseModel {
     using date_time_t = boost::posix_time::ptime;
     using json_t = nlohmann::json;
 
@@ -43,7 +43,7 @@ public:
     static std::string _client_id;
     static std::string _client_secret;
     static std::string _redirect_uri;
-    static auto get_access_token(std::string_view code) -> spotify::AuthenticationToken;
+    static auto get_access_token(std::string_view code) -> AuthenticationToken;
 };
 
 }// namespace v1

@@ -128,7 +128,7 @@ struct artist {
     std::string uri;
     std::vector<std::string> external_urls;
     std::vector<std::string> genres;
-    std::vector<spotify::model::image> images;
+    std::vector<image> images;
 };
 
 struct artist_array {
@@ -148,7 +148,7 @@ struct artist_search_result {
     artist_search_result &operator=(const artist_search_result &) = default;
     artist_search_result &operator=(artist_search_result &&) noexcept = default;
     artist_search_result(artist_search_result &&) noexcept = default;
-    spotify::model::page<artist> artists;
+    page<artist> artists;
 };
 
 void to_json(json &j, const artist &data) {
@@ -233,7 +233,7 @@ struct user {
     std::string type;
     std::string uri;
     std::vector<std::string> external_urls;
-    std::vector<spotify::model::image> images;
+    std::vector<image> images;
 };
 
 void to_json(json &j, const user &data) {
@@ -280,12 +280,12 @@ struct album {
     std::vector<std::string> genres;
     std::string href;
     std::string id;
-    std::vector<spotify::model::image> images;
+    std::vector<image> images;
     std::string name;
     std::string popularity;
     std::string release_date;
     std::string release_date_precision;
-    spotify::model::page<spotify::model::track> tracks;
+    page<track> tracks;
     std::string type;
     std::string uri;
 };
@@ -297,7 +297,7 @@ struct track {
     track &operator=(const track &) = default;
     track &operator=(track &&) noexcept = default;
     track(track &&) noexcept = default;
-    spotify::model::album album_;
+    album album_;
     std::vector<artist> artists;
     std::vector<std::string> available_markets;
     int disc_number{0};
@@ -479,9 +479,9 @@ struct playlisttrack {
     playlisttrack &operator=(const playlisttrack &) = default;
     playlisttrack &operator=(playlisttrack &&) noexcept = default;
     playlisttrack(playlisttrack &&) noexcept = default;
-    spotify::model::user added_by;
+    user added_by;
     std::string added_at;
-    spotify::model::track track_;
+    track track_;
 };
 
 void to_json(json &j, const playlisttrack &data) {
@@ -512,7 +512,7 @@ struct playlist {
     std::string id;
     std::string type;
     std::string uri;
-    std::vector<spotify::model::image> images;
+    std::vector<image> images;
     user owner;
     bool is_public{false};
     bool is_collaborative{false};

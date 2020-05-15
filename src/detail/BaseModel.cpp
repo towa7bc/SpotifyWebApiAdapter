@@ -8,7 +8,7 @@ namespace spotify {
 
 inline namespace v1 {
 
-/* static */ auto spotify::BaseModel::create_comma_separated_List(const std::vector<std::string> &v)
+/* static */ auto BaseModel::create_comma_separated_List(const std::vector<std::string> &v)
         -> std::string {
     if (v.empty()) {
         return "n/a";
@@ -18,7 +18,7 @@ inline namespace v1 {
     });
 }
 
-std::string spotify::BaseModel::replace_all(std::string str, std::string_view from, std::string_view to) {
+std::string BaseModel::replace_all(std::string str, std::string_view from, std::string_view to) {
     size_t start_pos = 0;
     while ((start_pos = str.find(from, start_pos)) != std::string::npos) {
         str.replace(start_pos, from.length(), to);
@@ -27,7 +27,7 @@ std::string spotify::BaseModel::replace_all(std::string str, std::string_view fr
     return str;
 }
 
-std::string spotify::BaseModel::str_toupper(std::string s) {
+std::string BaseModel::str_toupper(std::string s) {
     std::transform(s.begin(), s.end(), s.begin(),
                    [](unsigned char c) { return std::toupper(c); });
     return s;

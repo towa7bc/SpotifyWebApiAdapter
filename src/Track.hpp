@@ -35,7 +35,7 @@ public:
     Track &operator=(const Track &) = default;
     Track &operator=(Track &&) noexcept = default;
     Track(Track &&) noexcept = default;
-    std::vector<spotify::Artist> artists;
+    std::vector<Artist> artists;
     std::vector<std::string> available_markets;
     std::vector<std::string> external_id;
     std::vector<std::string> external_url;
@@ -51,7 +51,7 @@ public:
     int duration{};
     bool explicit_{};
     int track_number{};
-    Ref<spotify::Album> album;
+    Ref<Album> album;
 };
 
 }// namespace v1

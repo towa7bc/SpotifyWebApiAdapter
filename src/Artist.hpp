@@ -27,8 +27,8 @@ class Artist : public BaseModel {
     using json_t = nlohmann::json;
 
 public:
-    explicit Artist(const spotify::model::artist &);
-    explicit Artist(spotify::model::artist &&t_artist) noexcept;
+    explicit Artist(const model::artist &);
+    explicit Artist(model::artist &&t_artist) noexcept;
     Artist() = default;
     Artist(const Artist &) = default;
     ~Artist() override = default;
@@ -44,18 +44,18 @@ public:
     int _popularity{};
     std::string _type;
     std::string _uri;
-    static spotify::Artist get_artist(const std::string &artist_id);
-    static std::vector<spotify::Artist> get_artists(const std::vector<std::string> &artist_ids);
-    static spotify::Page<spotify::Artist> search(std::string &artistName,
-                                                 std::string &year,
-                                                 std::string &genre,
-                                                 std::string &upc,
-                                                 std::string &isrc,
-                                                 int limit = 20,
-                                                 int offset = 0);
-    spotify::Page<spotify::Album> get_albums();
-    static std::vector<spotify::Track> get_top_tracks(const std::string &artist_id, const std::string &country_code = "US");
-    [[nodiscard]] std::vector<spotify::Track> get_top_tracks(const std::string &country_code = "US") const;
+    static Artist get_artist(const std::string &artist_id);
+    static std::vector<Artist> get_artists(const std::vector<std::string> &artist_ids);
+    static Page<Artist> search(std::string &artistName,
+                               std::string &year,
+                               std::string &genre,
+                               std::string &upc,
+                               std::string &isrc,
+                               int limit = 20,
+                               int offset = 0);
+    Page<Album> get_albums();
+    static std::vector<Track> get_top_tracks(const std::string &artist_id, const std::string &country_code = "US");
+    [[nodiscard]] std::vector<Track> get_top_tracks(const std::string &country_code = "US") const;
     static std::vector<Artist> get_related_artists(const std::string &artist_id, const std::string &country_code = "US");
     [[nodiscard]] std::vector<Artist> get_related_artists(const std::string &country_code = "US") const;
 };

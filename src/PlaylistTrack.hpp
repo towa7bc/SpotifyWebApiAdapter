@@ -27,10 +27,10 @@ struct PlaylistTrack {
     PlaylistTrack &operator=(const PlaylistTrack &) = default;
     PlaylistTrack &operator=(PlaylistTrack &&) noexcept = default;
     PlaylistTrack(PlaylistTrack &&) noexcept = default;
-    Ref<spotify::User> _added_by;
+    Ref<User> _added_by;
     boost::posix_time::ptime _added_at{boost::gregorian::day_clock::universal_day(),
                                        boost::posix_time::second_clock::universal_time().time_of_day()};
-    Ref<spotify::Track> _track;
+    Ref<Track> _track;
 };
 
 }// namespace v1

@@ -13,8 +13,8 @@ namespace spotify {
 inline namespace v1 {
 
 struct Followers {
-    explicit Followers(const spotify::model::followers &);
-    explicit Followers(spotify::model::followers &&) noexcept;
+    explicit Followers(const model::followers &);
+    explicit Followers(model::followers &&) noexcept;
     Followers() = default;
     Followers(const Followers &) = default;
     ~Followers() = default;
