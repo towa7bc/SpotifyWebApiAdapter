@@ -8,6 +8,7 @@
 #include "Album.hpp"
 #include "Artist.hpp"
 #include "detail/BaseModel.hpp"
+#include "detail/Core.hpp"
 #include "detail/HttpHelper.hpp"
 #include <algorithm>
 #include <memory>
@@ -50,7 +51,7 @@ public:
     int duration{};
     bool explicit_{};
     int track_number{};
-    std::shared_ptr<spotify::Album> album;
+    Ref<spotify::Album> album;
 };
 
 }// namespace v1

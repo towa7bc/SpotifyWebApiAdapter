@@ -13,13 +13,13 @@ inline namespace v1 {
 spotify::Playlist::Playlist(const spotify::model::playlist &pl) : _collaborative(pl.is_collaborative),
                                                                   _description(pl.description),
                                                                   _external_url(pl.external_urls.at(0)),
-                                                                  _followers(pl.followers_),
+                                                                  _followers(create_ref<spotify::Followers>(pl.followers_)),
                                                                   _href(pl.href),
                                                                   _id(pl.id),
                                                                   _name(pl.name),
-                                                                  _owner(std::make_shared<spotify::User>(pl.owner)),
+                                                                  _owner(create_ref<spotify::User>(pl.owner)),
                                                                   _public(pl.is_public),
-                                                                  _tracks(std::make_shared<spotify::Page<spotify::PlaylistTrack>>(pl.tracks)),
+                                                                  _tracks(create_ref<spotify::Page<spotify::PlaylistTrack>>(pl.tracks)),
                                                                   _type(pl.type),
                                                                   _uri(pl.uri) {
     _images.reserve(pl.images.capacity());
@@ -32,13 +32,13 @@ spotify::Playlist::Playlist(const spotify::model::playlist &pl) : _collaborative
 spotify::Playlist::Playlist(spotify::model::playlist &&pl) noexcept : _collaborative(pl.is_collaborative),
                                                                       _description(std::move(pl.description)),
                                                                       _external_url(std::move(pl.external_urls.at(0))),
-                                                                      _followers(pl.followers_),
+                                                                      _followers(create_ref<spotify::Followers>(pl.followers_)),
                                                                       _href(std::move(pl.href)),
                                                                       _id(std::move(pl.id)),
                                                                       _name(std::move(pl.name)),
-                                                                      _owner(std::make_shared<spotify::User>(pl.owner)),
+                                                                      _owner(create_ref<spotify::User>(pl.owner)),
                                                                       _public(pl.is_public),
-                                                                      _tracks(std::make_shared<spotify::Page<spotify::PlaylistTrack>>(pl.tracks)),
+                                                                      _tracks(create_ref<spotify::Page<spotify::PlaylistTrack>>(pl.tracks)),
                                                                       _type(std::move(pl.type)),
                                                                       _uri(std::move(pl.uri)) {
     _images.reserve(pl.images.capacity());

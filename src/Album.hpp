@@ -10,6 +10,7 @@
 #include "Page.hpp"
 #include "Track.hpp"
 #include "detail/BaseModel.hpp"
+#include "detail/Core.hpp"
 #include "model/modeldata.hpp"
 
 namespace spotify {
@@ -51,7 +52,7 @@ public:
     std::string _release_date_precision;
     std::string _type;
     std::string _uri;
-    std::shared_ptr<spotify::Page<spotify::Track>> _ptracks;
+    Ref<spotify::Page<spotify::Track>> _ptracks;
     static spotify::Page<spotify::Album> get_artist_albums(std::string_view artist_id);
     static spotify::Page<spotify::Album> search(std::string &albumName,
                                                 std::string &artistName,

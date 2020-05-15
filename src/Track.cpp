@@ -24,7 +24,7 @@ spotify::Track::Track(const spotify::model::track &t_track) : available_markets(
                                                               duration(t_track.duration_ms),
                                                               explicit_(t_track.is_explicit),
                                                               track_number(t_track.track_number),
-                                                              album(std::make_shared<spotify::Album>(t_track.album_)) {
+                                                              album(create_ref<spotify::Album>(t_track.album_)) {
     artists.reserve(t_track.artists.capacity());
     for (const auto &item : t_track.artists) {
         Artist artist(item);
@@ -47,7 +47,7 @@ spotify::Track::Track(spotify::model::track &&t_track) noexcept : available_mark
                                                                   duration(t_track.duration_ms),
                                                                   explicit_(t_track.is_explicit),
                                                                   track_number(t_track.track_number),
-                                                                  album(std::make_shared<spotify::Album>(t_track.album_)) {
+                                                                  album(create_ref<spotify::Album>(t_track.album_)) {
     artists.reserve(t_track.artists.capacity());
     for (auto &item : t_track.artists) {
         Artist artist(std::move(item));
@@ -70,7 +70,7 @@ Track::Track(const model::savedtrack &t_track) : available_markets(t_track.track
                                                  duration(t_track.track_.duration_ms),
                                                  explicit_(t_track.track_.is_explicit),
                                                  track_number(t_track.track_.track_number),
-                                                 album(std::make_shared<spotify::Album>(t_track.track_.album_)) {
+                                                 album(create_ref<spotify::Album>(t_track.track_.album_)) {
     artists.reserve(t_track.track_.artists.capacity());
     for (const auto &item : t_track.track_.artists) {
         Artist artist(item);
@@ -93,7 +93,7 @@ Track::Track(model::savedtrack &&t_track) noexcept : available_markets(std::move
                                                      duration(t_track.track_.duration_ms),
                                                      explicit_(t_track.track_.is_explicit),
                                                      track_number(t_track.track_.track_number),
-                                                     album(std::make_shared<spotify::Album>(t_track.track_.album_)) {
+                                                     album(create_ref<spotify::Album>(t_track.track_.album_)) {
     artists.reserve(t_track.track_.artists.capacity());
     for (auto &item : t_track.track_.artists) {
         Artist artist(std::move(item));

@@ -9,6 +9,7 @@
 #include "PlaylistTrack.hpp"
 #include "User.hpp"
 #include "detail/BaseModel.hpp"
+#include "detail/Core.hpp"
 #include "model/modeldata.hpp"
 
 namespace spotify {
@@ -41,14 +42,14 @@ public:
     bool _collaborative{false};
     std::string _description;
     std::string _external_url;
-    spotify::Followers _followers;
+    Ref<spotify::Followers> _followers;
     std::string _href;
     std::string _id;
     std::vector<spotify::Image> _images;
     std::string _name;
-    std::shared_ptr<spotify::User> _owner;
+    Ref<spotify::User> _owner;
     bool _public{false};
-    std::shared_ptr<spotify::Page<spotify::PlaylistTrack>> _tracks;
+    Ref<spotify::Page<spotify::PlaylistTrack>> _tracks;
     std::string _type;
     std::string _uri;
     static spotify::Page<spotify::Playlist> get_users_playlists(std::string_view user_id, const spotify::AuthenticationToken &token);

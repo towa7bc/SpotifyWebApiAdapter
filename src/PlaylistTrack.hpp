@@ -7,6 +7,7 @@
 
 #include "Track.hpp"
 #include "User.hpp"
+#include "detail/Core.hpp"
 #include <boost/date_time/c_local_time_adjustor.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
@@ -26,10 +27,10 @@ struct PlaylistTrack {
     PlaylistTrack &operator=(const PlaylistTrack &) = default;
     PlaylistTrack &operator=(PlaylistTrack &&) noexcept = default;
     PlaylistTrack(PlaylistTrack &&) noexcept = default;
-    std::shared_ptr<spotify::User> _added_by;
+    Ref<spotify::User> _added_by;
     boost::posix_time::ptime _added_at{boost::gregorian::day_clock::universal_day(),
                                        boost::posix_time::second_clock::universal_time().time_of_day()};
-    std::shared_ptr<spotify::Track> _track;
+    Ref<spotify::Track> _track;
 };
 
 }// namespace v1

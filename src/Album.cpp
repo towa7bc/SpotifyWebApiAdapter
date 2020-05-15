@@ -80,7 +80,7 @@ spotify::Album::Album(const spotify::model::album &t_album) : _availableMarkets(
                                                               _release_date_precision(t_album.release_date_precision),
                                                               _type(t_album.type),
                                                               _uri(t_album.uri),
-                                                              _ptracks(std::make_shared<spotify::Page<spotify::Track>>(t_album.tracks)) {
+                                                              _ptracks(create_ref<spotify::Page<spotify::Track>>(t_album.tracks)) {
     if (str_toupper(t_album.album_type) == "ALBUM") {
         this->_album_type = spotify::Album::AlbumType::Album;
     } else if (str_toupper(t_album.album_type) == "SINGLE") {
@@ -113,7 +113,7 @@ spotify::Album::Album(spotify::model::album &&t_album) noexcept : _availableMark
                                                                   _release_date_precision(std::move(t_album.release_date_precision)),
                                                                   _type(std::move(t_album.type)),
                                                                   _uri(std::move(t_album.uri)),
-                                                                  _ptracks(std::make_shared<spotify::Page<spotify::Track>>(t_album.tracks)) {
+                                                                  _ptracks(create_ref<spotify::Page<spotify::Track>>(t_album.tracks)) {
     if (str_toupper(std::move(t_album.album_type)) == "ALBUM") {
         this->_album_type = spotify::Album::AlbumType::Album;
     } else if (str_toupper(std::move(t_album.album_type)) == "SINGLE") {
