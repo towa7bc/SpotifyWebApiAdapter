@@ -31,8 +31,8 @@ class Playlist : public BaseModel {
     using json_t = nlohmann::json;
 
 public:
-    explicit Playlist(const spotify::model::playlist &);
-    explicit Playlist(spotify::model::playlist &&) noexcept;
+    explicit Playlist(const model::playlist &);
+    explicit Playlist(model::playlist &&) noexcept;
     Playlist() = default;
     Playlist(const Playlist &) = default;
     ~Playlist() override = default;
@@ -47,13 +47,13 @@ public:
     std::string _id;
     std::vector<Image> _images;
     std::string _name;
-    Ref<spotify::User> _owner;
+    Ref<User> _owner;
     bool _public{false};
     Ref<Page<PlaylistTrack>> _tracks;
     std::string _type;
     std::string _uri;
     static Page<Playlist> get_users_playlists(std::string_view user_id, const AuthenticationToken &token);
-    static Page<Playlist> get_users_playlists(const spotify::User &user, const AuthenticationToken &token);
+    static Page<Playlist> get_users_playlists(const User &user, const AuthenticationToken &token);
     static Page<Playlist> get_playlist(std::string_view user_id,
                                        std::string_view playlist_id,
                                        const AuthenticationToken &token);

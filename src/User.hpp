@@ -46,7 +46,7 @@ public:
     static User get_user(std::string_view user_id);
     static User get_current_user_profile(const AuthenticationToken &token);
     [[nodiscard]] Page<Playlist> get_playlists(const AuthenticationToken &token) const;
-    static Page<spotify::Track> get_user_saved_tracks(const AuthenticationToken &token, int limit = 20, int offset = 0);
+    static Page<Track> get_user_saved_tracks(const AuthenticationToken &token, int limit = 20, int offset = 0);
     Page<Track> get_saved_tracks(const AuthenticationToken &token, int limit = 20, int offset = 0);
     void save_tracks(const std::vector<std::string> &ids, const AuthenticationToken &token);
     void delete_tracks(const std::vector<std::string> &ids, const AuthenticationToken &token);

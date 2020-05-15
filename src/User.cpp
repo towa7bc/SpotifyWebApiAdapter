@@ -61,17 +61,17 @@ User User::get_current_user_profile(const AuthenticationToken &token) {
     return user;
 }
 
-Page<Playlist> spotify::User::get_playlists(const AuthenticationToken &token) const {
+Page<Playlist> User::get_playlists(const AuthenticationToken &token) const {
     return Playlist::get_users_playlists(_id, token);
 }
 
-Page<Track> spotify::User::get_user_saved_tracks(const AuthenticationToken &token, int limit, int offset) {
+Page<Track> User::get_user_saved_tracks(const AuthenticationToken &token, int limit, int offset) {
     bool include_bearer{true};
     auto local_future = stlab::async(stlab::default_executor, detail::HttpHelper::get2,
                                      "https://api.spotify.com/v1/me/tracks?limit=" + std::to_string(limit) + "&offset=" + std::to_string(offset),
                                      token, include_bearer)
                         | ([](std::string_view s) { return json_t::parse(s); })
-                        | ([](const json_t &j) { return j.get<model::page<spotify::model::savedtrack>>(); });
+                        | ([](const json_t &j) { return j.get<model::page<model::savedtrack>>(); });
     auto local_obj = stlab::blocking_get(local_future);
     Page<Track> track(local_obj);
     return track;

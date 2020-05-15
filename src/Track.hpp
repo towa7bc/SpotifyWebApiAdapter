@@ -25,9 +25,9 @@ class Track : public BaseModel {
     using json_t = nlohmann::json;
 
 public:
-    explicit Track(const spotify::model::track &);
-    explicit Track(spotify::model::track &&) noexcept;
-    explicit Track(const spotify::model::savedtrack &);
+    explicit Track(const model::track &);
+    explicit Track(model::track &&) noexcept;
+    explicit Track(const model::savedtrack &);
     explicit Track(model::savedtrack &&t_track) noexcept;
     Track() = default;
     Track(const Track &) = default;

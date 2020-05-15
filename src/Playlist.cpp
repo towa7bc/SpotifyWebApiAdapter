@@ -24,7 +24,7 @@ Playlist::Playlist(const model::playlist &pl) : _collaborative(pl.is_collaborati
                                                 _uri(pl.uri) {
     _images.reserve(pl.images.capacity());
     for (const auto &item : pl.images) {
-        spotify::Image image(item);
+        Image image(item);
         _images.push_back(std::move(image));
     }
 }
@@ -43,7 +43,7 @@ Playlist::Playlist(model::playlist &&pl) noexcept : _collaborative(pl.is_collabo
                                                     _uri(std::move(pl.uri)) {
     _images.reserve(pl.images.capacity());
     for (auto &item : pl.images) {
-        spotify::Image image(std::move(item));
+        Image image(std::move(item));
         _images.push_back(std::move(image));
     }
 }

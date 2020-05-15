@@ -26,12 +26,12 @@ class Page : public BaseModel {
     using json_t = nlohmann::json;
 
 public:
-    explicit Page(const spotify::model::page<spotify::model::track> &);
-    explicit Page(const spotify::model::page<spotify::model::savedtrack> &);
-    explicit Page(const spotify::model::page<spotify::model::album> &);
-    explicit Page(const spotify::model::page<spotify::model::playlisttrack> &);
-    explicit Page(const spotify::model::page<spotify::model::playlist> &);
-    explicit Page(const spotify::model::page<spotify::model::artist> &);
+    explicit Page(const model::page<model::track> &);
+    explicit Page(const model::page<model::savedtrack> &);
+    explicit Page(const model::page<model::album> &);
+    explicit Page(const model::page<model::playlisttrack> &);
+    explicit Page(const model::page<model::playlist> &);
+    explicit Page(const model::page<model::artist> &);
     Page() = default;
     Page(const Page &) = default;
     ~Page() override = default;
