@@ -11,9 +11,7 @@
 #include <boost/date_time/c_local_time_adjustor.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
-namespace spotify {
-
-inline namespace v1 {
+namespace spotify::inline v1 {
 
 class Track;
 class User;
@@ -34,6 +32,5 @@ struct PlaylistTrack {
 };
 
 }// namespace v1
-}// namespace spotify
 
 #endif

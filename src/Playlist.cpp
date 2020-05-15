@@ -6,9 +6,7 @@
 #include "Browse.hpp"
 #include <algorithm>
 
-namespace spotify {
-
-inline namespace v1 {
+namespace spotify::inline v1 {
 
 Playlist::Playlist(const model::playlist &pl) : _collaborative(pl.is_collaborative),
                                                 _description(pl.description),
@@ -173,4 +171,3 @@ Page<Playlist> Playlist::get_featured_playlists(const AuthenticationToken &token
 }
 
 }// namespace v1
-}// namespace spotify

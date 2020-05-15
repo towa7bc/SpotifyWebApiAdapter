@@ -12,9 +12,7 @@
 #include "detail/Core.hpp"
 #include "model/modeldata.hpp"
 
-namespace spotify {
-
-inline namespace v1 {
+namespace spotify::inline v1 {
 
 struct PlaylistTrack;
 
@@ -86,6 +84,5 @@ public:
 };
 
 }// namespace v1
-}// namespace spotify
 
 #endif

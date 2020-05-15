@@ -6,18 +6,12 @@
 #define SPOTIFYWEBAPIADAPTER_HTTPHELPER_HPP
 
 #include "../AuthenticationToken.hpp"
-//#include "../model/playlistdata.hpp"
 #include "../model/modeldata.hpp"
 #include "SpotifyNetworkManager.hpp"
 #include <map>
-//#include <stlab/concurrency/default_executor.hpp>
-//#include <stlab/concurrency/future.hpp>
-//#include <stlab/concurrency/utility.hpp>
 #include <string>
 
-namespace spotify {
-
-inline namespace v1 {
+namespace spotify::inline v1 {
 
 class SpotifyNetworkManager;
 
@@ -45,7 +39,6 @@ public:
 };
 
 }// namespace detail
-}// namespace v1
-}// namespace spotify
+}// namespace spotify::inline v1
 
 #endif

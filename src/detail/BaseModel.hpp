@@ -9,9 +9,7 @@
 #include <string>
 #include <vector>
 
-namespace spotify {
-
-inline namespace v1 {
+namespace spotify::inline v1 {
 
 class BaseModel {
 public:
@@ -32,8 +30,6 @@ class PageNotFoundException : public std::exception {
     }
 };
 
-}// namespace v1
-
-}// namespace spotify
+}// namespace spotify::inline v1
 
 #endif

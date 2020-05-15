@@ -8,9 +8,7 @@
 #include "Page.hpp"
 #include "Playlist.hpp"
 
-namespace spotify {
-
-inline namespace v1 {
+namespace spotify::inline v1 {
 
 class Browse {
     using json_t = nlohmann::json;
@@ -29,6 +27,5 @@ public:
 };
 
 }// namespace v1
-}// namespace spotify
 
 #endif

@@ -4,8 +4,7 @@
 
 #include "Image.hpp"
 
-namespace spotify {
-inline namespace v1 {
+namespace spotify::inline v1 {
 
 Image::Image(const model::image &t_image) : _height(t_image.height),
                                             _url(t_image.url),
@@ -18,4 +17,3 @@ Image::Image(model::image &&t_image) noexcept : _height(t_image.height),
 }
 
 }// namespace v1
-}// namespace spotify

@@ -11,9 +11,7 @@
 #include <nlohmann/json.hpp>
 #include <string>
 
-namespace spotify {
-
-inline namespace v1 {
+namespace spotify::inline v1 {
 
 class AuthenticationToken {
     using date_time_t = boost::posix_time::ptime;
@@ -45,8 +43,6 @@ public:
     void setRefreshToken(std::string_view refreshToken);
 };
 
-}// namespace v1
-
-}// namespace spotify
+}// namespace spotify::inline v1
 
 #endif

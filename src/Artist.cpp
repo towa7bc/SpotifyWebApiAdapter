@@ -4,9 +4,7 @@
 
 #include "Artist.hpp"
 
-namespace spotify {
-
-inline namespace v1 {
+namespace spotify::inline v1 {
 
 Artist Artist::get_artist(const std::string &artist_id) {
     auto local_future = stlab::async(stlab::default_executor, detail::HttpHelper::get1,
@@ -153,5 +151,4 @@ Artist::Artist(model::artist &&t_artist) noexcept : _genres(std::move(t_artist.g
     this->_popularity = std::stoi(std::move(t_artist.popularity), nullptr, base);
 }
 
-}// namespace v1
-}// namespace spotify
+}// namespace spotify::inline v1

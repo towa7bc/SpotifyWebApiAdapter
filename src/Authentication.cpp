@@ -3,6 +3,7 @@
 //
 
 #include "Authentication.hpp"
+#include "detail/Log.hpp"
 
 namespace spotify {
 
@@ -10,6 +11,9 @@ inline namespace v1 {
 
 /* static */ auto Authentication::get_access_token(std::string_view code)
         -> AuthenticationToken {
+    if (!Log::logger()) {
+        Log::init();
+    }
     AuthenticationToken auth_token;
     std::map<std::string, std::string> postData;
     postData["grant_type"] = "authorization_code";
@@ -29,6 +33,10 @@ inline namespace v1 {
                             boost::posix_time::second_clock::universal_time().time_of_day());
     auth_token.setExpiresOn(currentTime + boost::posix_time::seconds(access_token.expires_in));
     return auth_token;
+}
+
+void Authentication::initialize_spotify() {
+    Log::init();
 }
 
 }// namespace v1

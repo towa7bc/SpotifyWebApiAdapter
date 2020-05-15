@@ -11,8 +11,6 @@
 #include <QObject>
 #include <QUrl>
 #include <QUrlQuery>
-#include <spdlog/async.h>
-#include <spdlog/sinks/rotating_file_sink.h>
 
 #include "../AuthenticationToken.hpp"
 
@@ -57,9 +55,6 @@ private:
             "{.~)~)zu}|z~yz/+,,.+yx|,~zutu||("};
     std::unique_ptr<QNetworkAccessManager> _manager{};
     std::string _reply{};
-    static constexpr int max_file_size = 1048576 * 5;
-    static constexpr int max_files = 1048576 * 5;
-    std::shared_ptr<spdlog::logger> _asyncLogger;
     static auto createRequest(const QUrl &url, HeaderInfo const &info) -> QNetworkRequest;
     auto performGetRequest(QNetworkRequest const &request) -> void;
     auto performPostRequest(const QNetworkRequest &request, const QByteArray &data) -> void;

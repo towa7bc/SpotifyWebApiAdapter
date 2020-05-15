@@ -11,9 +11,7 @@
 #include "detail/BaseModel.hpp"
 #include "model/modeldata.hpp"
 
-namespace spotify {
-
-inline namespace v1 {
+namespace spotify::inline v1 {
 
 template<typename>
 class Page;
@@ -55,6 +53,5 @@ public:
 };
 
 }// namespace v1
-}// namespace spotify
 
 #endif

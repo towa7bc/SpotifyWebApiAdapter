@@ -44,6 +44,7 @@ public:
     static std::string _client_secret;
     static std::string _redirect_uri;
     static auto get_access_token(std::string_view code) -> AuthenticationToken;
+    static void initialize_spotify();
 };
 
 }// namespace v1

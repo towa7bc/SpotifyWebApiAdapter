@@ -6,9 +6,7 @@
 #include "Page.hpp"
 #include "detail/HttpHelper.hpp"
 
-namespace spotify {
-
-inline namespace v1 {
+namespace spotify::inline v1 {
 
 User::User(const model::user &t_user) : _country(t_user.country),
                                         _displayName(t_user.display_name),
@@ -119,4 +117,3 @@ bool User::is_saved(std::string_view id, const AuthenticationToken &token) {
 }
 
 }// namespace v1
-}// namespace spotify

@@ -8,9 +8,7 @@
 #include "model/modeldata.hpp"
 #include <string>
 
-namespace spotify {
-
-inline namespace v1 {
+namespace spotify::inline v1 {
 
 struct Followers {
     explicit Followers(const model::followers &);
@@ -26,6 +24,5 @@ struct Followers {
 };
 
 }// namespace v1
-}// namespace spotify
 
 #endif

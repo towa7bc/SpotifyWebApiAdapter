@@ -4,10 +4,7 @@
 
 #include "HttpHelper.hpp"
 
-namespace spotify {
-
-inline namespace v1 {
-
+namespace spotify::inline v1 {
 namespace detail {
 
 /* static */ auto detail::HttpHelper::get1(std::string_view url) -> std::string {
@@ -65,4 +62,3 @@ namespace detail {
 
 }// namespace detail
 }// namespace v1
-}// namespace spotify

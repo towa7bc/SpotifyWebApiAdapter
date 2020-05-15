@@ -5,9 +5,7 @@
 #include "Track.hpp"
 #include "Album.hpp"
 
-namespace spotify {
-
-inline namespace v1 {
+namespace spotify::inline v1 {
 
 Track::Track(const model::track &t_track) : available_markets(t_track.available_markets),
                                             external_id(t_track.external_ids),
@@ -102,4 +100,3 @@ Track::Track(model::savedtrack &&t_track) noexcept : available_markets(std::move
 }
 
 }// namespace v1
-}// namespace spotify

@@ -4,9 +4,7 @@
 
 #include "Browse.hpp"
 
-namespace spotify {
-
-inline namespace v1 {
+namespace spotify::inline v1 {
 
 Page<Playlist> Browse::get_featured_playlists(const AuthenticationToken &token, std::string_view locale,
                                               std::string_view country, std::string_view timestamp, int limit, int offset) {
@@ -68,4 +66,3 @@ Page<Album> Browse::get_new_releases(const AuthenticationToken &token, std::stri
 }
 
 }// namespace v1
-}// namespace spotify

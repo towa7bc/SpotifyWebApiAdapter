@@ -9,9 +9,7 @@
 
 using nlohmann::json;
 
-namespace spotify {
-
-inline namespace v1 {
+namespace spotify::inline v1 {
 
 namespace model {
 
@@ -638,7 +636,6 @@ void from_json(const json &j, savedtrack &data) {
 }
 
 }// namespace model
-}// namespace v1
-}// namespace spotify
+}// namespace spotify::inline v1
 
 #endif

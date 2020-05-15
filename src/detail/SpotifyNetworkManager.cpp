@@ -3,6 +3,7 @@
 //
 
 #include "SpotifyNetworkManager.hpp"
+#include "Log.hpp"
 
 namespace spotify {
 
@@ -11,16 +12,7 @@ inline namespace v1 {
 SpotifyNetworkManager::SpotifyNetworkManager() : _manager(std::make_unique<QNetworkAccessManager>(this)) {
     connect(_manager.get(), &QNetworkAccessManager::finished, this,
             &SpotifyNetworkManager::replyFinished);
-
-    try {
-        _asyncLogger = spdlog::rotating_logger_mt<spdlog::async_factory>(
-                "async_file_logger_qt", "logs/async_log_qt.txt", max_file_size, max_files);
-
-        _asyncLogger->set_level(spdlog::level::debug);
-        _asyncLogger->debug("Initialize called.");
-    } catch (const spdlog::spdlog_ex &ex) {
-        spdlog::logger("Log initialization failed: " + std::string(ex.what()));
-    }
+    Log::logger()->trace("SpotifyNetworkManager Constructor called.");
 }
 
 auto SpotifyNetworkManager::performGetRequest(std::string_view surl,
@@ -33,7 +25,7 @@ auto SpotifyNetworkManager::performGetRequest(std::string_view surl,
 auto SpotifyNetworkManager::perform_post_request(
         std::string_view url, const std::map<std::string, std::string> &postData) -> void {
     auto request = createRequest(url, "application/x-www-form-urlencoded", "");
-    _asyncLogger->debug("perform_post_request called.");
+    Log::logger()->trace("perform_post_request called.");
     QByteArray data;
     QUrlQuery query;
     for (const auto &field : postData) {
@@ -101,7 +93,7 @@ auto SpotifyNetworkManager::replyFinished(QNetworkReply *reply) -> void {
 
 auto SpotifyNetworkManager::slotSslErrors(const QList<QSslError> &errors) -> void {
     std::string error = errors[0].errorString().toStdString();
-    _asyncLogger->debug(error);
+    Log::logger()->trace(error);
 }
 
 /* static */ auto SpotifyNetworkManager::createRequest(std::string_view surl,
@@ -119,13 +111,13 @@ auto SpotifyNetworkManager::slotSslErrors(const QList<QSslError> &errors) -> voi
 }
 
 void SpotifyNetworkManager::perform_get_request(std::string_view url) {
-    _asyncLogger->debug("perform_get_request called.");
+    Log::logger()->trace("perform_get_request called.");
     auto request = createRequest(url, "application/x-www-form-urlencoded", "");
     performGetRequest(request);
 }
 
 void SpotifyNetworkManager::perform_get_request(std::string_view url, const AuthenticationToken &token, bool include_bearer) {
-    _asyncLogger->debug("perform_get_request called.");
+    Log::logger()->trace("perform_get_request called.");
     auto local_token = token;
     QNetworkRequest request;
     if (include_bearer) {
@@ -139,7 +131,7 @@ void SpotifyNetworkManager::perform_get_request(std::string_view url, const Auth
 auto SpotifyNetworkManager::perform_post_request(
         std::string_view url, const AuthenticationToken &token,
         const std::map<std::string, std::string> &postData, bool include_bearer) -> void {
-    _asyncLogger->debug("perform_post_request called.");
+    Log::logger()->trace("perform_post_request called.");
     auto local_token = token;
     QNetworkRequest request;
     if (include_bearer) {
@@ -159,7 +151,7 @@ auto SpotifyNetworkManager::perform_post_request(
 auto SpotifyNetworkManager::perform_post_request(
         std::string_view url, const AuthenticationToken &token,
         std::string_view json_string, bool include_bearer) -> void {
-    _asyncLogger->debug("perform_post_request called.");
+    Log::logger()->trace("perform_post_request called.");
     auto local_token = token;
     QNetworkRequest request;
     if (include_bearer) {
@@ -173,7 +165,7 @@ auto SpotifyNetworkManager::perform_post_request(
 auto SpotifyNetworkManager::perform_put_request(
         std::string_view url, const AuthenticationToken &token,
         const std::map<std::string, std::string> &postData, bool include_bearer) -> void {
-    _asyncLogger->debug("perform_put_request called.");
+    Log::logger()->trace("perform_put_request called.");
     auto local_token = token;
     QNetworkRequest request;
     if (include_bearer) {
@@ -193,7 +185,7 @@ auto SpotifyNetworkManager::perform_put_request(
 auto SpotifyNetworkManager::perform_put_request(
         std::string_view url, const AuthenticationToken &token,
         std::string_view json_string, bool include_bearer) -> void {
-    _asyncLogger->debug("perform_put_request called.");
+    Log::logger()->trace("perform_put_request called.");
     auto local_token = token;
     QNetworkRequest request;
     if (include_bearer) {
@@ -206,7 +198,7 @@ auto SpotifyNetworkManager::perform_put_request(
 
 auto SpotifyNetworkManager::perform_delete_request(
         std::string_view url, const AuthenticationToken &token, bool include_bearer) -> void {
-    _asyncLogger->debug("perform_delete_request called.");
+    Log::logger()->trace("perform_delete_request called.");
     auto local_token = token;
     QNetworkRequest request;
     if (include_bearer) {

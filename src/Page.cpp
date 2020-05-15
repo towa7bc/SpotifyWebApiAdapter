@@ -12,9 +12,7 @@
 #include "model/modeldata.hpp"
 #include <type_traits>
 
-namespace spotify {
-
-inline namespace v1 {
+namespace spotify::inline v1 {
 
 template<typename T>
 bool Page<T>::isHasNextPage() const {
@@ -207,4 +205,3 @@ Page<T>::Page(const model::page<model::savedtrack> &t_page) {
 }
 
 }// namespace v1
-}// namespace spotify

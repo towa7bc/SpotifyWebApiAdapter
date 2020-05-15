@@ -14,9 +14,7 @@
 #include <memory>
 #include <vector>
 
-namespace spotify {
-
-inline namespace v1 {
+namespace spotify::inline v1 {
 
 class Album;
 class Artist;
@@ -55,6 +53,5 @@ public:
 };
 
 }// namespace v1
-}// namespace spotify
 
 #endif

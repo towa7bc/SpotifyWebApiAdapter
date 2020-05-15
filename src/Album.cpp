@@ -5,9 +5,7 @@
 #include "Album.hpp"
 #include "Browse.hpp"
 
-namespace spotify {
-
-inline namespace v1 {
+namespace spotify::inline v1 {
 
 Page<Album> v1::Album::get_artist_albums(std::string_view artist_id) {
     auto local_future = stlab::async(stlab::default_executor, detail::HttpHelper::get1,
@@ -183,4 +181,3 @@ Page<Album> v1::Album::get_new_releases(const AuthenticationToken &token,
 }
 
 }// namespace v1
-}// namespace spotify
