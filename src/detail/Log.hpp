@@ -19,8 +19,10 @@ public:
 
 private:
     static Ref<spdlog::logger> _core_logger;
-    static constexpr int max_file_size = 1048576 * 5;
-    static constexpr int max_files = 1048576 * 5;
+    static constexpr int max_file_size = 1024 * 1024 * 10;
+    static constexpr int max_files = 3;
+    static constexpr int max_threads = 1;
+    static constexpr int max_items = 8192;
 };
 
 }// namespace spotify::inline v1
