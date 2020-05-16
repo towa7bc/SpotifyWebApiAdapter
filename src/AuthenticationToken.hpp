@@ -19,11 +19,11 @@ class AuthenticationToken {
   using json_t = nlohmann::json;
 
  private:
-  std::string _access_token;
-  std::string _token_type;
-  boost::posix_time::ptime _expires_on;
-  std::string _refresh_token;
-  bool _has_expired{false};
+  mutable std::string _access_token;
+  mutable std::string _token_type;
+  mutable boost::posix_time::ptime _expires_on;
+  mutable std::string _refresh_token;
+  mutable bool _has_expired{false};
   json_t _json;
 
  public:
@@ -35,11 +35,11 @@ class AuthenticationToken {
   AuthenticationToken(AuthenticationToken &&) noexcept = default;
   auto setMHasExpired(bool mHasExpired) -> void;
   [[nodiscard]] auto isMHasExpired() const -> bool;
-  auto getMAccessToken() -> const std::string &;
+  auto getMAccessToken() const -> const std::string &;
   auto setAccessToken(std::string_view mAccessToken) -> void;
   [[nodiscard]] auto getMExpiresOn() const -> const boost::posix_time::ptime &;
   auto setExpiresOn(const boost::posix_time::ptime &mExpiresOn) -> void;
-  auto refresh() -> void;
+  auto refresh() const -> void;
   void setTokenType(std::string_view tokenType);
   void setRefreshToken(std::string_view refreshToken);
 };

@@ -138,11 +138,10 @@ void SpotifyNetworkManager::perform_get_request(
     std::string_view url, const AuthenticationToken &token,
     bool include_bearer) {
   Log::logger()->trace("perform_get_request called.");
-  auto local_token = token;
   QNetworkRequest request;
   if (include_bearer) {
     request = createRequest(
-        url, "Authorization: Bearer " + local_token.getMAccessToken(), "");
+        url, "Authorization: Bearer " + token.getMAccessToken(), "");
   } else {
     request = createRequest(url, "application/x-www-form-urlencoded", "");
   }
@@ -154,11 +153,10 @@ auto SpotifyNetworkManager::perform_post_request(
     const std::map<std::string, std::string> &postData, bool include_bearer)
     -> void {
   Log::logger()->trace("perform_post_request called.");
-  auto local_token = token;
   QNetworkRequest request;
   if (include_bearer) {
     request = createRequest(
-        url, "Authorization: Bearer " + local_token.getMAccessToken(), "");
+        url, "Authorization: Bearer " + token.getMAccessToken(), "");
   } else {
     request = createRequest(url, "application/x-www-form-urlencoded", "");
   }
@@ -175,12 +173,10 @@ auto SpotifyNetworkManager::perform_post_request(
     std::string_view url, const AuthenticationToken &token,
     std::string_view json_string, bool include_bearer) -> void {
   Log::logger()->trace("perform_post_request called.");
-  auto local_token = token;
   QNetworkRequest request;
   if (include_bearer) {
-    request = createRequest(
-        url, "Authorization: Bearer " + local_token.getMAccessToken(),
-        "application/json");
+    request = createRequest(url, "Authorization: Bearer " + token.getMAccessToken(),
+                      "application/json");
   } else {
     request = createRequest(url, "application/json", "");
   }
@@ -192,11 +188,10 @@ auto SpotifyNetworkManager::perform_put_request(
     const std::map<std::string, std::string> &postData, bool include_bearer)
     -> void {
   Log::logger()->trace("perform_put_request called.");
-  auto local_token = token;
   QNetworkRequest request;
   if (include_bearer) {
     request = createRequest(
-        url, "Authorization: Bearer " + local_token.getMAccessToken(), "");
+        url, "Authorization: Bearer " + token.getMAccessToken(), "");
   } else {
     request = createRequest(url, "application/x-www-form-urlencoded", "");
   }
@@ -213,12 +208,10 @@ auto SpotifyNetworkManager::perform_put_request(
     std::string_view url, const AuthenticationToken &token,
     std::string_view json_string, bool include_bearer) -> void {
   Log::logger()->trace("perform_put_request called.");
-  auto local_token = token;
   QNetworkRequest request;
   if (include_bearer) {
-    request = createRequest(
-        url, "Authorization: Bearer " + local_token.getMAccessToken(),
-        "application/json");
+    request = createRequest(url, "Authorization: Bearer " + token.getMAccessToken(),
+                      "application/json");
   } else {
     request = createRequest(url, "application/json", "");
   }
@@ -229,11 +222,10 @@ auto SpotifyNetworkManager::perform_delete_request(
     std::string_view url, const AuthenticationToken &token, bool include_bearer)
     -> void {
   Log::logger()->trace("perform_delete_request called.");
-  auto local_token = token;
   QNetworkRequest request;
   if (include_bearer) {
     request = createRequest(
-        url, "Authorization: Bearer " + local_token.getMAccessToken(), "");
+        url, "Authorization: Bearer " + token.getMAccessToken(), "");
   } else {
     request = createRequest(url, "application/x-www-form-urlencoded", "");
   }

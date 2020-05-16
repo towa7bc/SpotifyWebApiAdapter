@@ -17,7 +17,7 @@ auto AuthenticationToken::isMHasExpired() const -> bool {
   return currentTime > _expires_on;
 }
 
-auto AuthenticationToken::getMAccessToken() -> const std::string & {
+auto AuthenticationToken::getMAccessToken() const -> const std::string & {
   if (isMHasExpired()) {
     refresh();
   }
@@ -39,7 +39,7 @@ auto AuthenticationToken::setExpiresOn(
   _expires_on = mExpiresOn;
 }
 
-auto AuthenticationToken::refresh() -> void {
+auto AuthenticationToken::refresh() const -> void {
   auto auth_token_future =
       stlab::async(stlab::default_executor, Authentication::get_access_token,
                    _refresh_token);
