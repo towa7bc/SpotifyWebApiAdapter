@@ -6,12 +6,10 @@
 
 namespace spotify::inline v1 {
 
-Followers::Followers(const model::followers &t_followers) : _total(t_followers.total),
-                                                            _href(t_followers.href) {
-}
+Followers::Followers(const model::followers &t_followers)
+    : _total(t_followers.total), _href(t_followers.href) {}
 
-Followers::Followers(model::followers &&t_followers) noexcept : _total(t_followers.total),
-                                                                _href(std::move(t_followers.href)) {
-}
+Followers::Followers(model::followers &&t_followers) noexcept
+    : _total(t_followers.total), _href(std::move(t_followers.href)) {}
 
-}// namespace spotify::inline v1
+}  // namespace spotify::inline v1

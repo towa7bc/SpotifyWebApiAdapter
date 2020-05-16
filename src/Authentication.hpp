@@ -11,10 +11,6 @@
 
 #define STLAB_FUTURE_COROUTINE_SUPPORT
 
-#include "AuthenticationToken.hpp"
-#include "detail/BaseModel.hpp"
-#include "detail/HttpHelper.hpp"
-#include "model/modeldata.hpp"
 #include <boost/date_time/c_local_time_adjustor.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <map>
@@ -23,6 +19,11 @@
 #include <stlab/concurrency/utility.hpp>
 #include <string>
 
+#include "AuthenticationToken.hpp"
+#include "detail/BaseModel.hpp"
+#include "detail/HttpHelper.hpp"
+#include "model/modeldata.hpp"
+
 namespace spotify {
 
 inline namespace v1 {
@@ -30,24 +31,24 @@ inline namespace v1 {
 class AuthenticationToken;
 
 class Authentication : public BaseModel {
-    using date_time_t = boost::posix_time::ptime;
-    using json_t = nlohmann::json;
+  using date_time_t = boost::posix_time::ptime;
+  using json_t = nlohmann::json;
 
-public:
-    Authentication() = delete;
-    Authentication(const Authentication &) = delete;
-    ~Authentication() override = default;
-    Authentication &operator=(const Authentication &) = delete;
-    Authentication &operator=(Authentication &&) noexcept = delete;
-    Authentication(Authentication &&) noexcept = delete;
-    static std::string _client_id;
-    static std::string _client_secret;
-    static std::string _redirect_uri;
-    static auto get_access_token(std::string_view code) -> AuthenticationToken;
-    static void initialize_spotify();
+ public:
+  Authentication() = delete;
+  Authentication(const Authentication &) = delete;
+  ~Authentication() override = default;
+  Authentication &operator=(const Authentication &) = delete;
+  Authentication &operator=(Authentication &&) noexcept = delete;
+  Authentication(Authentication &&) noexcept = delete;
+  static std::string _client_id;
+  static std::string _client_secret;
+  static std::string _redirect_uri;
+  static auto get_access_token(std::string_view code) -> AuthenticationToken;
+  static void initialize_spotify();
 };
 
-}// namespace v1
-}// namespace spotify
+}  // namespace v1
+}  // namespace spotify
 
 #endif

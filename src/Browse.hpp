@@ -11,21 +11,19 @@
 namespace spotify::inline v1 {
 
 class Browse {
-    using json_t = nlohmann::json;
+  using json_t = nlohmann::json;
 
-public:
-    static Page<Playlist> get_featured_playlists(const AuthenticationToken &token,
-                                                 std::string_view locale = "",
-                                                 std::string_view country = "",
-                                                 std::string_view timestamp = "",
-                                                 int limit = 20,
-                                                 int offset = 0);
-    static Page<Album> get_new_releases(const AuthenticationToken &token,
-                                        std::string_view country = "",
-                                        int limit = 20,
-                                        int offset = 0);
+ public:
+  static Page<Playlist> get_featured_playlists(const AuthenticationToken &token,
+                                               std::string_view locale = "",
+                                               std::string_view country = "",
+                                               std::string_view timestamp = "",
+                                               int limit = 20, int offset = 0);
+  static Page<Album> get_new_releases(const AuthenticationToken &token,
+                                      std::string_view country = "",
+                                      int limit = 20, int offset = 0);
 };
 
-}// namespace v1
+}  // namespace spotify::inline v1
 
 #endif
