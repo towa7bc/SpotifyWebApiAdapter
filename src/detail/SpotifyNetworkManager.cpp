@@ -175,7 +175,8 @@ auto SpotifyNetworkManager::perform_post_request(
   Log::logger()->trace("perform_post_request called.");
   QNetworkRequest request;
   if (include_bearer) {
-    request = createRequest(url, "Authorization: Bearer " + token.getMAccessToken(),
+    request =
+        createRequest(url, "Authorization: Bearer " + token.getMAccessToken(),
                       "application/json");
   } else {
     request = createRequest(url, "application/json", "");
@@ -210,7 +211,8 @@ auto SpotifyNetworkManager::perform_put_request(
   Log::logger()->trace("perform_put_request called.");
   QNetworkRequest request;
   if (include_bearer) {
-    request = createRequest(url, "Authorization: Bearer " + token.getMAccessToken(),
+    request =
+        createRequest(url, "Authorization: Bearer " + token.getMAccessToken(),
                       "application/json");
   } else {
     request = createRequest(url, "application/json", "");
