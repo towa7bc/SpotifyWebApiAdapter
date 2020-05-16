@@ -15,7 +15,7 @@
 #include <string>
 #include <utility>
 
-#include "/Users/michaelwittmann/CLionProjects/SpotifyWebApiAdapter/src/AuthenticationToken.hpp"
+#include "../AuthenticationToken.hpp"
 #include "Log.hpp"
 
 namespace spotify::inline v1 {

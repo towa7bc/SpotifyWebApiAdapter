@@ -25,9 +25,7 @@ namespace spotify::inline v1 {
 class AuthenticationToken;
 }  // namespace spotify::inline v1
 
-namespace spotify {
-
-inline namespace v1 {
+namespace spotify::inline v1 {
 
 class SpotifyNetworkManager : public QObject {
   Q_OBJECT
@@ -102,8 +100,6 @@ class SpotifyNetworkManager : public QObject {
                             std::string_view h2) -> QNetworkRequest;
 };
 
-}  // namespace v1
-
-}  // namespace spotify
+}  // namespace spotify::inline v1
 
 #endif
