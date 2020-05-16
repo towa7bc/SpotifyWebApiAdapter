@@ -2,7 +2,21 @@
 // Created by Michael Wittmann on 03/05/2020.
 //
 
+#if !defined(STLAB_CPP_VERSION_PRIVATE)
+#define STLAB_CPP_VERSION_PRIVATE() 20
+#endif
+
 #include "AuthenticationToken.hpp"
+
+#include <boost/date_time/gregorian/gregorian_types.hpp>    // for day_clock
+#include <boost/date_time/posix_time/posix_time_types.hpp>  // for second_clock
+#include <boost/operators.hpp>                              // for operator>
+#include <functional>                                       // for __base
+#include <stlab/concurrency/default_executor.hpp>           // for executor_...
+#include <stlab/concurrency/future.hpp>                     // for async
+#include <stlab/concurrency/utility.hpp>                    // for blocking_get
+
+#include "Authentication.hpp"  // for Authentic...
 
 namespace spotify::inline v1 {
 

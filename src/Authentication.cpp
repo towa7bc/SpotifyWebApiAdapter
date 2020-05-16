@@ -2,13 +2,27 @@
 // Created by Michael Wittmann on 03/05/2020.
 //
 
+#if !defined(STLAB_CPP_VERSION_PRIVATE)
+#define STLAB_CPP_VERSION_PRIVATE() 20
+#endif
+
 #include "Authentication.hpp"
 
-#include "detail/Log.hpp"
+#include <boost/date_time/gregorian/gregorian_types.hpp>       // for day_clock
+#include <boost/date_time/posix_time/posix_time_duration.hpp>  // for seconds
+#include <boost/date_time/posix_time/posix_time_types.hpp>     // for second...
+#include <map>                                                 // for map
+#include <memory>                                              // for shared...
+#include <stlab/concurrency/default_executor.hpp>              // for execut...
+#include <stlab/concurrency/future.hpp>                        // for async
+#include <stlab/concurrency/utility.hpp>                       // for blocki...
+#include <string>                                              // for basic_...
 
-namespace spotify {
+#include "AuthenticationToken.hpp"  // for Authen...
+#include "detail/HttpHelper.hpp"    // for HttpHe...
+#include "detail/Log.hpp"           // for Log
 
-inline namespace v1 {
+namespace spotify::inline v1 {
 
 /* static */ auto Authentication::get_access_token(std::string_view code)
     -> AuthenticationToken {
@@ -42,4 +56,3 @@ inline namespace v1 {
 void Authentication::initialize_spotify() { Log::init(); }
 
 }  // namespace v1
-}  // namespace spotify

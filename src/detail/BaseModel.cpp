@@ -4,6 +4,15 @@
 
 #include "BaseModel.hpp"
 
+#include <_ctype.h>  // for toupper
+
+#include <algorithm>    // for transform
+#include <cstddef>      // for size_t
+#include <iterator>     // for next
+#include <numeric>      // for accumulate
+#include <string>       // for basic_string, basic_string<>::iterator, alloc...
+#include <type_traits>  // for enable_if<>::type, move
+
 namespace spotify::inline v1 {
 
 /* static */ auto BaseModel::create_comma_separated_List(

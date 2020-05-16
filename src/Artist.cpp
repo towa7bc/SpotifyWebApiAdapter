@@ -2,7 +2,24 @@
 // Created by Michael Wittmann on 07/05/2020.
 //
 
+#if !defined(STLAB_CPP_VERSION_PRIVATE)
+#define STLAB_CPP_VERSION_PRIVATE() 20
+#endif
+
 #include "Artist.hpp"
+
+#include <functional>                              // for __base
+#include <stlab/concurrency/default_executor.hpp>  // for executor_type, def...
+#include <stlab/concurrency/future.hpp>            // for async, future
+#include <stlab/concurrency/utility.hpp>           // for blocking_get
+#include <string>                                  // for basic_string, oper...
+#include <string_view>                             // for string_view
+#include <type_traits>                             // for move
+
+#include "Album.hpp"              // for Album
+#include "Page.hpp"               // for Page
+#include "Track.hpp"              // for Track
+#include "detail/HttpHelper.hpp"  // for HttpHelper
 
 namespace spotify::inline v1 {
 

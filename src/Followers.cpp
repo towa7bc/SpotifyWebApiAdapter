@@ -4,6 +4,10 @@
 
 #include "Followers.hpp"
 
+#include <type_traits>  // for move
+
+#include "model/modeldata.hpp"  // for followers
+
 namespace spotify::inline v1 {
 
 Followers::Followers(const model::followers &t_followers)

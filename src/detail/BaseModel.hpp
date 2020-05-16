@@ -5,9 +5,10 @@
 #ifndef SPOTIFYWEBAPIADAPTER_BASEMODEL_HPP
 #define SPOTIFYWEBAPIADAPTER_BASEMODEL_HPP
 
-#include <numeric>
-#include <string>
-#include <vector>
+#include <exception>    // for exception
+#include <string>       // for string
+#include <string_view>  // for string_view
+#include <vector>       // for vector
 
 namespace spotify::inline v1 {
 

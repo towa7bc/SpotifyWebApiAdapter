@@ -5,22 +5,21 @@
 #ifndef SPOTIFYWEBAPIADAPTER_ARTIST_HPP
 #define SPOTIFYWEBAPIADAPTER_ARTIST_HPP
 
-#include <algorithm>
-#include <vector>
+#include <nlohmann/json.hpp>  // for json
+#include <string>             // for string
+#include <vector>             // for vector
 
-#include "Album.hpp"
-#include "Image.hpp"
-#include "Page.hpp"
-#include "Track.hpp"
-#include "detail/BaseModel.hpp"
-#include "detail/HttpHelper.hpp"
-
+#include "Image.hpp"             // for Image
+#include "detail/BaseModel.hpp"  // for BaseModel
+#include "model/modeldata.hpp"   // for json
 namespace spotify::inline v1 {
-
-class Track;
 class Album;
+class Track;
 template <typename>
 class Page;
+}  // namespace spotify::inline v1
+
+namespace spotify::inline v1 {
 
 class Artist : public BaseModel {
   using json_t = nlohmann::json;

@@ -5,19 +5,25 @@
 #ifndef SPOTIFYWEBAPIADAPTER_USER_HPP
 #define SPOTIFYWEBAPIADAPTER_USER_HPP
 
+#include <nlohmann/json.hpp>  // for json
+#include <string>             // for string
+#include <string_view>        // for string_view
+#include <vector>             // for vector
+
 #include "AuthenticationToken.hpp"
-#include "Image.hpp"
-#include "Playlist.hpp"
-#include "detail/BaseModel.hpp"
-#include "model/modeldata.hpp"
+#include "Image.hpp"             // for Image
+#include "detail/BaseModel.hpp"  // for BaseModel
+#include "model/modeldata.hpp"   // for json
 
 namespace spotify::inline v1 {
-
+class AuthenticationToken;
+class Playlist;
+class Track;
 template <typename>
 class Page;
+}  // namespace spotify::inline v1
 
-class Track;
-class Playlist;
+namespace spotify::inline v1 {
 
 class User : public BaseModel {
   using json_t = nlohmann::json;

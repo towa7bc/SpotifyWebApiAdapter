@@ -5,11 +5,12 @@
 #ifndef SPOTIFYWEBAPIADAPTER_LOG_HPP
 #define SPOTIFYWEBAPIADAPTER_LOG_HPP
 
-#include <spdlog/async.h>
-#include <spdlog/fmt/ostr.h>
-#include <spdlog/spdlog.h>
+#include <memory>  // for shared_ptr
 
 #include "Core.hpp"
+namespace spdlog {
+class logger;
+}
 
 namespace spotify::inline v1 {
 

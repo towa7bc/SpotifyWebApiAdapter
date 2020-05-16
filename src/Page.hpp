@@ -5,15 +5,12 @@
 #ifndef SPOTIFYWEBAPIADAPTER_PAGE_HPP
 #define SPOTIFYWEBAPIADAPTER_PAGE_HPP
 
-#include <type_traits>
+#include <nlohmann/json.hpp>  // for json
+#include <string>             // for string
+#include <vector>             // for vector
 
-#include "Album.hpp"
-#include "Artist.hpp"
-#include "Playlist.hpp"
-#include "PlaylistTrack.hpp"
-#include "detail/BaseModel.hpp"
-#include "detail/HttpHelper.hpp"
-#include "model/modeldata.hpp"
+#include "detail/BaseModel.hpp"  // for BaseModel
+#include "model/modeldata.hpp"   // for json
 
 namespace spotify::inline v1 {
 

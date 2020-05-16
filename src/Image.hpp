@@ -5,9 +5,12 @@
 #ifndef SPOTIFYWEBAPIADAPTER_IMAGE_HPP
 #define SPOTIFYWEBAPIADAPTER_IMAGE_HPP
 
-#include <string>
-
-#include "model/modeldata.hpp"
+#include <string>  // for string
+namespace spotify::inline v1 {
+namespace model {
+struct image;
+}
+}  // namespace spotify::inline v1
 
 namespace spotify::inline v1 {
 

@@ -4,6 +4,13 @@
 
 #include "PlaylistTrack.hpp"
 
+#include <boost/date_time/posix_time/time_parsers.hpp>  // for time_from_string
+
+#include "Track.hpp"            // for Track
+#include "User.hpp"             // for User
+#include "detail/Core.hpp"      // for create_ref
+#include "model/modeldata.hpp"  // for playlisttrack
+
 namespace spotify::inline v1 {
 
 PlaylistTrack::PlaylistTrack(const model::playlisttrack &t_plt)

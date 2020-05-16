@@ -2,17 +2,25 @@
 // Created by Michael Wittmann on 08/05/2020.
 //
 
+#if !defined(STLAB_CPP_VERSION_PRIVATE)
+#define STLAB_CPP_VERSION_PRIVATE() 20
+#endif
+
 #include "Page.hpp"
 
-#include <type_traits>
+#include <stlab/concurrency/default_executor.hpp>  // for default_executor
+#include <stlab/concurrency/future.hpp>            // for async
+#include <stlab/concurrency/utility.hpp>           // for blocking_get
+#include <type_traits>                             // for move
 
-#include "Album.hpp"
-#include "Artist.hpp"
-#include "Playlist.hpp"
-#include "PlaylistTrack.hpp"
-#include "detail/BaseModel.hpp"
-#include "detail/HttpHelper.hpp"
-#include "model/modeldata.hpp"
+#include "Album.hpp"              // for Album
+#include "Artist.hpp"             // for Artist
+#include "Playlist.hpp"           // for Playlist
+#include "PlaylistTrack.hpp"      // for PlaylistTrack
+#include "Track.hpp"              // for Track
+#include "detail/BaseModel.hpp"   // for PageNotFoundException
+#include "detail/HttpHelper.hpp"  // for HttpHelper
+#include "model/modeldata.hpp"    // for page
 
 namespace spotify::inline v1 {
 

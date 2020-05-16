@@ -4,11 +4,21 @@
 
 #include "SpotifyNetworkManager.hpp"
 
+#include <qglobal.h>
+#include <qiodevice.h>
+#include <qnetworkreply.h>
+#include <qsslerror.h>
+#include <qurl.h>
+#include <qurlquery.h>
+#include <spdlog/logger.h>
+
+#include <string>
+#include <utility>
+
+#include "/Users/michaelwittmann/CLionProjects/SpotifyWebApiAdapter/src/AuthenticationToken.hpp"
 #include "Log.hpp"
 
-namespace spotify {
-
-inline namespace v1 {
+namespace spotify::inline v1 {
 
 SpotifyNetworkManager::SpotifyNetworkManager()
     : _manager(std::make_unique<QNetworkAccessManager>(this)) {
@@ -235,4 +245,3 @@ auto SpotifyNetworkManager::perform_delete_request(
 }
 
 }  // namespace v1
-}  // namespace spotify

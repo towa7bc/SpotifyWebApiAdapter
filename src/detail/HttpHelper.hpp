@@ -5,18 +5,17 @@
 #ifndef SPOTIFYWEBAPIADAPTER_HTTPHELPER_HPP
 #define SPOTIFYWEBAPIADAPTER_HTTPHELPER_HPP
 
-#include <map>
-#include <string>
+#include <map>          // for map
+#include <string>       // for string
+#include <string_view>  // for string_view
 
-#include "../AuthenticationToken.hpp"
 #include "../model/modeldata.hpp"
-#include "SpotifyNetworkManager.hpp"
+namespace spotify::inline v1 {
+class AuthenticationToken;
+class SpotifyNetworkManager;
+}  // namespace spotify::inline v1
 
 namespace spotify::inline v1 {
-
-class SpotifyNetworkManager;
-
-class AuthenticationToken;
 
 namespace detail {
 

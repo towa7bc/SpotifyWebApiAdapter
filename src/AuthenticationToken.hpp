@@ -5,12 +5,12 @@
 #ifndef SPOTIFYWEBAPI_AUTHENTIFICATIONTOKEN_H
 #define SPOTIFYWEBAPI_AUTHENTIFICATIONTOKEN_H
 
-#include <boost/date_time/c_local_time_adjustor.hpp>
-#include <boost/date_time/posix_time/posix_time.hpp>
-#include <nlohmann/json.hpp>
-#include <string>
+#include <boost/date_time/posix_time/ptime.hpp>  // for ptime
+#include <nlohmann/json.hpp>                     // for basic_json, json
+#include <string>                                // for basic_string
+#include <string_view>                           // for string_view
 
-#include "Authentication.hpp"
+#include "model/modeldata.hpp"  // for json
 
 namespace spotify::inline v1 {
 

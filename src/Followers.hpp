@@ -5,9 +5,12 @@
 #ifndef SPOTIFYWEBAPIADAPTER_FOLLOWERS_HPP
 #define SPOTIFYWEBAPIADAPTER_FOLLOWERS_HPP
 
-#include <string>
-
-#include "model/modeldata.hpp"
+#include <string>  // for string
+namespace spotify::inline v1 {
+namespace model {
+struct followers;
+}
+}  // namespace spotify::inline v1
 
 namespace spotify::inline v1 {
 

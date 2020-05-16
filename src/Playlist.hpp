@@ -5,25 +5,27 @@
 #ifndef SPOTIFYWEBAPIADAPTER_PLAYLIST_HPP
 #define SPOTIFYWEBAPIADAPTER_PLAYLIST_HPP
 
-#include "Followers.hpp"
-#include "PlaylistTrack.hpp"
-#include "User.hpp"
-#include "detail/BaseModel.hpp"
-#include "detail/Core.hpp"
-#include "model/modeldata.hpp"
+#include <memory>             // for shared_ptr
+#include <nlohmann/json.hpp>  // for json
+#include <string>             // for string
+#include <string_view>        // for string_view
+#include <vector>             // for vector
 
+#include "Image.hpp"             // for Image
+#include "detail/BaseModel.hpp"  // for BaseModel
+#include "detail/Core.hpp"       // for create_ref
+#include "model/modeldata.hpp"   // for json
 namespace spotify::inline v1 {
-
+class AuthenticationToken;
+class Track;
+class User;
+struct Followers;
 struct PlaylistTrack;
-
 template <typename>
 class Page;
+}  // namespace spotify::inline v1
 
-struct Image;
-
-class AuthenticationToken;
-
-class Track;
+namespace spotify::inline v1 {
 
 class Playlist : public BaseModel {
   using json_t = nlohmann::json;

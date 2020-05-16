@@ -4,6 +4,12 @@
 
 #include "HttpHelper.hpp"
 
+#include <nlohmann/json.hpp>
+#include <string>
+
+#include "/Users/michaelwittmann/CLionProjects/SpotifyWebApiAdapter/src/model/modeldata.hpp"
+#include "SpotifyNetworkManager.hpp"
+
 namespace spotify::inline v1 {
 namespace detail {
 

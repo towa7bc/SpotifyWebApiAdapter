@@ -5,8 +5,17 @@
 #ifndef SPOTIFYWEBAPIADAPTER_BROWSE_HPP
 #define SPOTIFYWEBAPIADAPTER_BROWSE_HPP
 
-#include "Page.hpp"
-#include "Playlist.hpp"
+#include <nlohmann/json.hpp>  // for json
+#include <string_view>        // for string_view
+
+#include "AuthenticationToken.hpp"
+#include "Page.hpp"             // for Page
+#include "model/modeldata.hpp"  // for json
+namespace spotify::inline v1 {
+class Album;
+class AuthenticationToken;
+class Playlist;
+}  // namespace spotify::inline v1
 
 namespace spotify::inline v1 {
 

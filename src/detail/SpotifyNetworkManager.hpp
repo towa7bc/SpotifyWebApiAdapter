@@ -5,20 +5,29 @@
 #ifndef SPOTIFYWEBAPI_SPOTIFYNETWORKMANAGER_H
 #define SPOTIFYWEBAPI_SPOTIFYNETWORKMANAGER_H
 
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QNetworkRequest>
-#include <QObject>
-#include <QUrl>
-#include <QUrlQuery>
+#include <qbytearray.h>             // for QByteArray
+#include <qlist.h>                  // for QList
+#include <qnetworkaccessmanager.h>  // for QNetworkAccessManager
+#include <qnetworkrequest.h>        // for QNetworkRequest
+#include <qobject.h>                // for QObject
+#include <qobjectdefs.h>            // for Q_OBJECT, signals, slots
+#include <qstring.h>                // for QString
 
-#include "../AuthenticationToken.hpp"
+#include <array>        // for array
+#include <map>          // for map
+#include <memory>       // for unique_ptr
+#include <string>       // for string
+#include <string_view>  // for string_view
+class QNetworkReply;
+class QSslError;
+class QUrl;
+namespace spotify::inline v1 {
+class AuthenticationToken;
+}  // namespace spotify::inline v1
 
 namespace spotify {
 
 inline namespace v1 {
-
-class AuthenticationToken;
 
 class SpotifyNetworkManager : public QObject {
   Q_OBJECT

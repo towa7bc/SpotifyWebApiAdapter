@@ -5,18 +5,27 @@
 #ifndef SPOTIFYWEBAPIADAPTER_ALBUM_HPP
 #define SPOTIFYWEBAPIADAPTER_ALBUM_HPP
 
+#include <boost/date_time/posix_time/ptime.hpp>  // for ptime
+#include <memory>                                // for shared_ptr
+#include <nlohmann/json.hpp>                     // for json
+#include <string>                                // for string
+#include <string_view>                           // for string_view
+#include <vector>                                // for vector
+
 #include "Artist.hpp"
-#include "Image.hpp"
-#include "Page.hpp"
-#include "Track.hpp"
-#include "detail/BaseModel.hpp"
-#include "detail/Core.hpp"
-#include "model/modeldata.hpp"
-
+#include "Image.hpp"             // for Image
+#include "detail/BaseModel.hpp"  // for BaseModel
+#include "detail/Core.hpp"       // for create_ref
+#include "model/modeldata.hpp"   // for json
 namespace spotify::inline v1 {
-
+class Artist;
+class AuthenticationToken;
+class Track;
 template <typename>
 class Page;
+}  // namespace spotify::inline v1
+
+namespace spotify::inline v1 {
 
 class Album : public BaseModel {
   using json_t = nlohmann::json;

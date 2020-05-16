@@ -4,9 +4,18 @@
 
 #include "Log.hpp"
 
-#include <spdlog/sinks/basic_file_sink.h>
-#include <spdlog/sinks/rotating_file_sink.h>
-#include <spdlog/sinks/stdout_color_sinks.h>
+#include <spdlog/async.h>                     // for init_thread_pool, threa...
+#include <spdlog/async_logger.h>              // for async_logger, async_ove...
+#include <spdlog/common.h>                    // for sink_ptr, spdlog_ex, trace
+#include <spdlog/logger.h>                    // for logger
+#include <spdlog/sinks/rotating_file_sink.h>  // for rotating_file_sink_mt
+#include <spdlog/sinks/stdout_color_sinks.h>  // for stdout_color_sink_mt
+#include <spdlog/spdlog.h>                    // for register_logger
+
+#include <string>  // for operator+
+#include <vector>  // for vector
+
+#include "Core.hpp"  // for create_ref
 
 namespace spotify::inline v1 {
 

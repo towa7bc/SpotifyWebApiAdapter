@@ -5,17 +5,23 @@
 #ifndef SPOTIFYWEBAPIADAPTER_PLAYLISTTRACK_HPP
 #define SPOTIFYWEBAPIADAPTER_PLAYLISTTRACK_HPP
 
-#include <boost/date_time/c_local_time_adjustor.hpp>
-#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/date_time/gregorian/gregorian_types.hpp>    // for day_clock
+#include <boost/date_time/posix_time/posix_time_types.hpp>  // for second_clock
+#include <boost/date_time/posix_time/ptime.hpp>             // for ptime
+#include <memory>                                           // for shared_ptr
 
-#include "Track.hpp"
-#include "User.hpp"
-#include "detail/Core.hpp"
-
+#include "detail/Core.hpp"  // for Ref
 namespace spotify::inline v1 {
-
 class Track;
 class User;
+}  // namespace spotify::inline v1
+namespace spotify::inline v1 {
+namespace model {
+struct playlisttrack;
+}
+}  // namespace spotify::inline v1
+
+namespace spotify::inline v1 {
 
 struct PlaylistTrack {
   explicit PlaylistTrack(const model::playlisttrack &);

@@ -2,7 +2,24 @@
 // Created by Michael Wittmann on 12/05/2020.
 //
 
+#if !defined(STLAB_CPP_VERSION_PRIVATE)
+#define STLAB_CPP_VERSION_PRIVATE() 20
+#endif
+
 #include "Browse.hpp"
+
+#include <functional>                              // for __base
+#include <stlab/concurrency/default_executor.hpp>  // for executor_type, def...
+#include <stlab/concurrency/future.hpp>            // for async, future
+#include <stlab/concurrency/utility.hpp>           // for blocking_get
+#include <string>                                  // for basic_string, oper...
+
+#include "Album.hpp"              // for Album
+#include "Playlist.hpp"           // for Playlist
+#include "detail/HttpHelper.hpp"  // for HttpHelper
+namespace spotify::inline v1 {
+class AuthenticationToken;
+}
 
 namespace spotify::inline v1 {
 

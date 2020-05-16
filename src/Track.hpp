@@ -5,20 +5,24 @@
 #ifndef SPOTIFYWEBAPIADAPTER_TRACK_HPP
 #define SPOTIFYWEBAPIADAPTER_TRACK_HPP
 
-#include <algorithm>
-#include <memory>
-#include <vector>
+#include <memory>             // for shared_ptr
+#include <nlohmann/json.hpp>  // for json
+#include <string>             // for string
+#include <vector>             // for vector
 
 #include "Album.hpp"
 #include "Artist.hpp"
-#include "detail/BaseModel.hpp"
-#include "detail/Core.hpp"
-#include "detail/HttpHelper.hpp"
-
-namespace spotify::inline v1 {
-
+#include "detail/BaseModel.hpp"  // for BaseModel
+#include "detail/Core.hpp"       // for create_ref
+#include "model/modeldata.hpp"   // for json
+namespace spotify {
+inline namespace v1 {
 class Album;
 class Artist;
+}  // namespace v1
+}  // namespace spotify
+
+namespace spotify::inline v1 {
 
 class Track : public BaseModel {
   using json_t = nlohmann::json;

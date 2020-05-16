@@ -4,6 +4,10 @@
 
 #include "Image.hpp"
 
+#include <type_traits>  // for move
+
+#include "model/modeldata.hpp"  // for image
+
 namespace spotify::inline v1 {
 
 Image::Image(const model::image &t_image)

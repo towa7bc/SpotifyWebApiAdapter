@@ -4,7 +4,10 @@
 
 #include "Track.hpp"
 
-#include "Album.hpp"
+#include <type_traits>  // for move
+
+#include "Album.hpp"   // for Album
+#include "Artist.hpp"  // for Artist
 
 namespace spotify::inline v1 {
 

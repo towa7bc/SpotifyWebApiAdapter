@@ -2,13 +2,34 @@
 // Created by Michael Wittmann on 08/05/2020.
 //
 
+#if !defined(STLAB_CPP_VERSION_PRIVATE)
+#define STLAB_CPP_VERSION_PRIVATE() 20
+#endif
+
 #include "Album.hpp"
 
-#include "Browse.hpp"
+#include <boost/date_time/posix_time/time_parsers.hpp>  // for time_from_string
+#include <functional>                                   // for __base
+#include <stlab/concurrency/default_executor.hpp>       // for executor_type
+#include <stlab/concurrency/future.hpp>                 // for async, future
+#include <stlab/concurrency/utility.hpp>                // for blocking_get
+#include <string>                                       // for basic_string
+#include <type_traits>                                  // for move
+
+#include "Artist.hpp"             // for Artist
+#include "Browse.hpp"             // for Browse
+#include "Page.hpp"               // for Page
+#include "Track.hpp"              // for Track
+#include "detail/HttpHelper.hpp"  // for HttpHelper
+namespace spotify {
+inline namespace v1 {
+class AuthenticationToken;
+}
+}  // namespace spotify
 
 namespace spotify::inline v1 {
 
-Page<Album> v1::Album::get_artist_albums(std::string_view artist_id) {
+Page<Album> Album::get_artist_albums(std::string_view artist_id) {
   auto local_future =
       stlab::async(stlab::default_executor, detail::HttpHelper::get1,
                    "https://api.spotify.com/v1/artists/"
