@@ -60,9 +60,9 @@ User::User(model::user &&t_user) noexcept
 User User::get_user(std::string_view user_id) {
   auto local_future =
       stlab::async(stlab::default_executor, detail::HttpHelper::get1,
-                   "https://api.spotify.com/v1/users/" + std::string(user_id))
-      | ([](std::string_view s) { return json_t::parse(s); })
-      | ([](const json_t &j) { return j.get<model::user>(); });
+                   "https://api.spotify.com/v1/users/" + std::string(user_id)) |
+      ([](std::string_view s) { return json_t::parse(s); }) |
+      ([](const json_t &j) { return j.get<model::user>(); });
   auto local_obj = stlab::blocking_get(local_future);
   User user(local_obj);
   return user;
@@ -72,9 +72,9 @@ User User::get_current_user_profile(const AuthenticationToken &token) {
   bool include_bearer{true};
   auto local_future =
       stlab::async(stlab::default_executor, detail::HttpHelper::get2,
-                   "https://api.spotify.com/v1/me", token, include_bearer)
-      | ([](std::string_view s) { return json_t::parse(s); })
-      | ([](const json_t &j) { return j.get<model::user>(); });
+                   "https://api.spotify.com/v1/me", token, include_bearer) |
+      ([](std::string_view s) { return json_t::parse(s); }) |
+      ([](const json_t &j) { return j.get<model::user>(); });
   auto local_obj = stlab::blocking_get(local_future);
   User user(local_obj);
   return user;
@@ -88,15 +88,13 @@ Page<Track> User::get_user_saved_tracks(const AuthenticationToken &token,
                                         int limit, int offset) {
   bool include_bearer{true};
   auto local_future =
-      stlab::async(
-          stlab::default_executor, detail::HttpHelper::get2,
-          "https://api.spotify.com/v1/me/tracks?limit=" + std::to_string(limit)
-              + "&offset=" + std::to_string(offset),
-          token, include_bearer)
-      | ([](std::string_view s) { return json_t::parse(s); })
-      | ([](const json_t &j) {
-          return j.get<model::page<model::savedtrack>>();
-        });
+      stlab::async(stlab::default_executor, detail::HttpHelper::get2,
+                   "https://api.spotify.com/v1/me/tracks?limit=" +
+                       std::to_string(limit) +
+                       "&offset=" + std::to_string(offset),
+                   token, include_bearer) |
+      ([](std::string_view s) { return json_t::parse(s); }) |
+      ([](const json_t &j) { return j.get<model::page<model::savedtrack>>(); });
   auto local_obj = stlab::blocking_get(local_future);
   Page<Track> track(local_obj);
   return track;
@@ -136,8 +134,8 @@ bool User::are_saved(const std::vector<std::string> &ids,
   auto local_future =
       stlab::async(stlab::default_executor, detail::HttpHelper::get2,
                    "https://api.spotify.com/v1/me/tracks/contains?ids=" + uri,
-                   token, include_bearer)
-      | ([](std::string_view s) { return json_t::parse(s); });
+                   token, include_bearer) |
+      ([](std::string_view s) { return json_t::parse(s); });
   auto local_obj = stlab::blocking_get(local_future);
   auto bool_string = local_obj.dump();
   bool_string = str_toupper(bool_string);

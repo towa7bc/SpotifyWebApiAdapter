@@ -73,11 +73,11 @@ Page<Playlist> Playlist::get_users_playlists(std::string_view user_id,
   bool include_bearer{true};
   auto local_future =
       stlab::async(stlab::default_executor, detail::HttpHelper::get2,
-                   "https://api.spotify.com/v1/users/" + std::string(user_id)
-                       + "/playlists",
-                   token, include_bearer)
-      | ([](std::string_view s) { return json_t::parse(s); })
-      | ([](const json_t &j) { return j.get<model::page<model::playlist>>(); });
+                   "https://api.spotify.com/v1/users/" + std::string(user_id) +
+                       "/playlists",
+                   token, include_bearer) |
+      ([](std::string_view s) { return json_t::parse(s); }) |
+      ([](const json_t &j) { return j.get<model::page<model::playlist>>(); });
   auto local_obj = stlab::blocking_get(local_future);
   Page<Playlist> play_list(local_obj);
   return play_list;
@@ -94,11 +94,11 @@ Page<Playlist> Playlist::get_playlist(std::string_view user_id,
   bool include_bearer{true};
   auto local_future =
       stlab::async(stlab::default_executor, detail::HttpHelper::get2,
-                   "https://api.spotify.com/v1/users/" + std::string(user_id)
-                       + "/playlists/" + std::string(playlist_id),
-                   token, include_bearer)
-      | ([](std::string_view s) { return json_t::parse(s); })
-      | ([](const json_t &j) { return j.get<model::page<model::playlist>>(); });
+                   "https://api.spotify.com/v1/users/" + std::string(user_id) +
+                       "/playlists/" + std::string(playlist_id),
+                   token, include_bearer) |
+      ([](std::string_view s) { return json_t::parse(s); }) |
+      ([](const json_t &j) { return j.get<model::page<model::playlist>>(); });
   auto local_obj = stlab::blocking_get(local_future);
   Page<Playlist> play_list(local_obj);
   return play_list;
@@ -116,13 +116,13 @@ Page<PlaylistTrack> Playlist::get_playlist_tracks(
   bool include_bearer{true};
   auto local_future =
       stlab::async(stlab::default_executor, detail::HttpHelper::get2,
-                   "https://api.spotify.com/v1/users/" + std::string(user_id)
-                       + "/playlists/" + std::string(playlist_id) + "/tracks",
-                   token, include_bearer)
-      | ([](std::string_view s) { return json_t::parse(s); })
-      | ([](const json_t &j) {
-          return j.get<model::page<model::playlisttrack>>();
-        });
+                   "https://api.spotify.com/v1/users/" + std::string(user_id) +
+                       "/playlists/" + std::string(playlist_id) + "/tracks",
+                   token, include_bearer) |
+      ([](std::string_view s) { return json_t::parse(s); }) |
+      ([](const json_t &j) {
+        return j.get<model::page<model::playlisttrack>>();
+      });
   auto local_obj = stlab::blocking_get(local_future);
   Page<PlaylistTrack> play_list(local_obj);
   return play_list;
@@ -138,8 +138,8 @@ void Playlist::add_track(const Track &track, AuthenticationToken &token) const {
   std::map<std::string, std::string> d;
   auto local_future = stlab::async(
       stlab::default_executor, detail::HttpHelper::post2,
-      "https://api.spotify.com/v1/users/" + std::string(_owner->_id)
-          + "/playlists/" + std::string(_id) + "/tracks?uris=" + track.uri,
+      "https://api.spotify.com/v1/users/" + std::string(_owner->_id) +
+          "/playlists/" + std::string(_id) + "/tracks?uris=" + track.uri,
       token, d, include_bearer);
   auto local_obj = stlab::blocking_get(local_future);
 }
@@ -154,9 +154,9 @@ void Playlist::add_tracks(const std::vector<Track> &track_uris,
   std::map<std::string, std::string> d;
   auto local_future = stlab::async(
       stlab::default_executor, detail::HttpHelper::post2,
-      "https://api.spotify.com/v1/users/" + std::string(_owner->_id)
-          + "/playlists/" + std::string(_id)
-          + "/tracks?uris=" + create_comma_separated_List(uris),
+      "https://api.spotify.com/v1/users/" + std::string(_owner->_id) +
+          "/playlists/" + std::string(_id) +
+          "/tracks?uris=" + create_comma_separated_List(uris),
       token, d, include_bearer);
   auto local_obj = stlab::blocking_get(local_future);
 }
@@ -170,11 +170,11 @@ Playlist Playlist::create_playlist(std::string_view user_id,
   pd.is_public = is_public;
   auto local_future =
       stlab::async(stlab::default_executor, detail::HttpHelper::post3,
-                   "https://api.spotify.com/v1/users/" + std::string(user_id)
-                       + "/playlists",
-                   token, pd, include_bearer)
-      | ([](std::string_view s) { return json_t::parse(s); })
-      | ([](const json_t &j) { return j.get<model::playlist>(); });
+                   "https://api.spotify.com/v1/users/" + std::string(user_id) +
+                       "/playlists",
+                   token, pd, include_bearer) |
+      ([](std::string_view s) { return json_t::parse(s); }) |
+      ([](const json_t &j) { return j.get<model::playlist>(); });
   auto local_obj = stlab::blocking_get(local_future);
   Playlist playlist(local_obj);
   return playlist;
@@ -190,8 +190,8 @@ void Playlist::update_users_playlist(std::string_view user_id,
   pd.is_public = is_public;
   auto local_future =
       stlab::async(stlab::default_executor, detail::HttpHelper::put2,
-                   "https://api.spotify.com/v1/users/" + std::string(user_id)
-                       + "/playlists/" + std::string(playlist_id),
+                   "https://api.spotify.com/v1/users/" + std::string(user_id) +
+                       "/playlists/" + std::string(playlist_id),
                    token, pd, include_bearer);
   auto local_obj = stlab::blocking_get(local_future);
 }

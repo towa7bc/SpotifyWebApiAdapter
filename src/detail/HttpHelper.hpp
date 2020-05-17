@@ -16,7 +16,6 @@ class SpotifyNetworkManager;
 }  // namespace spotify::inline v1
 
 namespace spotify::inline v1 {
-
 namespace detail {
 
 class HttpHelper {

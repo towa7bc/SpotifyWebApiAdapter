@@ -244,4 +244,4 @@ auto SpotifyNetworkManager::perform_delete_request(
   performDeleteRequest(request);
 }
 
-}  // namespace v1
+}  // namespace spotify::inline v1

@@ -38,9 +38,9 @@ namespace spotify::inline v1 {
   postData["client_secret"] = _client_secret;
   auto local_future =
       stlab::async(stlab::default_executor, detail::HttpHelper::post1,
-                   "https://accounts.spotify.com/api/token", postData)
-      | ([](std::string_view s) { return json_t::parse(s); })
-      | ([](const json_t &j) { return j.get<model::accesstoken>(); });
+                   "https://accounts.spotify.com/api/token", postData) |
+      ([](std::string_view s) { return json_t::parse(s); }) |
+      ([](const json_t &j) { return j.get<model::accesstoken>(); });
   auto access_token = stlab::blocking_get(local_future);
   auth_token.setAccessToken(access_token.access_token);
   auth_token.setRefreshToken(access_token.refresh_token);
@@ -48,11 +48,11 @@ namespace spotify::inline v1 {
   date_time_t currentTime(
       boost::gregorian::day_clock::universal_day(),
       boost::posix_time::second_clock::universal_time().time_of_day());
-  auth_token.setExpiresOn(
-      currentTime + boost::posix_time::seconds(access_token.expires_in));
+  auth_token.setExpiresOn(currentTime +
+                          boost::posix_time::seconds(access_token.expires_in));
   return auth_token;
 }
 
 void Authentication::initialize_spotify() { Log::init(); }
 
-}  // namespace v1
+}  // namespace spotify::inline v1

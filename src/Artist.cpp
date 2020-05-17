@@ -26,9 +26,9 @@ namespace spotify::inline v1 {
 Artist Artist::get_artist(const std::string &artist_id) {
   auto local_future =
       stlab::async(stlab::default_executor, detail::HttpHelper::get1,
-                   "https://api.spotify.com/v1/artists/" + artist_id)
-      | ([](std::string_view s) { return json_t::parse(s); })
-      | ([](const json_t &j) { return j.get<model::artist>(); });
+                   "https://api.spotify.com/v1/artists/" + artist_id) |
+      ([](std::string_view s) { return json_t::parse(s); }) |
+      ([](const json_t &j) { return j.get<model::artist>(); });
   auto local_obj = stlab::blocking_get(local_future);
   Artist artist_(local_obj);
   return artist_;
@@ -39,10 +39,10 @@ std::vector<Artist> Artist::get_artists(
   std::vector<Artist> artists_list;
   auto local_future =
       stlab::async(stlab::default_executor, detail::HttpHelper::get1,
-                   "https://api.spotify.com/v1/artists/?ids="
-                       + create_comma_separated_List(artist_ids))
-      | ([](std::string_view s) { return json_t::parse(s); })
-      | ([](const json_t &j) { return j.get<model::artist_array>(); });
+                   "https://api.spotify.com/v1/artists/?ids=" +
+                       create_comma_separated_List(artist_ids)) |
+      ([](std::string_view s) { return json_t::parse(s); }) |
+      ([](const json_t &j) { return j.get<model::artist_array>(); });
   auto local_obj = stlab::blocking_get(local_future);
   for (const auto &item : local_obj.artists) {
     Artist artist_(item);
@@ -78,9 +78,9 @@ Page<Artist> Artist::search(std::string &artistName, std::string &year,
   queryString += "&type=artist";
   auto local_future =
       stlab::async(stlab::default_executor, detail::HttpHelper::get1,
-                   queryString)
-      | ([](std::string_view s) { return json_t::parse(s); })
-      | ([](const json_t &j) { return j.get<model::artist_search_result>(); });
+                   queryString) |
+      ([](std::string_view s) { return json_t::parse(s); }) |
+      ([](const json_t &j) { return j.get<model::artist_search_result>(); });
   auto local_obj = stlab::blocking_get(local_future);
   Page<Artist> page;
   page._next = local_obj.artists.next;
@@ -107,10 +107,10 @@ std::vector<Track> Artist::get_top_tracks(const std::string &artist_id,
   std::vector<Track> tracks_list;
   auto local_future =
       stlab::async(stlab::default_executor, detail::HttpHelper::get1,
-                   "https://api.spotify.com/v1/artists/" + artist_id
-                       + "/top-tracks?country=" + country_code)
-      | ([](std::string_view s) { return json_t::parse(s); })
-      | ([](const json_t &j) { return j.get<model::track_array>(); });
+                   "https://api.spotify.com/v1/artists/" + artist_id +
+                       "/top-tracks?country=" + country_code) |
+      ([](std::string_view s) { return json_t::parse(s); }) |
+      ([](const json_t &j) { return j.get<model::track_array>(); });
   auto local_obj = stlab::blocking_get(local_future);
   for (const auto &item : local_obj.tracks) {
     Track track_;
@@ -131,10 +131,10 @@ std::vector<Artist> Artist::get_related_artists(
   std::vector<Artist> artists_list;
   auto local_future =
       stlab::async(stlab::default_executor, detail::HttpHelper::get1,
-                   "https://api.spotify.com/v1/artists/" + artist_id
-                       + "/top-tracks?country=" + country_code)
-      | ([](std::string_view s) { return json_t::parse(s); })
-      | ([](const json_t &j) { return j.get<model::artist_array>(); });
+                   "https://api.spotify.com/v1/artists/" + artist_id +
+                       "/top-tracks?country=" + country_code) |
+      ([](std::string_view s) { return json_t::parse(s); }) |
+      ([](const json_t &j) { return j.get<model::artist_array>(); });
   auto local_obj = stlab::blocking_get(local_future);
   for (const auto &item : local_obj.artists) {
     Artist artist_(item);

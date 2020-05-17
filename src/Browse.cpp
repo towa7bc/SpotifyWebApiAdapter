@@ -44,11 +44,11 @@ Page<Playlist> Browse::get_featured_playlists(const AuthenticationToken &token,
   bool include_bearer{true};
   auto local_future =
       stlab::async(stlab::default_executor, detail::HttpHelper::get2,
-                   queryString, token, include_bearer)
-      | ([](std::string_view s) { return json_t::parse(s); })
-      | ([](const json_t &j) {
-          return j.get<model::featured_playlist_search_result>();
-        });
+                   queryString, token, include_bearer) |
+      ([](std::string_view s) { return json_t::parse(s); }) |
+      ([](const json_t &j) {
+        return j.get<model::featured_playlist_search_result>();
+      });
   auto local_obj = stlab::blocking_get(local_future);
   Page<Playlist> play_list;
   play_list._href = local_obj.playlists.href;
@@ -76,9 +76,9 @@ Page<Album> Browse::get_new_releases(const AuthenticationToken &token,
   bool include_bearer{true};
   auto local_future =
       stlab::async(stlab::default_executor, detail::HttpHelper::get2,
-                   queryString, token, include_bearer)
-      | ([](std::string_view s) { return json_t::parse(s); })
-      | ([](const json_t &j) { return j.get<model::album_search_result>(); });
+                   queryString, token, include_bearer) |
+      ([](std::string_view s) { return json_t::parse(s); }) |
+      ([](const json_t &j) { return j.get<model::album_search_result>(); });
   auto local_obj = stlab::blocking_get(local_future);
   Page<Album> page;
   page._href = local_obj.albums.href;

@@ -18,9 +18,7 @@ namespace spotify::inline v1 {
 class AuthenticationToken;
 }  // namespace spotify::inline v1
 
-namespace spotify {
-
-inline namespace v1 {
+namespace spotify::inline v1 {
 
 class Authentication : public BaseModel {
   using date_time_t = boost::posix_time::ptime;
@@ -40,7 +38,6 @@ class Authentication : public BaseModel {
   static void initialize_spotify();
 };
 
-}  // namespace v1
-}  // namespace spotify
+}  // namespace spotify::inline v1
 
 #endif

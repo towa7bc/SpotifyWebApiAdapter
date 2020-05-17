@@ -17,7 +17,6 @@ struct track;
 using nlohmann::json;
 
 namespace spotify::inline v1 {
-
 namespace model {
 
 struct accesstoken {
