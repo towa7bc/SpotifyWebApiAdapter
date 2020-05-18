@@ -13,7 +13,8 @@
 #include <vector>                                // for vector
 
 #include "Artist.hpp"
-#include "Image.hpp"             // for Image
+#include "Image.hpp"  // for Image
+#include "Page.hpp"
 #include "detail/BaseModel.hpp"  // for BaseModel
 #include "detail/Core.hpp"       // for create_ref
 #include "model/modeldata.hpp"   // for json
@@ -55,7 +56,7 @@ class Album : public BaseModel {
   std::string _release_date_precision;
   std::string _type;
   std::string _uri;
-  Ref<Page<Track>> _ptracks;
+  Page<Track> _ptracks;
   static Page<Album> get_artist_albums(std::string_view artist_id);
   static Page<Album> search(std::string &albumName, std::string &artistName,
                             std::string &year, std::string &genre,

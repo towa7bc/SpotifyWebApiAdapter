@@ -18,12 +18,10 @@
 #include <type_traits>                             // for move
 
 #include "Browse.hpp"             // for Browse
-#include "Followers.hpp"          // for Followers
 #include "Page.hpp"               // for Page
 #include "PlaylistTrack.hpp"      // for PlaylistTrack
 #include "Track.hpp"              // for Track
 #include "User.hpp"               // for User
-#include "detail/Core.hpp"        // for create_ref
 #include "detail/HttpHelper.hpp"  // for HttpHelper
 
 namespace spotify::inline v1 {
@@ -32,13 +30,13 @@ Playlist::Playlist(const model::playlist &pl)
     : _collaborative(pl.is_collaborative),
       _description(pl.description),
       _external_url(pl.external_urls.at(0)),
-      _followers(create_ref<Followers>(pl.followers_)),
+      _followers(pl.followers_),
       _href(pl.href),
       _id(pl.id),
       _name(pl.name),
-      _owner(create_ref<User>(pl.owner)),
+      _owner(pl.owner),
       _public(pl.is_public),
-      _tracks(create_ref<Page<PlaylistTrack>>(pl.tracks)),
+      _tracks(pl.tracks),
       _type(pl.type),
       _uri(pl.uri) {
   _images.reserve(pl.images.capacity());
@@ -52,13 +50,13 @@ Playlist::Playlist(model::playlist &&pl) noexcept
     : _collaborative(pl.is_collaborative),
       _description(std::move(pl.description)),
       _external_url(std::move(pl.external_urls.at(0))),
-      _followers(create_ref<Followers>(pl.followers_)),
+      _followers(pl.followers_),
       _href(std::move(pl.href)),
       _id(std::move(pl.id)),
       _name(std::move(pl.name)),
-      _owner(create_ref<User>(pl.owner)),
+      _owner(pl.owner),
       _public(pl.is_public),
-      _tracks(create_ref<Page<PlaylistTrack>>(pl.tracks)),
+      _tracks(pl.tracks),
       _type(std::move(pl.type)),
       _uri(std::move(pl.uri)) {
   _images.reserve(pl.images.capacity());
@@ -130,7 +128,7 @@ Page<PlaylistTrack> Playlist::get_playlist_tracks(
 
 Page<PlaylistTrack> Playlist::get_playlist_tracks(
     const AuthenticationToken &token) const {
-  return get_playlist_tracks(_owner->_id, _id, token);
+  return get_playlist_tracks(_owner._id, _id, token);
 }
 
 void Playlist::add_track(const Track &track, AuthenticationToken &token) const {
@@ -138,7 +136,7 @@ void Playlist::add_track(const Track &track, AuthenticationToken &token) const {
   std::map<std::string, std::string> d;
   auto local_future = stlab::async(
       stlab::default_executor, detail::HttpHelper::post2,
-      "https://api.spotify.com/v1/users/" + std::string(_owner->_id) +
+      "https://api.spotify.com/v1/users/" + std::string(_owner._id) +
           "/playlists/" + std::string(_id) + "/tracks?uris=" + track.uri,
       token, d, include_bearer);
   auto local_obj = stlab::blocking_get(local_future);
@@ -154,7 +152,7 @@ void Playlist::add_tracks(const std::vector<Track> &track_uris,
   std::map<std::string, std::string> d;
   auto local_future = stlab::async(
       stlab::default_executor, detail::HttpHelper::post2,
-      "https://api.spotify.com/v1/users/" + std::string(_owner->_id) +
+      "https://api.spotify.com/v1/users/" + std::string(_owner._id) +
           "/playlists/" + std::string(_id) +
           "/tracks?uris=" + create_comma_separated_List(uris),
       token, d, include_bearer);
@@ -198,7 +196,7 @@ void Playlist::update_users_playlist(std::string_view user_id,
 
 void Playlist::update_users_playlist(std::string_view name, bool is_public,
                                      const AuthenticationToken &token) const {
-  update_users_playlist(_owner->_id, _id, name, is_public, token);
+  update_users_playlist(_owner._id, _id, name, is_public, token);
 }
 
 Page<Playlist> Playlist::get_featured_playlists(

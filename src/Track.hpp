@@ -54,7 +54,7 @@ class Track : public BaseModel {
   int duration{};
   bool explicit_{};
   int track_number{};
-  Ref<Album> album;
+  Album album;
 };
 
 }  // namespace spotify::inline v1

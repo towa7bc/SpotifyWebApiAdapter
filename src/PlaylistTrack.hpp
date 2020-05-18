@@ -10,6 +10,8 @@
 #include <boost/date_time/posix_time/ptime.hpp>             // for ptime
 #include <memory>                                           // for shared_ptr
 
+#include "Track.hpp"
+#include "User.hpp"
 #include "detail/Core.hpp"  // for Ref
 namespace spotify::inline v1 {
 class Track;
@@ -32,11 +34,11 @@ struct PlaylistTrack {
   PlaylistTrack &operator=(const PlaylistTrack &) = default;
   PlaylistTrack &operator=(PlaylistTrack &&) noexcept = default;
   PlaylistTrack(PlaylistTrack &&) noexcept = default;
-  Ref<User> _added_by;
+  User _added_by;
   boost::posix_time::ptime _added_at{
       boost::gregorian::day_clock::universal_day(),
       boost::posix_time::second_clock::universal_time().time_of_day()};
-  Ref<Track> _track;
+  Track _track;
 };
 
 }  // namespace spotify::inline v1

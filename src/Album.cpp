@@ -100,7 +100,7 @@ Album::Album(const model::album &t_album)
       _release_date_precision(t_album.release_date_precision),
       _type(t_album.type),
       _uri(t_album.uri),
-      _ptracks(create_ref<Page<Track>>(t_album.tracks)) {
+      _ptracks(t_album.tracks) {
   if (str_toupper(t_album.album_type) == "ALBUM") {
     this->_album_type = Album::AlbumType::Album;
   } else if (str_toupper(t_album.album_type) == "SINGLE") {
@@ -134,7 +134,7 @@ Album::Album(model::album &&t_album) noexcept
       _release_date_precision(std::move(t_album.release_date_precision)),
       _type(std::move(t_album.type)),
       _uri(std::move(t_album.uri)),
-      _ptracks(create_ref<Page<Track>>(t_album.tracks)) {
+      _ptracks(t_album.tracks) {
   if (str_toupper(std::move(t_album.album_type)) == "ALBUM") {
     this->_album_type = Album::AlbumType::Album;
   } else if (str_toupper(std::move(t_album.album_type)) == "SINGLE") {

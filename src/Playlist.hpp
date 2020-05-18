@@ -11,7 +11,11 @@
 #include <string_view>        // for string_view
 #include <vector>             // for vector
 
-#include "Image.hpp"             // for Image
+#include "Followers.hpp"
+#include "Image.hpp"  // for Image
+#include "Page.hpp"
+#include "PlaylistTrack.hpp"
+#include "User.hpp"
 #include "detail/BaseModel.hpp"  // for BaseModel
 #include "detail/Core.hpp"       // for create_ref
 #include "model/modeldata.hpp"   // for json
@@ -42,14 +46,14 @@ class Playlist : public BaseModel {
   bool _collaborative{false};
   std::string _description;
   std::string _external_url;
-  Ref<Followers> _followers;
+  Followers _followers;
   std::string _href;
   std::string _id;
   std::vector<Image> _images;
   std::string _name;
-  Ref<User> _owner;
+  User _owner;
   bool _public{false};
-  Ref<Page<PlaylistTrack>> _tracks;
+  Page<PlaylistTrack> _tracks;
   std::string _type;
   std::string _uri;
   static Page<Playlist> get_users_playlists(std::string_view user_id,

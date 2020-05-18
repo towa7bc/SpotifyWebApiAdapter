@@ -6,7 +6,6 @@
 
 #include <type_traits>  // for move
 
-#include "Album.hpp"   // for Album
 #include "Artist.hpp"  // for Artist
 
 namespace spotify::inline v1 {
@@ -27,7 +26,7 @@ Track::Track(const model::track &t_track)
       duration(t_track.duration_ms),
       explicit_(t_track.is_explicit),
       track_number(t_track.track_number),
-      album(create_ref<Album>(t_track.album_)) {
+      album(t_track.album_) {
   artists.reserve(t_track.artists.capacity());
   for (const auto &item : t_track.artists) {
     Artist artist(item);
@@ -51,7 +50,7 @@ Track::Track(model::track &&t_track) noexcept
       duration(t_track.duration_ms),
       explicit_(t_track.is_explicit),
       track_number(t_track.track_number),
-      album(create_ref<Album>(t_track.album_)) {
+      album(t_track.album_) {
   artists.reserve(t_track.artists.capacity());
   for (auto &item : t_track.artists) {
     Artist artist(std::move(item));
@@ -75,7 +74,7 @@ Track::Track(const model::savedtrack &t_track)
       duration(t_track.track_.duration_ms),
       explicit_(t_track.track_.is_explicit),
       track_number(t_track.track_.track_number),
-      album(create_ref<Album>(t_track.track_.album_)) {
+      album(t_track.track_.album_) {
   artists.reserve(t_track.track_.artists.capacity());
   for (const auto &item : t_track.track_.artists) {
     Artist artist(item);
@@ -99,7 +98,7 @@ Track::Track(model::savedtrack &&t_track) noexcept
       duration(t_track.track_.duration_ms),
       explicit_(t_track.track_.is_explicit),
       track_number(t_track.track_.track_number),
-      album(create_ref<Album>(t_track.track_.album_)) {
+      album(t_track.track_.album_) {
   artists.reserve(t_track.track_.artists.capacity());
   for (auto &item : t_track.track_.artists) {
     Artist artist(std::move(item));
