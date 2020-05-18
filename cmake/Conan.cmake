@@ -4,7 +4,8 @@ macro(run_conan)
         message(
                 STATUS
                 "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
-        file(DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/v0.15/conan.cmake"
+        file(DOWNLOAD
+                "https://github.com/conan-io/cmake-conan/raw/v0.15/conan.cmake"
                 "${CMAKE_BINARY_DIR}/conan.cmake")
     endif ()
 
@@ -21,10 +22,10 @@ macro(run_conan)
             ${CONAN_EXTRA_REQUIRES}
             stlab/1.5.2
             catch2/2.12.0
-            #fmt/6.1.2
+            # fmt/6.1.2
             spdlog/1.5.0
             openssl/1.1.1f
-            #boost/1.69.0
+            # boost/1.69.0
             nlohmann_json/3.7.3
             OPTIONS
             ${CONAN_EXTRA_OPTIONS}
