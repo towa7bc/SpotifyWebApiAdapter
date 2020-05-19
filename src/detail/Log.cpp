@@ -19,7 +19,7 @@
 
 namespace spotify::inline v1 {
 
-Ref<spdlog::logger> _core_logger;
+Ref<spdlog::logger> core_logger_;
 
 void Log::init() {
   try {
@@ -30,12 +30,12 @@ void Log::init() {
     stdout_sink->set_pattern("%^[%T] %n: %v%$");
     rotating_sink->set_pattern("[%T] [%1] %n: %v");
     std::vector<spdlog::sink_ptr> sinks{stdout_sink, rotating_sink};
-    _core_logger = create_ref<spdlog::async_logger>(
+    core_logger_ = create_ref<spdlog::async_logger>(
         "SPOTIFY", sinks.begin(), sinks.end(), spdlog::thread_pool(),
         spdlog::async_overflow_policy::block);
-    spdlog::register_logger(_core_logger);
-    _core_logger->set_level(spdlog::level::trace);
-    _core_logger->flush_on(spdlog::level::trace);
+    spdlog::register_logger(core_logger_);
+    core_logger_->set_level(spdlog::level::trace);
+    core_logger_->flush_on(spdlog::level::trace);
 
   } catch (const spdlog::spdlog_ex &ex) {
     spdlog::logger("Log initialization failed: " + std::string(ex.what()));

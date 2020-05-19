@@ -23,9 +23,9 @@ struct Image {
   Image &operator=(const Image &) = default;
   Image &operator=(Image &&) noexcept = default;
   Image(Image &&) noexcept = default;
-  int _height{0};
-  std::string _url;
-  int _width{0};
+  int height_{0};
+  std::string url_;
+  int width_{0};
 };
 
 }  // namespace spotify::inline v1

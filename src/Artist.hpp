@@ -33,29 +33,29 @@ class Artist : public BaseModel {
   Artist &operator=(const Artist &) = default;
   Artist &operator=(Artist &&) noexcept = default;
   Artist(Artist &&) noexcept = default;
-  std::vector<std::string> _genres;
-  std::string _external_url;
-  std::string _href;
-  std::string _id;
-  std::vector<Image> _images;
-  std::string _name;
-  int _popularity{};
-  std::string _type;
-  std::string _uri;
-  static Artist get_artist(const std::string &artist_id);
-  static std::vector<Artist> get_artists(
+  std::vector<std::string> genres_;
+  std::string external_url_;
+  std::string href_;
+  std::string id_;
+  std::vector<Image> images_;
+  std::string name_;
+  int popularity_{};
+  std::string type_;
+  std::string uri_;
+  static Artist GetArtist(const std::string &artist_id);
+  static std::vector<Artist> GetArtists(
       const std::vector<std::string> &artist_ids);
-  static Page<Artist> search(std::string &artistName, std::string &year,
+  static Page<Artist> Search(std::string &artistName, std::string &year,
                              std::string &genre, std::string &upc,
                              std::string &isrc, int limit = 20, int offset = 0);
-  Page<Album> get_albums();
-  static std::vector<Track> get_top_tracks(
+  Page<Album> GetAlbums();
+  static std::vector<Track> GetTopTracks(
       const std::string &artist_id, const std::string &country_code = "US");
-  [[nodiscard]] std::vector<Track> get_top_tracks(
+  [[nodiscard]] std::vector<Track> GetTopTracks(
       const std::string &country_code = "US") const;
-  static std::vector<Artist> get_related_artists(
+  static std::vector<Artist> GetRelatedArtists(
       const std::string &artist_id, const std::string &country_code = "US");
-  [[nodiscard]] std::vector<Artist> get_related_artists(
+  [[nodiscard]] std::vector<Artist> GetRelatedArtists(
       const std::string &country_code = "US") const;
 };
 

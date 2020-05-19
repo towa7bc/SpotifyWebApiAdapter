@@ -20,57 +20,56 @@
 
 namespace spotify::inline v1 {
 
-auto AuthenticationToken::setMHasExpired(bool mHasExpired) -> void {
-  _has_expired = mHasExpired;
+auto AuthenticationToken::SetHasExpired(bool mHasExpired) -> void {
+  has_expired_ = mHasExpired;
 }
 
-auto AuthenticationToken::isMHasExpired() const -> bool {
+auto AuthenticationToken::HasExpired() const -> bool {
   date_time_t currentTime(
       boost::gregorian::day_clock::universal_day(),
       boost::posix_time::second_clock::universal_time().time_of_day());
-  return currentTime > _expires_on;
+  return currentTime > expires_on_;
 }
 
-auto AuthenticationToken::getMAccessToken() const -> const std::string & {
-  if (isMHasExpired()) {
-    refresh();
+auto AuthenticationToken::GetAccessToken() const -> const std::string & {
+  if (HasExpired()) {
+    Refresh();
   }
-  return _access_token;
+  return access_token_;
 }
 
-auto AuthenticationToken::setAccessToken(std::string_view mAccessToken)
+auto AuthenticationToken::SetAccessToken(std::string_view mAccessToken)
     -> void {
-  _access_token = mAccessToken;
+  access_token_ = mAccessToken;
 }
 
-auto AuthenticationToken::getMExpiresOn() const
+auto AuthenticationToken::GetExpiresOn() const
     -> const boost::posix_time::ptime & {
-  return _expires_on;
+  return expires_on_;
 }
 
-auto AuthenticationToken::setExpiresOn(
+auto AuthenticationToken::SetExpiresOn(
     const boost::posix_time::ptime &mExpiresOn) -> void {
-  _expires_on = mExpiresOn;
+  expires_on_ = mExpiresOn;
 }
 
-auto AuthenticationToken::refresh() const -> void {
-  auto auth_token_future =
-      stlab::async(stlab::default_executor, Authentication::get_access_token,
-                   _refresh_token);
+auto AuthenticationToken::Refresh() const -> void {
+  auto auth_token_future = stlab::async(
+      stlab::default_executor, Authentication::GetAccessToken, refresh_token_);
   auto auth_token = stlab::blocking_get(auth_token_future);
-  _access_token = auth_token._access_token;
-  _refresh_token = auth_token._refresh_token;
-  _token_type = auth_token._token_type;
-  _has_expired = auth_token._has_expired;
-  _expires_on = auth_token._expires_on;
+  access_token_ = auth_token.access_token_;
+  refresh_token_ = auth_token.refresh_token_;
+  token_type_ = auth_token.token_type_;
+  has_expired_ = auth_token.has_expired_;
+  expires_on_ = auth_token.expires_on_;
 }
 
-void AuthenticationToken::setTokenType(std::string_view tokenType) {
-  _token_type = tokenType;
+void AuthenticationToken::SetTokenType(std::string_view tokenType) {
+  token_type_ = tokenType;
 }
 
-void AuthenticationToken::setRefreshToken(std::string_view refreshToken) {
-  _refresh_token = refreshToken;
+void AuthenticationToken::SetRefreshToken(std::string_view refreshToken) {
+  refresh_token_ = refreshToken;
 }
 
 }  // namespace spotify::inline v1

@@ -20,11 +20,11 @@ class BaseModel {
   BaseModel(BaseModel &&) noexcept = default;
   BaseModel &operator=(const BaseModel &) = default;
   BaseModel &operator=(BaseModel &&) noexcept = default;
-  static auto create_comma_separated_List(const std::vector<std::string> &v)
+  static auto CreateCommaSeparatedList(const std::vector<std::string> &v)
       -> std::string;
-  static std::string replace_all(std::string str, std::string_view from,
-                                 std::string_view to);
-  static std::string str_toupper(std::string s);
+  static std::string ReplaceAll(std::string str, std::string_view from,
+                                std::string_view to);
+  static std::string StrToUpper(std::string s);
 };
 
 class PageNotFoundException : public std::exception {

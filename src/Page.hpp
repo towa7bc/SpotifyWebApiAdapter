@@ -34,23 +34,23 @@ class Page : public BaseModel {
   Page &operator=(const Page &) = default;
   Page &operator=(Page &&) noexcept = default;
   Page(Page &&) noexcept = default;
-  std::string _href;
-  std::vector<T> _items;
-  int _limit{0};
-  std::string _next;
-  int _offset{0};
-  std::string _previous;
-  int _total{0};
-  [[nodiscard]] bool isHasNextPage() const;
-  void setHasNextPage(bool hasNextPage);
-  [[nodiscard]] bool isHasPreviousPage() const;
-  void setHasPreviousPage(bool hasPreviousPage);
-  Page<T> get_next_page();
-  Page<T> get_previous_page();
+  std::string href_;
+  std::vector<T> items_;
+  int limit_{0};
+  std::string next_;
+  int offset_{0};
+  std::string previous_;
+  int total_{0};
+  [[nodiscard]] bool HasNextPage() const;
+  void SetHasNextPage(bool hasNextPage);
+  [[nodiscard]] bool HasPreviousPage() const;
+  void SetHasPreviousPage(bool hasPreviousPage);
+  Page<T> GetNextPage();
+  Page<T> GetPreviousPage();
 
  private:
-  bool HasPreviousPage{false};
-  bool HasNextPage{false};
+  bool has_previous_page_{false};
+  bool has_next_page_{false};
 };
 
 }  // namespace spotify::inline v1

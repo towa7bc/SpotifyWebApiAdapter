@@ -23,8 +23,8 @@ struct Followers {
   Followers &operator=(const Followers &) = default;
   Followers &operator=(Followers &&) noexcept = default;
   Followers(Followers &&) noexcept = default;
-  int _total{0};
-  std::string _href;
+  int total_{0};
+  std::string href_;
 };
 
 }  // namespace spotify::inline v1

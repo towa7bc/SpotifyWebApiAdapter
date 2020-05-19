@@ -27,50 +27,50 @@
 namespace spotify::inline v1 {
 
 Playlist::Playlist(const model::playlist &pl)
-    : _collaborative(pl.is_collaborative),
-      _description(pl.description),
-      _external_url(pl.external_urls.at(0)),
-      _followers(pl.followers_),
-      _href(pl.href),
-      _id(pl.id),
-      _name(pl.name),
-      _owner(pl.owner),
-      _public(pl.is_public),
-      _tracks(pl.tracks),
-      _type(pl.type),
-      _uri(pl.uri) {
-  _images.reserve(pl.images.capacity());
+    : collaborative_(pl.is_collaborative),
+      description_(pl.description),
+      external_url_(pl.external_urls.at(0)),
+      followers_(pl.followers_),
+      href_(pl.href),
+      id_(pl.id),
+      name_(pl.name),
+      owner_(pl.owner),
+      public_(pl.is_public),
+      tracks_(pl.tracks),
+      type_(pl.type),
+      uri_(pl.uri) {
+  images_.reserve(pl.images.capacity());
   for (const auto &item : pl.images) {
     Image image(item);
-    _images.push_back(std::move(image));
+    images_.push_back(std::move(image));
   }
 }
 
 Playlist::Playlist(model::playlist &&pl) noexcept
-    : _collaborative(pl.is_collaborative),
-      _description(std::move(pl.description)),
-      _external_url(std::move(pl.external_urls.at(0))),
-      _followers(pl.followers_),
-      _href(std::move(pl.href)),
-      _id(std::move(pl.id)),
-      _name(std::move(pl.name)),
-      _owner(pl.owner),
-      _public(pl.is_public),
-      _tracks(pl.tracks),
-      _type(std::move(pl.type)),
-      _uri(std::move(pl.uri)) {
-  _images.reserve(pl.images.capacity());
+    : collaborative_(pl.is_collaborative),
+      description_(std::move(pl.description)),
+      external_url_(std::move(pl.external_urls.at(0))),
+      followers_(pl.followers_),
+      href_(std::move(pl.href)),
+      id_(std::move(pl.id)),
+      name_(std::move(pl.name)),
+      owner_(pl.owner),
+      public_(pl.is_public),
+      tracks_(pl.tracks),
+      type_(std::move(pl.type)),
+      uri_(std::move(pl.uri)) {
+  images_.reserve(pl.images.capacity());
   for (auto &item : pl.images) {
     Image image(std::move(item));
-    _images.push_back(std::move(image));
+    images_.push_back(std::move(image));
   }
 }
 
-Page<Playlist> Playlist::get_users_playlists(std::string_view user_id,
-                                             const AuthenticationToken &token) {
+Page<Playlist> Playlist::GetUsersPlaylists(std::string_view user_id,
+                                           const AuthenticationToken &token) {
   bool include_bearer{true};
   auto local_future =
-      stlab::async(stlab::default_executor, detail::HttpHelper::get2,
+      stlab::async(stlab::default_executor, detail::HttpHelper::Get2,
                    "https://api.spotify.com/v1/users/" + std::string(user_id) +
                        "/playlists",
                    token, include_bearer) |
@@ -81,17 +81,17 @@ Page<Playlist> Playlist::get_users_playlists(std::string_view user_id,
   return play_list;
 }
 
-Page<Playlist> Playlist::get_users_playlists(const User &user,
-                                             const AuthenticationToken &token) {
-  return get_users_playlists(user._id, token);
+Page<Playlist> Playlist::GetUsersPlaylists(const User &user,
+                                           const AuthenticationToken &token) {
+  return GetUsersPlaylists(user.id_, token);
 }
 
-Page<Playlist> Playlist::get_playlist(std::string_view user_id,
-                                      std::string_view playlist_id,
-                                      const AuthenticationToken &token) {
+Page<Playlist> Playlist::GetPlaylist(std::string_view user_id,
+                                     std::string_view playlist_id,
+                                     const AuthenticationToken &token) {
   bool include_bearer{true};
   auto local_future =
-      stlab::async(stlab::default_executor, detail::HttpHelper::get2,
+      stlab::async(stlab::default_executor, detail::HttpHelper::Get2,
                    "https://api.spotify.com/v1/users/" + std::string(user_id) +
                        "/playlists/" + std::string(playlist_id),
                    token, include_bearer) |
@@ -102,18 +102,18 @@ Page<Playlist> Playlist::get_playlist(std::string_view user_id,
   return play_list;
 }
 
-Page<Playlist> Playlist::get_playlist(const User &user,
-                                      std::string_view playlist_id,
-                                      const AuthenticationToken &token) {
-  return get_playlist(user._id, playlist_id, token);
+Page<Playlist> Playlist::GetPlaylist(const User &user,
+                                     std::string_view playlist_id,
+                                     const AuthenticationToken &token) {
+  return GetPlaylist(user.id_, playlist_id, token);
 }
 
-Page<PlaylistTrack> Playlist::get_playlist_tracks(
+Page<PlaylistTrack> Playlist::GetPlaylistTracks(
     std::string_view user_id, std::string_view playlist_id,
     const AuthenticationToken &token) {
   bool include_bearer{true};
   auto local_future =
-      stlab::async(stlab::default_executor, detail::HttpHelper::get2,
+      stlab::async(stlab::default_executor, detail::HttpHelper::Get2,
                    "https://api.spotify.com/v1/users/" + std::string(user_id) +
                        "/playlists/" + std::string(playlist_id) + "/tracks",
                    token, include_bearer) |
@@ -126,48 +126,48 @@ Page<PlaylistTrack> Playlist::get_playlist_tracks(
   return play_list;
 }
 
-Page<PlaylistTrack> Playlist::get_playlist_tracks(
+Page<PlaylistTrack> Playlist::GetPlaylistTracks(
     const AuthenticationToken &token) const {
-  return get_playlist_tracks(_owner._id, _id, token);
+  return GetPlaylistTracks(owner_.id_, id_, token);
 }
 
-void Playlist::add_track(const Track &track, AuthenticationToken &token) const {
+void Playlist::AddTrack(const Track &track, AuthenticationToken &token) const {
   bool include_bearer{true};
   std::map<std::string, std::string> d;
   auto local_future = stlab::async(
-      stlab::default_executor, detail::HttpHelper::post2,
-      "https://api.spotify.com/v1/users/" + std::string(_owner._id) +
-          "/playlists/" + std::string(_id) + "/tracks?uris=" + track.uri,
+      stlab::default_executor, detail::HttpHelper::Post2,
+      "https://api.spotify.com/v1/users/" + std::string(owner_.id_) +
+          "/playlists/" + std::string(id_) + "/tracks?uris=" + track.uri_,
       token, d, include_bearer);
   auto local_obj = stlab::blocking_get(local_future);
 }
 
-void Playlist::add_tracks(const std::vector<Track> &track_uris,
-                          AuthenticationToken &token) const {
+void Playlist::AddTracks(const std::vector<Track> &track_uris,
+                         AuthenticationToken &token) const {
   std::vector<std::string> uris;
   std::transform(track_uris.begin(), track_uris.end(), uris.begin(),
-                 [](const Track &track) -> std::string { return track.uri; });
+                 [](const Track &track) -> std::string { return track.uri_; });
 
   bool include_bearer{true};
   std::map<std::string, std::string> d;
   auto local_future = stlab::async(
-      stlab::default_executor, detail::HttpHelper::post2,
-      "https://api.spotify.com/v1/users/" + std::string(_owner._id) +
-          "/playlists/" + std::string(_id) +
-          "/tracks?uris=" + create_comma_separated_List(uris),
+      stlab::default_executor, detail::HttpHelper::Post2,
+      "https://api.spotify.com/v1/users/" + std::string(owner_.id_) +
+          "/playlists/" + std::string(id_) +
+          "/tracks?uris=" + CreateCommaSeparatedList(uris),
       token, d, include_bearer);
   auto local_obj = stlab::blocking_get(local_future);
 }
 
-Playlist Playlist::create_playlist(std::string_view user_id,
-                                   std::string_view name, bool is_public,
-                                   const AuthenticationToken &token) {
+Playlist Playlist::CreatePlaylist(std::string_view user_id,
+                                  std::string_view name, bool is_public,
+                                  const AuthenticationToken &token) {
   bool include_bearer{true};
   model::playlistdata pd;
   pd.name = name;
   pd.is_public = is_public;
   auto local_future =
-      stlab::async(stlab::default_executor, detail::HttpHelper::post3,
+      stlab::async(stlab::default_executor, detail::HttpHelper::Post3,
                    "https://api.spotify.com/v1/users/" + std::string(user_id) +
                        "/playlists",
                    token, pd, include_bearer) |
@@ -178,33 +178,34 @@ Playlist Playlist::create_playlist(std::string_view user_id,
   return playlist;
 }
 
-void Playlist::update_users_playlist(std::string_view user_id,
-                                     std::string_view playlist_id,
-                                     std::string_view name, bool is_public,
-                                     const AuthenticationToken &token) {
+void Playlist::UpdateUsersPlaylist(std::string_view user_id,
+                                   std::string_view playlist_id,
+                                   std::string_view name, bool is_public,
+                                   const AuthenticationToken &token) {
   bool include_bearer{true};
   model::playlistdata pd;
   pd.name = name;
   pd.is_public = is_public;
   auto local_future =
-      stlab::async(stlab::default_executor, detail::HttpHelper::put2,
+      stlab::async(stlab::default_executor, detail::HttpHelper::Put2,
                    "https://api.spotify.com/v1/users/" + std::string(user_id) +
                        "/playlists/" + std::string(playlist_id),
                    token, pd, include_bearer);
   auto local_obj = stlab::blocking_get(local_future);
 }
 
-void Playlist::update_users_playlist(std::string_view name, bool is_public,
-                                     const AuthenticationToken &token) const {
-  update_users_playlist(_owner._id, _id, name, is_public, token);
+void Playlist::UpdateUsersPlaylist(std::string_view name, bool is_public,
+                                   const AuthenticationToken &token) const {
+  UpdateUsersPlaylist(owner_.id_, id_, name, is_public, token);
 }
 
-Page<Playlist> Playlist::get_featured_playlists(
-    const AuthenticationToken &token, std::string_view locale,
-    std::string_view country, std::string_view timestamp, int limit,
-    int offset) {
-  return Browse::get_featured_playlists(token, locale, country, timestamp,
-                                        limit, offset);
+Page<Playlist> Playlist::GetFeaturedPlaylists(const AuthenticationToken &token,
+                                              std::string_view locale,
+                                              std::string_view country,
+                                              std::string_view timestamp,
+                                              int limit, int offset) {
+  return Browse::GetFeaturedPlaylists(token, locale, country, timestamp, limit,
+                                      offset);
 }
 
 }  // namespace spotify::inline v1

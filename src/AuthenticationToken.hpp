@@ -19,12 +19,12 @@ class AuthenticationToken {
   using json_t = nlohmann::json;
 
  private:
-  mutable std::string _access_token;
-  mutable std::string _token_type;
-  mutable boost::posix_time::ptime _expires_on;
-  mutable std::string _refresh_token;
-  mutable bool _has_expired{false};
-  json_t _json;
+  mutable std::string access_token_;
+  mutable std::string token_type_;
+  mutable boost::posix_time::ptime expires_on_;
+  mutable std::string refresh_token_;
+  mutable bool has_expired_{false};
+  json_t json_;
 
  public:
   AuthenticationToken() = default;
@@ -33,15 +33,15 @@ class AuthenticationToken {
   AuthenticationToken &operator=(const AuthenticationToken &) = default;
   AuthenticationToken &operator=(AuthenticationToken &&) noexcept = default;
   AuthenticationToken(AuthenticationToken &&) noexcept = default;
-  auto setMHasExpired(bool mHasExpired) -> void;
-  [[nodiscard]] auto isMHasExpired() const -> bool;
-  auto getMAccessToken() const -> const std::string &;
-  auto setAccessToken(std::string_view mAccessToken) -> void;
-  [[nodiscard]] auto getMExpiresOn() const -> const boost::posix_time::ptime &;
-  auto setExpiresOn(const boost::posix_time::ptime &mExpiresOn) -> void;
-  auto refresh() const -> void;
-  void setTokenType(std::string_view tokenType);
-  void setRefreshToken(std::string_view refreshToken);
+  auto SetHasExpired(bool mHasExpired) -> void;
+  [[nodiscard]] auto HasExpired() const -> bool;
+  auto GetAccessToken() const -> const std::string &;
+  auto SetAccessToken(std::string_view mAccessToken) -> void;
+  [[nodiscard]] auto GetExpiresOn() const -> const boost::posix_time::ptime &;
+  auto SetExpiresOn(const boost::posix_time::ptime &mExpiresOn) -> void;
+  auto Refresh() const -> void;
+  void SetTokenType(std::string_view tokenType);
+  void SetRefreshToken(std::string_view refreshToken);
 };
 
 }  // namespace spotify::inline v1

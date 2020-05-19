@@ -34,11 +34,11 @@ struct PlaylistTrack {
   PlaylistTrack &operator=(const PlaylistTrack &) = default;
   PlaylistTrack &operator=(PlaylistTrack &&) noexcept = default;
   PlaylistTrack(PlaylistTrack &&) noexcept = default;
-  User _added_by;
-  boost::posix_time::ptime _added_at{
+  User added_by_;
+  boost::posix_time::ptime added_at_{
       boost::gregorian::day_clock::universal_day(),
       boost::posix_time::second_clock::universal_time().time_of_day()};
-  Track _track;
+  Track track_;
 };
 
 }  // namespace spotify::inline v1

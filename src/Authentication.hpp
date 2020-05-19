@@ -31,11 +31,11 @@ class Authentication : public BaseModel {
   Authentication &operator=(const Authentication &) = delete;
   Authentication &operator=(Authentication &&) noexcept = delete;
   Authentication(Authentication &&) noexcept = delete;
-  static std::string _client_id;
-  static std::string _client_secret;
-  static std::string _redirect_uri;
-  static auto get_access_token(std::string_view code) -> AuthenticationToken;
-  static void initialize_spotify();
+  static std::string client_id_;
+  static std::string client_secret_;
+  static std::string redirect_uri_;
+  static auto GetAccessToken(std::string_view code) -> AuthenticationToken;
+  static void InitializeSpotify();
 };
 
 }  // namespace spotify::inline v1

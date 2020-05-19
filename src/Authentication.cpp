@@ -24,7 +24,7 @@
 
 namespace spotify::inline v1 {
 
-/* static */ auto Authentication::get_access_token(std::string_view code)
+/* static */ auto Authentication::GetAccessToken(std::string_view code)
     -> AuthenticationToken {
   if (!Log::logger()) {
     Log::init();
@@ -33,26 +33,26 @@ namespace spotify::inline v1 {
   std::map<std::string, std::string> postData;
   postData["grant_type"] = "authorization_code";
   postData["code"] = code;
-  postData["redirect_uri"] = _redirect_uri;
-  postData["client_id"] = _client_id;
-  postData["client_secret"] = _client_secret;
+  postData["redirect_uri"] = redirect_uri_;
+  postData["client_id"] = client_id_;
+  postData["client_secret"] = client_secret_;
   auto local_future =
-      stlab::async(stlab::default_executor, detail::HttpHelper::post1,
+      stlab::async(stlab::default_executor, detail::HttpHelper::Post1,
                    "https://accounts.spotify.com/api/token", postData) |
       ([](std::string_view s) { return json_t::parse(s); }) |
       ([](const json_t &j) { return j.get<model::accesstoken>(); });
   auto access_token = stlab::blocking_get(local_future);
-  auth_token.setAccessToken(access_token.access_token);
-  auth_token.setRefreshToken(access_token.refresh_token);
-  auth_token.setTokenType(access_token.token_type);
+  auth_token.SetAccessToken(access_token.access_token);
+  auth_token.SetRefreshToken(access_token.refresh_token);
+  auth_token.SetTokenType(access_token.token_type);
   date_time_t currentTime(
       boost::gregorian::day_clock::universal_day(),
       boost::posix_time::second_clock::universal_time().time_of_day());
-  auth_token.setExpiresOn(currentTime +
+  auth_token.SetExpiresOn(currentTime +
                           boost::posix_time::seconds(access_token.expires_in));
   return auth_token;
 }
 
-void Authentication::initialize_spotify() { Log::init(); }
+void Authentication::InitializeSpotify() { Log::init(); }
 
 }  // namespace spotify::inline v1

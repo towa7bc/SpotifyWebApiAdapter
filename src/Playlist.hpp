@@ -43,51 +43,51 @@ class Playlist : public BaseModel {
   Playlist &operator=(const Playlist &) = default;
   Playlist &operator=(Playlist &&) noexcept = default;
   Playlist(Playlist &&) noexcept = default;
-  bool _collaborative{false};
-  std::string _description;
-  std::string _external_url;
-  Followers _followers;
-  std::string _href;
-  std::string _id;
-  std::vector<Image> _images;
-  std::string _name;
-  User _owner;
-  bool _public{false};
-  Page<PlaylistTrack> _tracks;
-  std::string _type;
-  std::string _uri;
-  static Page<Playlist> get_users_playlists(std::string_view user_id,
-                                            const AuthenticationToken &token);
-  static Page<Playlist> get_users_playlists(const User &user,
-                                            const AuthenticationToken &token);
-  static Page<Playlist> get_playlist(std::string_view user_id,
-                                     std::string_view playlist_id,
-                                     const AuthenticationToken &token);
-  static Page<Playlist> get_playlist(const User &user,
-                                     std::string_view playlist_id,
-                                     const AuthenticationToken &token);
-  static Page<PlaylistTrack> get_playlist_tracks(
+  bool collaborative_{false};
+  std::string description_;
+  std::string external_url_;
+  Followers followers_;
+  std::string href_;
+  std::string id_;
+  std::vector<Image> images_;
+  std::string name_;
+  User owner_;
+  bool public_{false};
+  Page<PlaylistTrack> tracks_;
+  std::string type_;
+  std::string uri_;
+  static Page<Playlist> GetUsersPlaylists(std::string_view user_id,
+                                          const AuthenticationToken &token);
+  static Page<Playlist> GetUsersPlaylists(const User &user,
+                                          const AuthenticationToken &token);
+  static Page<Playlist> GetPlaylist(std::string_view user_id,
+                                    std::string_view playlist_id,
+                                    const AuthenticationToken &token);
+  static Page<Playlist> GetPlaylist(const User &user,
+                                    std::string_view playlist_id,
+                                    const AuthenticationToken &token);
+  static Page<PlaylistTrack> GetPlaylistTracks(
       std::string_view user_id, std::string_view playlist_id,
       const AuthenticationToken &token);
-  [[nodiscard]] Page<PlaylistTrack> get_playlist_tracks(
+  [[nodiscard]] Page<PlaylistTrack> GetPlaylistTracks(
       const AuthenticationToken &token) const;
-  void add_track(const Track &track, AuthenticationToken &token) const;
-  void add_tracks(const std::vector<Track> &track_uris,
-                  AuthenticationToken &token) const;
-  static Playlist create_playlist(std::string_view user_id,
+  void AddTrack(const Track &track, AuthenticationToken &token) const;
+  void AddTracks(const std::vector<Track> &track_uris,
+                 AuthenticationToken &token) const;
+  static Playlist CreatePlaylist(std::string_view user_id,
+                                 std::string_view name, bool is_public,
+                                 const AuthenticationToken &token);
+  static void UpdateUsersPlaylist(std::string_view user_id,
+                                  std::string_view playlist_id,
                                   std::string_view name, bool is_public,
                                   const AuthenticationToken &token);
-  static void update_users_playlist(std::string_view user_id,
-                                    std::string_view playlist_id,
-                                    std::string_view name, bool is_public,
-                                    const AuthenticationToken &token);
-  void update_users_playlist(std::string_view name, bool is_public,
-                             const AuthenticationToken &token) const;
-  static Page<Playlist> get_featured_playlists(const AuthenticationToken &token,
-                                               std::string_view locale = "",
-                                               std::string_view country = "",
-                                               std::string_view timestamp = "",
-                                               int limit = 20, int offset = 0);
+  void UpdateUsersPlaylist(std::string_view name, bool is_public,
+                           const AuthenticationToken &token) const;
+  static Page<Playlist> GetFeaturedPlaylists(const AuthenticationToken &token,
+                                             std::string_view locale = "",
+                                             std::string_view country = "",
+                                             std::string_view timestamp = "",
+                                             int limit = 20, int offset = 0);
 };
 
 }  // namespace spotify::inline v1

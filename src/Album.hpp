@@ -41,35 +41,35 @@ class Album : public BaseModel {
   Album &operator=(Album &&) noexcept = default;
   Album(Album &&) noexcept = default;
   enum class AlbumType { Album, Single, Compilation };
-  AlbumType _album_type{};
-  std::vector<Artist> _artists;
-  std::vector<std::string> _availableMarkets;
-  std::string _external_id;
-  std::string _external_url;
-  std::vector<std::string> _genres;
-  std::string _href;
-  std::string _id;
-  std::vector<Image> _images;
-  std::string _name;
-  int _popularity{0};
-  boost::posix_time::ptime _release_date;
-  std::string _release_date_precision;
-  std::string _type;
-  std::string _uri;
-  Page<Track> _ptracks;
-  static Page<Album> get_artist_albums(std::string_view artist_id);
-  static Page<Album> search(std::string &albumName, std::string &artistName,
+  AlbumType album_type_{};
+  std::vector<Artist> artists_;
+  std::vector<std::string> availableMarkets_;
+  std::string external_id_;
+  std::string external_url_;
+  std::vector<std::string> genres_;
+  std::string href_;
+  std::string id_;
+  std::vector<Image> images_;
+  std::string name_;
+  int popularity_{0};
+  boost::posix_time::ptime release_date_;
+  std::string release_date_precision_;
+  std::string type_;
+  std::string uri_;
+  Page<Track> tracks_;
+  static Page<Album> GetArtistAlbums(std::string_view artist_id);
+  static Page<Album> Search(std::string &albumName, std::string &artistName,
                             std::string &year, std::string &genre,
                             std::string &upc, std::string &isrc, int limit,
                             int offset);
-  static Album get_album(std::string_view album_id);
-  static std::vector<Album> get_albums(
+  static Album GetAlbum(std::string_view album_id);
+  static std::vector<Album> GetAlbums(
       const std::vector<std::string> &album_ids);
-  static Page<Track> get_album_tracks(std::string_view album_id, int limit = 20,
-                                      int offset = 0);
-  [[nodiscard]] Page<Track> get_album_tracks(int limit, int offset) const;
-  Page<Album> get_new_releases(const AuthenticationToken &token,
-                               std::string_view country, int limit, int offset);
+  static Page<Track> GetAlbumTracks(std::string_view album_id, int limit = 20,
+                                    int offset = 0);
+  [[nodiscard]] Page<Track> GetAlbumTracks(int limit, int offset) const;
+  Page<Album> GetNewReleases(const AuthenticationToken &token,
+                             std::string_view country, int limit, int offset);
 };
 
 }  // namespace spotify::inline v1

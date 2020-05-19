@@ -25,32 +25,32 @@
 namespace spotify::inline v1 {
 
 template <typename T>
-bool Page<T>::isHasNextPage() const {
-  return !_next.empty();
+bool Page<T>::HasNextPage() const {
+  return !next_.empty();
 }
 
 template <typename T>
-void Page<T>::setHasNextPage(bool hasNextPage) {
-  HasNextPage = hasNextPage;
+void Page<T>::SetHasNextPage(bool hasNextPage) {
+  has_next_page_ = hasNextPage;
 }
 
 template <typename T>
-bool Page<T>::isHasPreviousPage() const {
-  return !_previous.empty();
+bool Page<T>::HasPreviousPage() const {
+  return !previous_.empty();
 }
 
 template <typename T>
-void Page<T>::setHasPreviousPage(bool hasPreviousPage) {
-  HasPreviousPage = hasPreviousPage;
+void Page<T>::SetHasPreviousPage(bool hasPreviousPage) {
+  has_previous_page_ = hasPreviousPage;
 }
 
 template <typename T>
-Page<T> Page<T>::get_next_page() {
-  if (!isHasNextPage()) {
+Page<T> Page<T>::GetNextPage() {
+  if (!HasNextPage()) {
     throw PageNotFoundException();
   }
   auto local_future =
-      stlab::async(stlab::default_executor, detail::HttpHelper::get1, _next);
+      stlab::async(stlab::default_executor, detail::HttpHelper::Get1, next_);
   json_t j_obj = json_t::parse(stlab::blocking_get(local_future));
 
   if constexpr (std::is_same_v<T, Album>) {
@@ -86,12 +86,12 @@ Page<T> Page<T>::get_next_page() {
 }
 
 template <typename T>
-Page<T> Page<T>::get_previous_page() {
-  if (!isHasPreviousPage()) {
+Page<T> Page<T>::GetPreviousPage() {
+  if (!HasPreviousPage()) {
     throw PageNotFoundException();
   }
   auto local_future = stlab::async(stlab::default_executor,
-                                   detail::HttpHelper::get1, _previous);
+                                   detail::HttpHelper::Get1, previous_);
   json_t j_obj = json_t::parse(stlab::blocking_get(local_future));
 
   if constexpr (std::is_same_v<T, Album>) {
@@ -128,91 +128,91 @@ Page<T> Page<T>::get_previous_page() {
 
 template <typename T>
 Page<T>::Page(const model::page<model::track> &t_page) {
-  _href = t_page.href;
-  _limit = t_page.limit;
-  _offset = t_page.offset;
-  _total = t_page.total;
-  _previous = t_page.previous;
-  _next = t_page.next;
-  _items.reserve(t_page.items.capacity());
+  href_ = t_page.href;
+  limit_ = t_page.limit;
+  offset_ = t_page.offset;
+  total_ = t_page.total;
+  previous_ = t_page.previous;
+  next_ = t_page.next;
+  items_.reserve(t_page.items.capacity());
   for (const auto &item : t_page.items) {
     Track track_(item);
-    _items.push_back(std::move(track_));
+    items_.push_back(std::move(track_));
   }
 }
 
 template <typename T>
 Page<T>::Page(const model::page<model::album> &t_page) {
-  _href = t_page.href;
-  _limit = t_page.limit;
-  _offset = t_page.offset;
-  _total = t_page.total;
-  _previous = t_page.previous;
-  _next = t_page.next;
-  _items.reserve(t_page.items.capacity());
+  href_ = t_page.href;
+  limit_ = t_page.limit;
+  offset_ = t_page.offset;
+  total_ = t_page.total;
+  previous_ = t_page.previous;
+  next_ = t_page.next;
+  items_.reserve(t_page.items.capacity());
   for (const auto &item : t_page.items) {
     Album album_(item);
-    _items.push_back(std::move(album_));
+    items_.push_back(std::move(album_));
   }
 }
 
 template <typename T>
 Page<T>::Page(const model::page<model::playlisttrack> &t_page) {
-  _href = t_page.href;
-  _limit = t_page.limit;
-  _offset = t_page.offset;
-  _total = t_page.total;
-  _previous = t_page.previous;
-  _next = t_page.next;
-  _items.reserve(t_page.items.capacity());
+  href_ = t_page.href;
+  limit_ = t_page.limit;
+  offset_ = t_page.offset;
+  total_ = t_page.total;
+  previous_ = t_page.previous;
+  next_ = t_page.next;
+  items_.reserve(t_page.items.capacity());
   for (const auto &item : t_page.items) {
     PlaylistTrack plt_(item);
-    _items.push_back(std::move(plt_));
+    items_.push_back(std::move(plt_));
   }
 }
 
 template <typename T>
 Page<T>::Page(const model::page<model::playlist> &t_page) {
-  _href = t_page.href;
-  _limit = t_page.limit;
-  _offset = t_page.offset;
-  _total = t_page.total;
-  _previous = t_page.previous;
-  _next = t_page.next;
-  _items.reserve(t_page.items.capacity());
+  href_ = t_page.href;
+  limit_ = t_page.limit;
+  offset_ = t_page.offset;
+  total_ = t_page.total;
+  previous_ = t_page.previous;
+  next_ = t_page.next;
+  items_.reserve(t_page.items.capacity());
   for (const auto &item : t_page.items) {
     Playlist plt_(item);
-    _items.push_back(std::move(plt_));
+    items_.push_back(std::move(plt_));
   }
 }
 
 template <typename T>
 Page<T>::Page(const model::page<model::artist> &t_page) {
-  _href = t_page.href;
-  _limit = t_page.limit;
-  _offset = t_page.offset;
-  _total = t_page.total;
-  _previous = t_page.previous;
-  _next = t_page.next;
-  _items.reserve(t_page.items.capacity());
+  href_ = t_page.href;
+  limit_ = t_page.limit;
+  offset_ = t_page.offset;
+  total_ = t_page.total;
+  previous_ = t_page.previous;
+  next_ = t_page.next;
+  items_.reserve(t_page.items.capacity());
   for (const auto &item : t_page.items) {
     Artist plt_(item);
-    _items.push_back(std::move(plt_));
+    items_.push_back(std::move(plt_));
   }
 }
 
 template <typename T>
 Page<T>::Page(const model::page<model::savedtrack> &t_page) {
-  _href = t_page.href;
-  _limit = t_page.limit;
-  _offset = t_page.offset;
-  _total = t_page.total;
-  _previous = t_page.previous;
-  _next = t_page.next;
-  _items.reserve(t_page.items.capacity());
+  href_ = t_page.href;
+  limit_ = t_page.limit;
+  offset_ = t_page.offset;
+  total_ = t_page.total;
+  previous_ = t_page.previous;
+  next_ = t_page.next;
+  items_.reserve(t_page.items.capacity());
   for (const auto &item : t_page.items) {
     Track plt_(item);
-    _items.push_back(std::move(plt_));
+    items_.push_back(std::move(plt_));
   }
 }
 
