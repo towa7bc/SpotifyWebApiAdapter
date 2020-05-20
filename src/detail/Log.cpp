@@ -19,8 +19,6 @@
 
 namespace spotify::inline v1 {
 
-Ref<spdlog::logger> core_logger_;
-
 void Log::init() {
   try {
     spdlog::init_thread_pool(max_items, max_threads);
