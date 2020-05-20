@@ -1,7 +1,11 @@
 language: cpp
 
+before_install:
+  - brew install qt5
+  - brew link qt5 --force
+
 install:
-  - pip3 install --user conan cmake ccmake
+  - pip3 install --user conan cmake
 
 jobs:
   include:
