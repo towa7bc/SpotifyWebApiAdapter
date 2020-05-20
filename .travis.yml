@@ -16,9 +16,9 @@ before_script:
   - eval "${MATRIX_EVAL}"
 
 script:
-  - cmake -D ENABLE_COVERAGE:BOOL=TRUE .
-  - cmake --build . -- -j2 > log.txt
-  - ctest -j2
+  - cmake -D ENABLE_COVERAGE:BOOL=TRUE . > log1.txt
+  - cmake --build . -- -j2 > log2.txt
+  - ctest -j2 > log3.txt
 
 
 
