@@ -58,7 +58,7 @@ target_link_libraries(
         CONAN_PKG::catch2
         # CONAN_PKG::fmt
         CONAN_PKG::spdlog
-        CONAN_PKG::openssl
+        # CONAN_PKG::openssl
         # CONAN_PKG::boost
         CONAN_PKG::nlohmann_json
         CONAN_PKG::stlab
