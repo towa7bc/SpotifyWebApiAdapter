@@ -1,7 +1,7 @@
 language: cpp
 
 install:
-  - pip3 install --user conan cmake
+  - pip3 install --user conan cmake ccmake
 
 jobs:
   include:
