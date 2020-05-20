@@ -17,7 +17,7 @@ before_script:
 
 script:
   - cmake -D ENABLE_COVERAGE:BOOL=TRUE .
-  - cmake --build . -- -j2
+  - cmake --build . -- -j2 > log.txt
   - ctest -j2
 
 
