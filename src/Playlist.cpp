@@ -200,7 +200,7 @@ void Playlist::UpdateUsersPlaylist(std::string_view name, bool is_public,
   UpdateUsersPlaylist(owner_.id_, id_, name, is_public, token);
 }
 
-/// Comment
+/// Comment1
 Page<Playlist> Playlist::GetFeaturedPlaylists(const AuthenticationToken &token,
                                               std::string_view locale,
                                               std::string_view country,
