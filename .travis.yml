@@ -58,5 +58,18 @@ script:
   - cmake --build . -- -j2
   - ctest -j2
 
+before_deploy:
+  - git config --local user.name "towa7bc"
+  - git config --local user.email "michi.wittmann@gmail.com"
+  - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
+  - git tag $TRAVIS_TAG
 
+deploy:
+  provider: releases
+  api_key: "qyN4CNxKt49DjsQBCpgaoQ"
+  file_glob: true
+  file: ./**/*
+  skip_cleanup: true
+  on:
+    tags: true
 
