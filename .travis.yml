@@ -1,11 +1,6 @@
 language: cpp
 
 install:
-  - export MKSPEC=macx-clang
-  - brew update
-  - brew install qt5
-  - export PATH=$(brew --prefix)/opt/qt5/bin:$PATH
-  - brew link qt5 --force
   - pip3 install --user conan cmake
 
 jobs:
@@ -16,14 +11,64 @@ jobs:
       env:
         - PATH="${HOME}/Library/Python/3.7/bin:${PATH}"
         - MATRIX_EVAL=""
+      install:
+        - export MKSPEC=macx-clang
+        - brew update
+        - brew install qt5
+        - export PATH=$(brew --prefix)/opt/qt5/bin:$PATH
+        - brew link qt5 --force
+    - os: osx
+      compiler: gcc
+      osx_image: xcode11.3    # includes gcc-9 by default
+      env:
+        - PATH="${HOME}/Library/Python/3.7/bin:${PATH}"
+        - GCC_VER="9"
+        - MATRIX_EVAL="CC=gcc-${GCC_VER} && CXX=g++-${GCC_VER}"
+      install:
+        - export MKSPEC=macx-g++
+        - brew update
+        - brew install qt5
+        - export PATH=$(brew --prefix)/opt/qt5/bin:$PATH
+        - brew link qt5 --force
+      after_script:
+        - bash <(curl -s https://codecov.io/bash) -x /usr/bin/gcov-${GCC_VER}
+    - os: linux
+      dist: bionic
+      compiler: gcc
+      env:
+        - GCC_VER="9"
+        - MATRIX_EVAL="CC=gcc-${GCC_VER} && CXX=g++-${GCC_VER}"
+      install:
+        - export MKSPEC=linux-g++
+        - sudo apt -y update -qq && sudo apt -y install qt5-default
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            # I couldn't get ${GCC_VER} in here successfully
+            - gcc-9
+            - g++-9
+            - doxygen
+      after_script:
+        - bash <(curl -s https://codecov.io/bash) -x /usr/bin/gcov-${GCC_VER}
+    - os: linux
+      dist: bionic
+      compiler: clang
+      env:
+        - MATRIX_EVAL="CC=clang && CXX=clang++"
+      install:
+        - export MKSPEC=linux-clang
+        - sudo apt -y update -qq && sudo apt -y install qt5-default
+      addons: { apt: { packages: ['doxygen'] } }
 
 before_script:
   - eval "${MATRIX_EVAL}"
 
 script:
   - cmake -D ENABLE_COVERAGE:BOOL=TRUE . > log1.txt
-  - cmake --build . -- -j2 > log2.txt
-  - ctest -j2 > log3.txt
+  - cmake --build . -- -j2
+  - ctest -j2
 
 
 
