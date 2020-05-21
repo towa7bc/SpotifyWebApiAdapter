@@ -32,26 +32,31 @@ jobs:
         - bash <(curl -s https://codecov.io/bash) -x /usr/bin/gcov-${GCC_VER}
 
     - os: linux
+      dist: bionic
+      compiler: gcc
       addons:
         apt:
           sources:
             - ubuntu-toolchain-r-test
           packages:
+            - gcc-9
             - g++-9
             - doxygen
       env:
-        - MATRIX_EVAL="CC=gcc-9 && CXX=g++-9"
+        - GCC_VER="9"
+        - MATRIX_EVAL="CC=gcc-${GCC_VER} && CXX=g++-${GCC_VER}"
+      after_script:
+        - bash <(curl -s https://codecov.io/bash) -x /usr/bin/gcov-${GCC_VER}
 
     - os: linux
+      dist: bionic
+      compiler: clang
       addons:
         apt:
-          sources:
-            - llvm-toolchain-xenial-9.0
           packages:
-            - clang-9.0
             - doxygen
       env:
-        - MATRIX_EVAL="CC=clang-9.0 && CXX=clang++-9.0"
+        - MATRIX_EVAL="CC=clang && CXX=clang++"
 
 before_script:
   - eval "${MATRIX_EVAL}"
