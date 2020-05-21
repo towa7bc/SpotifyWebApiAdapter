@@ -9,11 +9,8 @@ install:
   - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then brew update; fi
   - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then brew install qt5; fi
   - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then export PATH=$(brew --prefix)/opt/qt5/bin:$PATH; fi
-  - pip3 install --user conan cmake
-
-env:
-  - BUILD_MODE=release
-  - BUILD_MODE=debug
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then pip install --user conan cmake; fi
+  - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then pip3 install --user conan cmake; fi
 
 jobs:
   include:
@@ -33,7 +30,6 @@ jobs:
       after_script:
         - bash <(curl -s https://codecov.io/bash) -x /usr/bin/gcov-${GCC_VER}
     - os: linux
-      dist: bionic
       compiler: gcc
       env:
         - GCC_VER="9"
@@ -50,7 +46,6 @@ jobs:
       after_script:
         - bash <(curl -s https://codecov.io/bash) -x /usr/bin/gcov-${GCC_VER}
     - os: linux
-      dist: bionic
       compiler: clang
       env:
         - MATRIX_EVAL="CC=clang && CXX=clang++"
@@ -60,7 +55,6 @@ before_script:
   - eval "${MATRIX_EVAL}"
 
 script:
-  - echo "Building for ${MKSPEC} in ${BUILD_MODE} mode..."
   - cmake -D ENABLE_COVERAGE:BOOL=TRUE . > log1.txt
   - cmake --build . -- -j2
   - ctest -j2
