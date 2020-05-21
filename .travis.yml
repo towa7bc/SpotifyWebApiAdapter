@@ -4,7 +4,8 @@ install:
   - export MKSPEC=macx-clang
   - brew update
   - brew install qt5
-  - brew link qt5 --force && sudo ln -s /usr/local/Cellar/qt5/5.14.1/mkspecs /usr/local/mkspecs && sudo ln -s /usr/local/Cellar/qt5/5.14.1/plugins /usr/local/plugins
+  - export PATH=$(brew --prefix)/opt/qt5/bin:$PATH
+  - brew link qt5 --force
   - pip3 install --user conan cmake
 
 jobs:
