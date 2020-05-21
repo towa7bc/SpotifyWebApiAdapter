@@ -39,7 +39,7 @@ add_library(
 
 #if ($ENV{CLION_IDE})
   set(CMAKE_PREFIX_PATH
-          /usr/local/Cellar/qt/5.14.2;C:\\Qt\\5.13.2\\msvc2017_64\\;/usr/local/include/stlab
+          /usr/local/Cellar/qt/5.14.2;C:\\Qt\\5.14.2\\msvc2017_64\\;/usr/local/include/stlab
           )
 #endif ()
 

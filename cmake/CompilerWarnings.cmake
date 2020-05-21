@@ -7,7 +7,7 @@ function(set_project_warnings project_name)
   option(WARNINGS_AS_ERRORS "Treat compiler warnings as errors" TRUE)
 
   set(MSVC_WARNINGS
-          /W0 # Baseline reasonable warnings
+          /W4 # Baseline reasonable warnings
           /w14242 # 'identifier': conversion from 'type1' to 'type1', possible loss
           # of data
           /w14254 # 'operator': conversion from 'type1:field_bits' to
@@ -64,8 +64,7 @@ function(set_project_warnings project_name)
 
   if (WARNINGS_AS_ERRORS)
     set(CLANG_WARNINGS ${CLANG_WARNINGS} -Werror)
-    set(MSVC_WARNINGS ${MSVC_WARNINGS})
-    #set(MSVC_WARNINGS ${MSVC_WARNINGS} /WX)
+    set(MSVC_WARNINGS ${MSVC_WARNINGS} /WX)
   endif ()
 
   set(GCC_WARNINGS
