@@ -1,6 +1,8 @@
 image:
   - Visual Studio 2019
 clone_folder: c:\projects\source
+qt_ver: 5.14\msvc2019_64
+
 build_script:
   - cmd: >-
       mkdir build
@@ -11,7 +13,7 @@ build_script:
 
       set PATH=%PATH%;C:\Users\appveyor\AppData\Roaming\Python\Scripts
 
-      cmake c:\projects\source -G "Visual Studio 16 2019" -DCMAKE_BUILD_TYPE:STRING=Release
+      cmake c:\projects\source -G "Visual Studio 16 2019" -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_PREFIX_PATH=c:/Qt/$env:qt_ver"
 
       cmake --build . --config "Release"
 
