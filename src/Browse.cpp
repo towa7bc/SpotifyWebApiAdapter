@@ -17,11 +17,14 @@
 #include "Album.hpp"              // for Album
 #include "Playlist.hpp"           // for Playlist
 #include "detail/HttpHelper.hpp"  // for HttpHelper
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 class AuthenticationToken;
 }
+}  // namespace spotify
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 Page<Playlist> Browse::GetFeaturedPlaylists(const AuthenticationToken &token,
                                             std::string_view locale,
@@ -95,3 +98,4 @@ Page<Album> Browse::GetNewReleases(const AuthenticationToken &token,
 }
 
 }  // namespace spotify::inline v1
+}  // namespace spotify

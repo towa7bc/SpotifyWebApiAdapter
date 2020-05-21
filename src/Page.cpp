@@ -22,7 +22,8 @@
 #include "detail/HttpHelper.hpp"  // for HttpHelper
 #include "model/modeldata.hpp"    // for page
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 template <typename T>
 bool Page<T>::HasNextPage() const {
@@ -217,3 +218,4 @@ Page<T>::Page(const model::page<model::savedtrack> &t_page) {
 }
 
 }  // namespace spotify::inline v1
+}  // namespace spotify

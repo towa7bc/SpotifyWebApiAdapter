@@ -17,7 +17,8 @@
 
 #include "Core.hpp"  // for create_ref
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 /// Initialize the Logger
 void Log::init() {
@@ -42,3 +43,4 @@ void Log::init() {
 }
 
 }  // namespace spotify::inline v1
+}  // namespace spotify

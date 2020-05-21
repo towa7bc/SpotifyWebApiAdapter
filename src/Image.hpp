@@ -6,13 +6,16 @@
 #define SPOTIFYWEBAPIADAPTER_IMAGE_HPP
 
 #include <string>  // for string
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 namespace model {
 struct image;
 }
-}  // namespace spotify::inline v1
+}  // namespace v1
+}  // namespace spotify
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 struct Image {
   explicit Image(const model::image &);
@@ -29,5 +32,6 @@ struct Image {
 };
 
 }  // namespace spotify::inline v1
+}  // namespace spotify
 
 #endif

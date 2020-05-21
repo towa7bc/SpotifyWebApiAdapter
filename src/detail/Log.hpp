@@ -12,7 +12,8 @@ namespace spdlog {
 class logger;
 }
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 class Log {
  public:
@@ -28,5 +29,6 @@ class Log {
 };
 
 }  // namespace spotify::inline v1
+}  // namespace spotify
 
 #endif

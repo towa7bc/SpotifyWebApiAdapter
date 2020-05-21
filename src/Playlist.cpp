@@ -24,7 +24,8 @@
 #include "User.hpp"               // for User
 #include "detail/HttpHelper.hpp"  // for HttpHelper
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 Playlist::Playlist(const model::playlist &pl)
     : collaborative_(pl.is_collaborative),
@@ -209,3 +210,4 @@ Page<Playlist> Playlist::GetFeaturedPlaylists(const AuthenticationToken &token,
 }
 
 }  // namespace spotify::inline v1
+}  // namespace spotify

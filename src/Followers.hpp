@@ -6,13 +6,16 @@
 #define SPOTIFYWEBAPIADAPTER_FOLLOWERS_HPP
 
 #include <string>  // for string
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 namespace model {
 struct followers;
 }
-}  // namespace spotify::inline v1
+}  // namespace v1
+}  // namespace spotify
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 struct Followers {
   explicit Followers(const model::followers &);
@@ -28,5 +31,6 @@ struct Followers {
 };
 
 }  // namespace spotify::inline v1
+}  // namespace spotify
 
 #endif

@@ -11,13 +11,16 @@
 #include "AuthenticationToken.hpp"
 #include "Page.hpp"             // for Page
 #include "model/modeldata.hpp"  // for json
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 class Album;
 class AuthenticationToken;
 class Playlist;
-}  // namespace spotify::inline v1
+}  // namespace v1
+}  // namespace spotify
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 class Browse {
   using json_t = nlohmann::json;
@@ -34,5 +37,6 @@ class Browse {
 };
 
 }  // namespace spotify::inline v1
+}  // namespace spotify
 
 #endif

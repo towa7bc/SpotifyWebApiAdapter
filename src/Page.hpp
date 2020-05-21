@@ -12,7 +12,8 @@
 #include "detail/BaseModel.hpp"  // for BaseModel
 #include "model/modeldata.hpp"   // for json
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 template <typename>
 class Page;
@@ -54,5 +55,6 @@ class Page : public BaseModel {
 };
 
 }  // namespace spotify::inline v1
+}  // namespace spotify
 
 #endif

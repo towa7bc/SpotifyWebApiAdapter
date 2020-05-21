@@ -14,11 +14,14 @@
 
 #include "detail/BaseModel.hpp"  // for BaseModel
 #include "model/modeldata.hpp"   // for json
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 class AuthenticationToken;
-}  // namespace spotify::inline v1
+}  // namespace v1
+}  // namespace spotify
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 class Authentication : public BaseModel {
   using date_time_t = boost::posix_time::ptime;
@@ -39,5 +42,6 @@ class Authentication : public BaseModel {
 };
 
 }  // namespace spotify::inline v1
+}  // namespace spotify
 
 #endif

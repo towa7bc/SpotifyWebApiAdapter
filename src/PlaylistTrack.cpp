@@ -8,7 +8,8 @@
 
 #include "model/modeldata.hpp"  // for playlisttrack
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 PlaylistTrack::PlaylistTrack(const model::playlisttrack &t_plt)
     : added_by_(t_plt.added_by),
@@ -20,4 +21,5 @@ PlaylistTrack::PlaylistTrack(model::playlisttrack &&t_plt) noexcept
       added_at_(boost::posix_time::time_from_string(t_plt.added_at)),
       track_(t_plt.track_) {}
 
-}  // namespace spotify::inline v1
+}  // namespace v1
+}  // namespace spotify

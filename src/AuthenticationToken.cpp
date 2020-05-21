@@ -18,7 +18,8 @@
 
 #include "Authentication.hpp"  // for Authentic...
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 auto AuthenticationToken::SetHasExpired(bool mHasExpired) -> void {
   has_expired_ = mHasExpired;
@@ -73,3 +74,4 @@ void AuthenticationToken::SetRefreshToken(std::string_view refreshToken) {
 }
 
 }  // namespace spotify::inline v1
+}  // namespace spotify

@@ -13,17 +13,22 @@
 #include "Track.hpp"
 #include "User.hpp"
 #include "detail/Core.hpp"  // for Ref
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 class Track;
 class User;
-}  // namespace spotify::inline v1
-namespace spotify::inline v1 {
+}  // namespace v1
+}  // namespace spotify
+namespace spotify {
+inline namespace v1 {
 namespace model {
 struct playlisttrack;
 }
-}  // namespace spotify::inline v1
+}  // namespace v1
+}  // namespace spotify
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 struct PlaylistTrack {
   explicit PlaylistTrack(const model::playlisttrack &);
@@ -42,5 +47,6 @@ struct PlaylistTrack {
 };
 
 }  // namespace spotify::inline v1
+}  // namespace spotify
 
 #endif

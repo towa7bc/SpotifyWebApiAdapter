@@ -19,7 +19,8 @@
 #include "detail/BaseModel.hpp"  // for BaseModel
 #include "detail/Core.hpp"       // for create_ref
 #include "model/modeldata.hpp"   // for json
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 class AuthenticationToken;
 class Track;
 class User;
@@ -27,9 +28,11 @@ struct Followers;
 struct PlaylistTrack;
 template <typename>
 class Page;
-}  // namespace spotify::inline v1
+}  // namespace v1
+}  // namespace spotify
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 class Playlist : public BaseModel {
   using json_t = nlohmann::json;
@@ -91,5 +94,6 @@ class Playlist : public BaseModel {
 };
 
 }  // namespace spotify::inline v1
+}  // namespace spotify
 
 #endif

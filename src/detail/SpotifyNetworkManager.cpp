@@ -18,7 +18,8 @@
 #include "../AuthenticationToken.hpp"
 #include "Log.hpp"
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 SpotifyNetworkManager::SpotifyNetworkManager()
     : _manager(std::make_unique<QNetworkAccessManager>(this)) {
@@ -231,3 +232,4 @@ auto SpotifyNetworkManager::perform_delete_request(
 }
 
 }  // namespace spotify::inline v1
+}  // namespace spotify

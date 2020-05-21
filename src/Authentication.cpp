@@ -22,7 +22,8 @@
 #include "detail/HttpHelper.hpp"    // for HttpHe...
 #include "detail/Log.hpp"           // for Log
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 /* static */ auto Authentication::GetAccessToken(std::string_view code)
     -> AuthenticationToken {
@@ -56,3 +57,4 @@ namespace spotify::inline v1 {
 void Authentication::InitializeSpotify() { Log::init(); }
 
 }  // namespace spotify::inline v1
+}  // namespace spotify

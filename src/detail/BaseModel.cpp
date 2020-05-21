@@ -12,7 +12,8 @@
 #include <string>       // for basic_string, basic_string<>::iterator, alloc...
 #include <type_traits>  // for enable_if<>::type, move
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 /* static */ auto BaseModel::CreateCommaSeparatedList(
     const std::vector<std::string> &v) -> std::string {
@@ -43,3 +44,4 @@ std::string BaseModel::StrToUpper(std::string s) {
 }
 
 }  // namespace spotify::inline v1
+}  // namespace spotify

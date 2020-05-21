@@ -8,15 +8,18 @@
 #include <nlohmann/json.hpp>  // for json, basic_json, basic_json<>::object_t
 #include <string>             // for basic_string
 #include <vector>             // for vector
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 namespace model {
 struct track;
 }
-}  // namespace spotify::inline v1
+}  // namespace v1
+}  // namespace spotify
 
 using nlohmann::json;
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 namespace model {
 
 struct accesstoken {
@@ -616,5 +619,6 @@ void from_json(const json &j, savedtrack &data) {
 
 }  // namespace model
 }  // namespace spotify::inline v1
+}  // namespace spotify
 
 #endif

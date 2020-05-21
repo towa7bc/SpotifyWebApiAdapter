@@ -7,7 +7,8 @@
 
 #include <memory>
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 template <typename T>
 using Scope = std::unique_ptr<T>;
@@ -24,5 +25,6 @@ constexpr Ref<T> create_ref(Args &&... args) {
 }
 
 }  // namespace spotify::inline v1
+}  // namespace spotify
 
 #endif

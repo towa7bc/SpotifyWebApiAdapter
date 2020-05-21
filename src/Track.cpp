@@ -8,7 +8,8 @@
 
 #include "Artist.hpp"  // for Artist
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 Track::Track(const model::track &t_track)
     : available_markets_(t_track.available_markets),
@@ -107,3 +108,4 @@ Track::Track(model::savedtrack &&t_track) noexcept
 }
 
 }  // namespace spotify::inline v1
+}  // namespace spotify

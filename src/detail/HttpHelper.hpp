@@ -10,12 +10,15 @@
 #include <string_view>  // for string_view
 
 #include "../model/modeldata.hpp"
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 class AuthenticationToken;
 class SpotifyNetworkManager;
-}  // namespace spotify::inline v1
+}  // namespace v1
+}  // namespace spotify
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 namespace detail {
 
 class HttpHelper {
@@ -49,5 +52,6 @@ class HttpHelper {
 
 }  // namespace detail
 }  // namespace spotify::inline v1
+}  // namespace spotify
 
 #endif

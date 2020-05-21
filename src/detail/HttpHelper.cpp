@@ -9,7 +9,8 @@
 
 #include "SpotifyNetworkManager.hpp"
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 namespace detail {
 
 /* static */ auto detail::HttpHelper::Get1(std::string_view url)
@@ -77,3 +78,4 @@ namespace detail {
 
 }  // namespace detail
 }  // namespace spotify::inline v1
+}  // namespace spotify

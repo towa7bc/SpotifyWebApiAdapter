@@ -19,11 +19,14 @@
 #include "Playlist.hpp"           // for Playlist
 #include "Track.hpp"              // for Track
 #include "detail/HttpHelper.hpp"  // for HttpHelper
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 class AuthenticationToken;
 }
+}  // namespace spotify
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 User::User(const model::user &t_user)
     : country_(t_user.country),
@@ -148,3 +151,4 @@ bool User::IsSaved(std::string_view id, const AuthenticationToken &token) {
 }
 
 }  // namespace spotify::inline v1
+}  // namespace spotify

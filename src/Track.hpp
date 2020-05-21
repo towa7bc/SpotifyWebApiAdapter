@@ -22,7 +22,8 @@ class Artist;
 }  // namespace v1
 }  // namespace spotify
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 class Track : public BaseModel {
   using json_t = nlohmann::json;
@@ -58,5 +59,6 @@ class Track : public BaseModel {
 };
 
 }  // namespace spotify::inline v1
+}  // namespace spotify
 
 #endif

@@ -8,7 +8,8 @@
 
 #include "model/modeldata.hpp"  // for followers
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 Followers::Followers(const model::followers &t_followers)
     : total_(t_followers.total), href_(t_followers.href) {}
@@ -16,4 +17,5 @@ Followers::Followers(const model::followers &t_followers)
 Followers::Followers(model::followers &&t_followers) noexcept
     : total_(t_followers.total), href_(std::move(t_followers.href)) {}
 
-}  // namespace spotify::inline v1
+}  // namespace v1
+}  // namespace spotify

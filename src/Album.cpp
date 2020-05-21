@@ -21,11 +21,14 @@
 #include "Page.hpp"               // for Page
 #include "Track.hpp"              // for Track
 #include "detail/HttpHelper.hpp"  // for HttpHelper
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 class AuthenticationToken;
 }
+}  // namespace spotify
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 Page<Album> Album::GetArtistAlbums(std::string_view artist_id) {
   auto local_future =
@@ -211,3 +214,4 @@ Page<Album> v1::Album::GetNewReleases(const AuthenticationToken &token,
 }
 
 }  // namespace spotify::inline v1
+}  // namespace spotify

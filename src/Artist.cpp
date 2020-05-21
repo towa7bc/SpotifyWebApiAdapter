@@ -21,7 +21,8 @@
 #include "Track.hpp"              // for Track
 #include "detail/HttpHelper.hpp"  // for HttpHelper
 
-namespace spotify::inline v1 {
+namespace spotify {
+inline namespace v1 {
 
 Artist Artist::GetArtist(const std::string &artist_id) {
   auto local_future =
@@ -182,3 +183,4 @@ Artist::Artist(model::artist &&t_artist) noexcept
 }
 
 }  // namespace spotify::inline v1
+}  // namespace spotify
