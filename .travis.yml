@@ -23,7 +23,7 @@ jobs:
 
     - os: osx
       compiler: gcc
-      osx_image: xcode11.3    # includes gcc-9 by default
+      osx_image: xcode11.2    # includes gcc-9 by default
       env:
         - PATH="${HOME}/Library/Python/3.7/bin:${PATH}"
         - GCC_VER="9"
@@ -34,6 +34,10 @@ jobs:
     - os: linux
       dist: bionic
       compiler: gcc
+      env:
+        - GCC_VER="9"
+        - MATRIX_EVAL="CC=gcc-${GCC_VER} && CXX=g++-${GCC_VER}"
+
       addons:
         apt:
           sources:
@@ -42,9 +46,6 @@ jobs:
             - gcc-9
             - g++-9
             - doxygen
-      env:
-        - GCC_VER="9"
-        - MATRIX_EVAL="CC=gcc-${GCC_VER} && CXX=g++-${GCC_VER}"
       after_script:
         - bash <(curl -s https://codecov.io/bash) -x /usr/bin/gcov-${GCC_VER}
 
@@ -54,9 +55,10 @@ jobs:
       addons:
         apt:
           packages:
+            - clang-9
             - doxygen
       env:
-        - MATRIX_EVAL="CC=clang && CXX=clang++"
+        - MATRIX_EVAL="CC=clang-9 && CXX=clang++-9"
 
 before_script:
   - eval "${MATRIX_EVAL}"
