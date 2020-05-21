@@ -1,7 +1,19 @@
 language: cpp
 
 install:
+  - if [ "${TRAVIS_OS_NAME}" = "osx" -a "${CXX}" = "clang++" ]; then export MKSPEC=macx-clang; fi
+  - if [ "${TRAVIS_OS_NAME}" = "osx" -a "${CXX}" = "g++" ]; then export MKSPEC=macx-g++; fi
+  - if [ "${TRAVIS_OS_NAME}" = "linux" -a "${CXX}" = "g++" ]; then export MKSPEC=linux-g++; fi
+  - if [ "${TRAVIS_OS_NAME}" = "linux" -a "${CXX}" = "clang++" ]; then export MKSPEC=linux-clang; fi
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then sudo apt -y update -qq && sudo apt -y install qt5-default; fi
+  - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then brew update; fi
+  - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then brew install qt5; fi
+  - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then export PATH=$(brew --prefix)/opt/qt5/bin:$PATH; fi
   - pip3 install --user conan cmake
+
+env:
+  - BUILD_MODE=release
+  - BUILD_MODE=debug
 
 jobs:
   include:
@@ -11,12 +23,6 @@ jobs:
       env:
         - PATH="${HOME}/Library/Python/3.7/bin:${PATH}"
         - MATRIX_EVAL=""
-      install:
-        - export MKSPEC=macx-clang
-        - brew update
-        - brew install qt5
-        - export PATH=$(brew --prefix)/opt/qt5/bin:$PATH
-        - brew link qt5 --force
     - os: osx
       compiler: gcc
       osx_image: xcode11.3    # includes gcc-9 by default
@@ -24,12 +30,6 @@ jobs:
         - PATH="${HOME}/Library/Python/3.7/bin:${PATH}"
         - GCC_VER="9"
         - MATRIX_EVAL="CC=gcc-${GCC_VER} && CXX=g++-${GCC_VER}"
-      install:
-        - export MKSPEC=macx-g++
-        - brew update
-        - brew install qt5
-        - export PATH=$(brew --prefix)/opt/qt5/bin:$PATH
-        - brew link qt5 --force
       after_script:
         - bash <(curl -s https://codecov.io/bash) -x /usr/bin/gcov-${GCC_VER}
     - os: linux
@@ -38,9 +38,6 @@ jobs:
       env:
         - GCC_VER="9"
         - MATRIX_EVAL="CC=gcc-${GCC_VER} && CXX=g++-${GCC_VER}"
-      install:
-        - export MKSPEC=linux-g++
-        - sudo apt -y update -qq && sudo apt -y install qt5-default
       addons:
         apt:
           sources:
@@ -57,15 +54,13 @@ jobs:
       compiler: clang
       env:
         - MATRIX_EVAL="CC=clang && CXX=clang++"
-      install:
-        - export MKSPEC=linux-clang
-        - sudo apt -y update -qq && sudo apt -y install qt5-default
       addons: { apt: { packages: ['doxygen'] } }
 
 before_script:
   - eval "${MATRIX_EVAL}"
 
 script:
+  - echo "Building for ${MKSPEC} in ${BUILD_MODE} mode..."
   - cmake -D ENABLE_COVERAGE:BOOL=TRUE . > log1.txt
   - cmake --build . -- -j2
   - ctest -j2
