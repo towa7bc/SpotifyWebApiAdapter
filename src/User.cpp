@@ -3,7 +3,7 @@
 //
 
 #if !defined(STLAB_CPP_VERSION_PRIVATE)
-#define STLAB_CPP_VERSION_PRIVATE() 20
+#define STLAB_CPP_VERSION_PRIVATE() 17
 #endif
 
 #include "User.hpp"
