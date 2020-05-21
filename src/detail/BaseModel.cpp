@@ -4,9 +4,8 @@
 
 #include "BaseModel.hpp"
 
-#include <_ctype.h>  // for toupper
-
 #include <algorithm>    // for transform
+#include <cctype>       // for toupper
 #include <cstddef>      // for size_t
 #include <iterator>     // for next
 #include <numeric>      // for accumulate
