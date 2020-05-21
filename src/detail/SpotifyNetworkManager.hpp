@@ -95,7 +95,6 @@ class SpotifyNetworkManager : public QObject {
   auto replyFinished(QNetworkReply *reply) -> void;
   auto slotSslErrors(const QList<QSslError> &errors) -> void;
   auto slotReadyRead() -> void;
-  auto slotError() -> void;
   static auto createRequest(std::string_view surl, std::string_view h1,
                             std::string_view h2) -> QNetworkRequest;
 };

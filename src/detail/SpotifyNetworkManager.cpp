@@ -53,9 +53,6 @@ auto SpotifyNetworkManager::performPostRequest(const QNetworkRequest &request,
   auto *reply = _manager->post(request, data);
   connect(reply, &QIODevice::readyRead, this,
           &SpotifyNetworkManager::slotReadyRead);
-  connect(reply,
-          QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::error),
-          this, &SpotifyNetworkManager::slotError);
   connect(reply, &QNetworkReply::sslErrors, this,
           &SpotifyNetworkManager::slotSslErrors);
 }
@@ -65,9 +62,6 @@ auto SpotifyNetworkManager::performPutRequest(const QNetworkRequest &request,
   auto *reply = _manager->put(request, data);
   connect(reply, &QIODevice::readyRead, this,
           &SpotifyNetworkManager::slotReadyRead);
-  connect(reply,
-          QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::error),
-          this, &SpotifyNetworkManager::slotError);
   connect(reply, &QNetworkReply::sslErrors, this,
           &SpotifyNetworkManager::slotSslErrors);
 }
@@ -88,9 +82,6 @@ auto SpotifyNetworkManager::performGetRequest(const QNetworkRequest &request)
   auto *reply = _manager->get(request);
   connect(reply, &QIODevice::readyRead, this,
           &SpotifyNetworkManager::slotReadyRead);
-  connect(reply,
-          QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::error),
-          this, &SpotifyNetworkManager::slotError);
   connect(reply, &QNetworkReply::sslErrors, this,
           &SpotifyNetworkManager::slotSslErrors);
 }
@@ -100,16 +91,11 @@ auto SpotifyNetworkManager::performDeleteRequest(const QNetworkRequest &request)
   auto *reply = _manager->deleteResource(request);
   connect(reply, &QIODevice::readyRead, this,
           &SpotifyNetworkManager::slotReadyRead);
-  connect(reply,
-          QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::error),
-          this, &SpotifyNetworkManager::slotError);
   connect(reply, &QNetworkReply::sslErrors, this,
           &SpotifyNetworkManager::slotSslErrors);
 }
 
 auto SpotifyNetworkManager::slotReadyRead() -> void {}
-
-auto SpotifyNetworkManager::slotError() -> void {}
 
 auto SpotifyNetworkManager::replyFinished(QNetworkReply *reply) -> void {
   if (reply->error() == QNetworkReply::NoError) {
