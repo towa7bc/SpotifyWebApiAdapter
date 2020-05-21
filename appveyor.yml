@@ -11,9 +11,9 @@ build_script:
 
       set PATH=%PATH%;C:\Users\appveyor\AppData\Roaming\Python\Scripts
 
-      cmake c:\projects\source -G "Visual Studio 16 2019" -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_PREFIX_PATH=c:/Qt/5.14.2
+      cmake c:\projects\source -G "Visual Studio 16 2019" -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_PREFIX_PATH="c:\Qt\5.14.2"
 
-      cmake --build . --config "Release"
+      cmake --build . --config "Release" -DCMAKE_PREFIX_PATH="c:\Qt\5.14.2"
 
 test_script:
   - cmd: ctest -C Debug
