@@ -58,15 +58,12 @@ script:
   - cmake --build . -- -j2
   - ctest -j2
 
-before_deploy:
-  - export FILE_TO_UPLOAD=$(ls _builds/*/Foo-*.tar.gz)
-
 deploy:
   provider: releases
   api_key:
     secure: "2TTlw8QC2TDLfAeyAX2Umd4W7cOGte/5bXt2Ek+FNqxGQVY2G0sClGf5B8XeMpYW2S8DhAfpYAQ9S3qG4ekI6gvjUXT3hR1YXOCb8pP8pV6AdlbVJ5gKxCVmYyRZXym0zyvunKQz0Qo0Ddtfp++YXKOzNKq72CZBx+ZuQktk/YRjgAug+P22hgdUhT7QwjWS89KaWrEkVYCCHHDpk5vJeRKjYiqaI8LCBcpLiOOmyh2xQ2jRHqzE59h6GbkuMg4ezT3CSqB0If7rbGWrmhsNk16KI7jDhvvGB7DrP7ijmCSJzButhaOSv49DM9griERNNOXSyxdvuYj/GGzFa+EO9M6IiJInsgv6C7cAWL6RmqznVXCIfKAsiFvV3zHN6b21gh1jVlvruB0zn7Nuwr3xHVOIJ81Z6GIiKBXLkOePOpUb2t7Qy/42fO9a4QYTdFYqPzx2H/ZvHcfonWA2dQeWqJ6NMUorB4Xx7gIG9DuQmxIGIvEKNbMq0FOxZWMWNGtQU1i62PVh2A+cTmBfq16TQy/hMoIo/wcnf/KgscZpnbyJf5OkvPQZ/uYLYmEHvI4IyJ30XpkVGVH5Szc1413vcQzuhxk0zwbzo/+PiGQjqgFNymrPNGwyhBoz+7CMFsDiDqm4YvCKhMNrcuIVnrDipULpxZFDCfKRW+qTp/JedwE="
   file_glob: true
-  file: "${FILE_TO_UPLOAD}"
+  file: lib/**/*
   skip_cleanup: true
   on:
     tags: true
