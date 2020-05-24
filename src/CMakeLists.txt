@@ -37,11 +37,9 @@ add_library(
         detail/Log.cpp
         detail/Log.hpp)
 
-#if ($ENV{CLION_IDE})
-  set(CMAKE_PREFIX_PATH
-          /usr/local/Cellar/qt/5.14.2;C:\\Qt\\5.14.2\\msvc2017_64\\;/usr/local/include/stlab
-          )
-#endif ()
+set(CMAKE_PREFIX_PATH
+        /usr/local/Cellar/qt/5.14.2;C:\\Qt\\5.14.2\\msvc2017_64\\;/usr/local/include/stlab
+        )
 
 find_package(
         Qt5
