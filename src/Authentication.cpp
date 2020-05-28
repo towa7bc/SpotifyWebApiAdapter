@@ -31,12 +31,12 @@ inline namespace v1 {
     Log::init();
   }
   AuthenticationToken auth_token;
-  std::map<std::string, std::string> postData;
-  postData["grant_type"] = "authorization_code";
-  postData["code"] = code;
-  postData["redirect_uri"] = redirect_uri_;
-  postData["client_id"] = client_id_;
-  postData["client_secret"] = client_secret_;
+  std::map<std::string, std::string> postData{
+      {"grant_type", "authorization_code"},
+      {"code", std::string(code)},
+      {"redirect_uri", redirect_uri_},
+      {"client_id", client_id_},
+      {"client_secret", client_secret_}};
   auto local_future =
       stlab::async(stlab::default_executor, detail::HttpHelper::Post1,
                    "https://accounts.spotify.com/api/token", postData) |
@@ -56,5 +56,5 @@ inline namespace v1 {
 
 void Authentication::InitializeSpotify() { Log::init(); }
 
-}  // namespace spotify::inline v1
+}  // namespace v1
 }  // namespace spotify
