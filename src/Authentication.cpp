@@ -43,13 +43,13 @@ inline namespace v1 {
       ([](std::string_view s) { return json_t::parse(s); }) |
       ([](const json_t &j) { return j.get<model::accesstoken>(); });
   auto access_token = stlab::blocking_get(local_future);
-  auth_token.SetAccessToken(access_token.access_token);
+  auth_token.setAccessToken(access_token.access_token);
   auth_token.SetRefreshToken(access_token.refresh_token);
   auth_token.SetTokenType(access_token.token_type);
   date_time_t currentTime(
       boost::gregorian::day_clock::universal_day(),
       boost::posix_time::second_clock::universal_time().time_of_day());
-  auth_token.SetExpiresOn(currentTime +
+  auth_token.setExpiresOn(currentTime +
                           boost::posix_time::seconds(access_token.expires_in));
   return auth_token;
 }

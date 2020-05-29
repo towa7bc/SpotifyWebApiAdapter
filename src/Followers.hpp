@@ -26,6 +26,13 @@ struct Followers {
   Followers &operator=(const Followers &) = default;
   Followers &operator=(Followers &&) noexcept = default;
   Followers(Followers &&) noexcept = default;
+
+  [[nodiscard]] int getTotal() const { return total_; }
+  void setTotal(int total) { total_ = total; }
+  [[nodiscard]] const std::string &getHref() const { return href_; }
+  void setHref(const std::string &href) { href_ = href; }
+
+ private:
   int total_{0};
   std::string href_;
 };

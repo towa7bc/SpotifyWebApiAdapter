@@ -39,6 +39,19 @@ struct PlaylistTrack {
   PlaylistTrack &operator=(const PlaylistTrack &) = default;
   PlaylistTrack &operator=(PlaylistTrack &&) noexcept = default;
   PlaylistTrack(PlaylistTrack &&) noexcept = default;
+
+  [[nodiscard]] const User &getAddedBy() const { return added_by_; }
+  void setAddedBy(const User &addedBy) { added_by_ = addedBy; }
+  [[nodiscard]] const boost::posix_time::ptime &getAddedAt() const {
+    return added_at_;
+  }
+  void setAddedAt(const boost::posix_time::ptime &addedAt) {
+    added_at_ = addedAt;
+  }
+  [[nodiscard]] const Track &getTrack() const { return track_; }
+  void setTrack(const Track &track) { track_ = track; }
+
+ private:
   User added_by_;
   boost::posix_time::ptime added_at_{
       boost::gregorian::day_clock::universal_day(),

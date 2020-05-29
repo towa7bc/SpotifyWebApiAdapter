@@ -84,7 +84,7 @@ Page<Playlist> Playlist::GetUsersPlaylists(std::string_view user_id,
 
 Page<Playlist> Playlist::GetUsersPlaylists(const User &user,
                                            const AuthenticationToken &token) {
-  return GetUsersPlaylists(user.id_, token);
+  return GetUsersPlaylists(user.getId(), token);
 }
 
 Page<Playlist> Playlist::GetPlaylist(std::string_view user_id,
@@ -106,7 +106,7 @@ Page<Playlist> Playlist::GetPlaylist(std::string_view user_id,
 Page<Playlist> Playlist::GetPlaylist(const User &user,
                                      std::string_view playlist_id,
                                      const AuthenticationToken &token) {
-  return GetPlaylist(user.id_, playlist_id, token);
+  return GetPlaylist(user.getId(), playlist_id, token);
 }
 
 Page<PlaylistTrack> Playlist::GetPlaylistTracks(
@@ -129,7 +129,7 @@ Page<PlaylistTrack> Playlist::GetPlaylistTracks(
 
 Page<PlaylistTrack> Playlist::GetPlaylistTracks(
     const AuthenticationToken &token) const {
-  return GetPlaylistTracks(owner_.id_, id_, token);
+  return GetPlaylistTracks(owner_.getId(), id_, token);
 }
 
 void Playlist::AddTrack(const Track &track, AuthenticationToken &token) const {
@@ -137,8 +137,8 @@ void Playlist::AddTrack(const Track &track, AuthenticationToken &token) const {
   std::map<std::string, std::string> d;
   auto local_future = stlab::async(
       stlab::default_executor, detail::HttpHelper::Post2,
-      "https://api.spotify.com/v1/users/" + std::string(owner_.id_) +
-          "/playlists/" + std::string(id_) + "/tracks?uris=" + track.uri_,
+      "https://api.spotify.com/v1/users/" + std::string(owner_.getId()) +
+          "/playlists/" + std::string(id_) + "/tracks?uris=" + track.getUri(),
       token, d, include_bearer);
   auto local_obj = stlab::blocking_get(local_future);
 }
@@ -146,14 +146,15 @@ void Playlist::AddTrack(const Track &track, AuthenticationToken &token) const {
 void Playlist::AddTracks(const std::vector<Track> &track_uris,
                          AuthenticationToken &token) const {
   std::vector<std::string> uris;
-  std::transform(track_uris.begin(), track_uris.end(), uris.begin(),
-                 [](const Track &track) -> std::string { return track.uri_; });
+  std::transform(
+      track_uris.begin(), track_uris.end(), uris.begin(),
+      [](const Track &track) -> std::string { return track.getUri(); });
 
   bool include_bearer{true};
   std::map<std::string, std::string> d;
   auto local_future = stlab::async(
       stlab::default_executor, detail::HttpHelper::Post2,
-      "https://api.spotify.com/v1/users/" + std::string(owner_.id_) +
+      "https://api.spotify.com/v1/users/" + std::string(owner_.getId()) +
           "/playlists/" + std::string(id_) +
           "/tracks?uris=" + CreateCommaSeparatedList(uris),
       token, d, include_bearer);
@@ -197,7 +198,7 @@ void Playlist::UpdateUsersPlaylist(std::string_view user_id,
 
 void Playlist::UpdateUsersPlaylist(std::string_view name, bool is_public,
                                    const AuthenticationToken &token) const {
-  UpdateUsersPlaylist(owner_.id_, id_, name, is_public, token);
+  UpdateUsersPlaylist(owner_.getId(), id_, name, is_public, token);
 }
 
 /// Comment12

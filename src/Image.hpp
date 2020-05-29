@@ -26,12 +26,21 @@ struct Image {
   Image &operator=(const Image &) = default;
   Image &operator=(Image &&) noexcept = default;
   Image(Image &&) noexcept = default;
+
+  [[nodiscard]] int getHeight() const { return height_; }
+  void setHeight(int height) { height_ = height; }
+  [[nodiscard]] const std::string &getUrl() const { return url_; }
+  void setUrl(const std::string &url) { url_ = url; }
+  [[nodiscard]] int getWidth() const { return width_; }
+  void setWidth(int width) { width_ = width; }
+
+ private:
   int height_{0};
   std::string url_;
   int width_{0};
 };
 
-}  // namespace spotify::inline v1
+}  // namespace v1
 }  // namespace spotify
 
 #endif

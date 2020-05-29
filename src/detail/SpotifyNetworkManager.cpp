@@ -138,7 +138,7 @@ void SpotifyNetworkManager::perform_get_request(
   QNetworkRequest request;
   if (include_bearer) {
     request = createRequest(
-        url, "Authorization: Bearer " + token.GetAccessToken(), "");
+        url, "Authorization: Bearer " + token.getAccessToken(), "");
   } else {
     request = createRequest(url, "application/x-www-form-urlencoded", "");
   }
@@ -153,7 +153,7 @@ auto SpotifyNetworkManager::perform_post_request(
   QNetworkRequest request;
   if (include_bearer) {
     request = createRequest(
-        url, "Authorization: Bearer " + token.GetAccessToken(), "");
+        url, "Authorization: Bearer " + token.getAccessToken(), "");
   } else {
     request = createRequest(url, "application/x-www-form-urlencoded", "");
   }
@@ -173,7 +173,7 @@ auto SpotifyNetworkManager::perform_post_request(
   QNetworkRequest request;
   if (include_bearer) {
     request =
-        createRequest(url, "Authorization: Bearer " + token.GetAccessToken(),
+        createRequest(url, "Authorization: Bearer " + token.getAccessToken(),
                       "application/json");
   } else {
     request = createRequest(url, "application/json", "");
@@ -189,7 +189,7 @@ auto SpotifyNetworkManager::perform_put_request(
   QNetworkRequest request;
   if (include_bearer) {
     request = createRequest(
-        url, "Authorization: Bearer " + token.GetAccessToken(), "");
+        url, "Authorization: Bearer " + token.getAccessToken(), "");
   } else {
     request = createRequest(url, "application/x-www-form-urlencoded", "");
   }
@@ -209,7 +209,7 @@ auto SpotifyNetworkManager::perform_put_request(
   QNetworkRequest request;
   if (include_bearer) {
     request =
-        createRequest(url, "Authorization: Bearer " + token.GetAccessToken(),
+        createRequest(url, "Authorization: Bearer " + token.getAccessToken(),
                       "application/json");
   } else {
     request = createRequest(url, "application/json", "");
@@ -224,7 +224,7 @@ auto SpotifyNetworkManager::perform_delete_request(
   QNetworkRequest request;
   if (include_bearer) {
     request = createRequest(
-        url, "Authorization: Bearer " + token.GetAccessToken(), "");
+        url, "Authorization: Bearer " + token.getAccessToken(), "");
   } else {
     request = createRequest(url, "application/x-www-form-urlencoded", "");
   }

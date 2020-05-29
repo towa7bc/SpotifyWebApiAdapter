@@ -36,15 +36,6 @@ class Artist : public BaseModel {
   Artist &operator=(const Artist &) = default;
   Artist &operator=(Artist &&) noexcept = default;
   Artist(Artist &&) noexcept = default;
-  std::vector<std::string> genres_;
-  std::string external_url_;
-  std::string href_;
-  std::string id_;
-  std::vector<Image> images_;
-  std::string name_;
-  int popularity_{};
-  std::string type_;
-  std::string uri_;
   static Artist GetArtist(const std::string &artist_id);
   static std::vector<Artist> GetArtists(
       const std::vector<std::string> &artist_ids);
@@ -60,9 +51,45 @@ class Artist : public BaseModel {
       const std::string &artist_id, const std::string &country_code = "US");
   [[nodiscard]] std::vector<Artist> GetRelatedArtists(
       const std::string &country_code = "US") const;
+
+  [[nodiscard]] const std::vector<std::string> &getGenres() const {
+    return genres_;
+  }
+  void setGenres(const std::vector<std::string> &genres) { genres_ = genres; }
+  [[nodiscard]] const std::string &getExternalUrl() const {
+    return external_url_;
+  }
+  void setExternalUrl(const std::string &externalUrl) {
+    external_url_ = externalUrl;
+  }
+  [[nodiscard]] const std::string &getHref() const { return href_; }
+  void setHref(const std::string &href) { href_ = href; }
+  [[nodiscard]] const std::string &getId() const { return id_; }
+  void setId(const std::string &id) { id_ = id; }
+  [[nodiscard]] const std::vector<Image> &getImages() const { return images_; }
+  void setImages(const std::vector<Image> &images) { images_ = images; }
+  [[nodiscard]] const std::string &getName() const { return name_; }
+  void setName(const std::string &name) { name_ = name; }
+  [[nodiscard]] int getPopularity() const { return popularity_; }
+  void setPopularity(int popularity) { popularity_ = popularity; }
+  [[nodiscard]] const std::string &getType() const { return type_; }
+  void setType(const std::string &type) { type_ = type; }
+  [[nodiscard]] const std::string &getUri() const { return uri_; }
+  void setUri(const std::string &uri) { uri_ = uri; }
+
+ private:
+  std::vector<std::string> genres_;
+  std::string external_url_;
+  std::string href_;
+  std::string id_;
+  std::vector<Image> images_;
+  std::string name_;
+  int popularity_{};
+  std::string type_;
+  std::string uri_;
 };
 
-}  // namespace spotify::inline v1
+}  // namespace v1
 }  // namespace spotify
 
 #endif

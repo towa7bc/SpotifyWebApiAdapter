@@ -35,6 +35,28 @@ class Page : public BaseModel {
   Page &operator=(const Page &) = default;
   Page &operator=(Page &&) noexcept = default;
   Page(Page &&) noexcept = default;
+  [[nodiscard]] const std::string &getHref() const { return href_; }
+  void setHref(const std::string &href) { href_ = href; }
+  const std::vector<T> &getItems() const { return items_; }
+  void setItems(const std::vector<T> &items) { items_ = items; }
+  [[nodiscard]] int getLimit() const { return limit_; }
+  void setLimit(int limit) { limit_ = limit; }
+  [[nodiscard]] const std::string &getNext() const { return next_; }
+  void setNext(const std::string &next) { next_ = next; }
+  [[nodiscard]] int getOffset() const { return offset_; }
+  void setOffset(int offset) { offset_ = offset; }
+  [[nodiscard]] const std::string &getPrevious() const { return previous_; }
+  void setPrevious(const std::string &previous) { previous_ = previous; }
+  [[nodiscard]] int getTotal() const { return total_; }
+  void setTotal(int total) { total_ = total; }
+  [[nodiscard]] bool HasNextPage() const;
+  void setHasNextPage(bool hasNextPage);
+  [[nodiscard]] bool HasPreviousPage() const;
+  void setHasPreviousPage(bool hasPreviousPage);
+  Page<T> getNextPage();
+  Page<T> getPreviousPage();
+
+ private:
   std::string href_;
   std::vector<T> items_;
   int limit_{0};
@@ -42,14 +64,6 @@ class Page : public BaseModel {
   int offset_{0};
   std::string previous_;
   int total_{0};
-  [[nodiscard]] bool HasNextPage() const;
-  void SetHasNextPage(bool hasNextPage);
-  [[nodiscard]] bool HasPreviousPage() const;
-  void SetHasPreviousPage(bool hasPreviousPage);
-  Page<T> GetNextPage();
-  Page<T> GetPreviousPage();
-
- private:
   bool has_previous_page_{false};
   bool has_next_page_{false};
 };

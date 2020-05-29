@@ -40,16 +40,40 @@ class User : public BaseModel {
   User &operator=(const User &) = default;
   User &operator=(User &&) noexcept = default;
   User(User &&) noexcept = default;
-  std::string country_;
-  std::string displayName_;
-  std::string email_address_;
-  std::string external_url_;
-  std::string href_;
-  std::string id_;
-  std::vector<Image> images_;
-  std::string product_;
-  std::string type_;
-  std::string uri_;
+
+  [[nodiscard]] const std::string &getCountry() const { return country_; }
+  void setCountry(const std::string &country) { country_ = country; }
+  [[nodiscard]] const std::string &getDisplayName() const {
+    return displayName_;
+  }
+  void setDisplayName(const std::string &displayName) {
+    displayName_ = displayName;
+  }
+  [[nodiscard]] const std::string &getEmailAddress() const {
+    return email_address_;
+  }
+  void setEmailAddress(const std::string &emailAddress) {
+    email_address_ = emailAddress;
+  }
+  [[nodiscard]] const std::string &getExternalUrl() const {
+    return external_url_;
+  }
+  void setExternalUrl(const std::string &externalUrl) {
+    external_url_ = externalUrl;
+  }
+  [[nodiscard]] const std::string &getHref() const { return href_; }
+  void setHref(const std::string &href) { href_ = href; }
+  [[nodiscard]] const std::string &getId() const { return id_; }
+  void setId(const std::string &id) { id_ = id; }
+  [[nodiscard]] const std::vector<Image> &getImages() const { return images_; }
+  void setImages(const std::vector<Image> &images) { images_ = images; }
+  [[nodiscard]] const std::string &getProduct() const { return product_; }
+  void setProduct(const std::string &product) { product_ = product; }
+  [[nodiscard]] const std::string &getType() const { return type_; }
+  void setType(const std::string &type) { type_ = type; }
+  [[nodiscard]] const std::string &getUri() const { return uri_; }
+  void setUri(const std::string &uri) { uri_ = uri; }
+
   static User GetUser(std::string_view user_id);
   static User GetCurrentUserProfile(const AuthenticationToken &token);
   [[nodiscard]] Page<Playlist> GetPlaylists(
@@ -65,9 +89,21 @@ class User : public BaseModel {
   bool AreSaved(const std::vector<std::string> &ids,
                 const AuthenticationToken &token);
   bool IsSaved(std::string_view id, const AuthenticationToken &token);
+
+ private:
+  std::string country_;
+  std::string displayName_;
+  std::string email_address_;
+  std::string external_url_;
+  std::string href_;
+  std::string id_;
+  std::vector<Image> images_;
+  std::string product_;
+  std::string type_;
+  std::string uri_;
 };
 
-}  // namespace spotify::inline v1
+}  // namespace v1
 }  // namespace spotify
 
 #endif

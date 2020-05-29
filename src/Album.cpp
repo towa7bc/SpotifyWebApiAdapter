@@ -15,6 +15,7 @@
 #include <stlab/concurrency/utility.hpp>                // for blocking_get
 #include <string>                                       // for basic_string
 #include <type_traits>                                  // for move
+#include <vector>
 
 #include "Artist.hpp"             // for Artist
 #include "Browse.hpp"             // for Browse
@@ -79,16 +80,18 @@ Page<Album> Album::Search(std::string &albumName, std::string &artistName,
       ([](const json_t &j) { return j.get<model::album_search_result>(); });
   auto local_obj = stlab::blocking_get(local_future);
   Page<Album> page;
-  page.next_ = local_obj.albums.next;
-  page.previous_ = local_obj.albums.previous;
-  page.href_ = local_obj.albums.href;
-  page.total_ = local_obj.albums.total;
-  page.offset_ = local_obj.albums.offset;
-  page.limit_ = local_obj.albums.limit;
+  page.setNext(local_obj.albums.next);
+  page.setPrevious(local_obj.albums.previous);
+  page.setHref(local_obj.albums.href);
+  page.setTotal(local_obj.albums.total);
+  page.setOffset(local_obj.albums.offset);
+  page.setLimit(local_obj.albums.limit);
+  std::vector<Album> vec;
   for (const model::album &item : local_obj.albums.items) {
     Album album_(item);
-    page.items_.push_back(album_);
+    vec.push_back(std::move(album_));
   }
+  page.setItems(vec);
   return page;
 }
 

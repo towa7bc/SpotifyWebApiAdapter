@@ -46,19 +46,7 @@ class Playlist : public BaseModel {
   Playlist &operator=(const Playlist &) = default;
   Playlist &operator=(Playlist &&) noexcept = default;
   Playlist(Playlist &&) noexcept = default;
-  bool collaborative_{false};
-  std::string description_;
-  std::string external_url_;
-  Followers followers_;
-  std::string href_;
-  std::string id_;
-  std::vector<Image> images_;
-  std::string name_;
-  User owner_;
-  bool public_{false};
-  Page<PlaylistTrack> tracks_;
-  std::string type_;
-  std::string uri_;
+
   static Page<Playlist> GetUsersPlaylists(std::string_view user_id,
                                           const AuthenticationToken &token);
   static Page<Playlist> GetUsersPlaylists(const User &user,
@@ -91,6 +79,56 @@ class Playlist : public BaseModel {
                                              std::string_view country = "",
                                              std::string_view timestamp = "",
                                              int limit = 20, int offset = 0);
+
+  [[nodiscard]] bool isCollaborative() const { return collaborative_; }
+  void setCollaborative(bool collaborative) { collaborative_ = collaborative; }
+  [[nodiscard]] const std::string &getDescription() const {
+    return description_;
+  }
+  void setDescription(const std::string &description) {
+    description_ = description;
+  }
+  [[nodiscard]] const std::string &getExternalUrl() const {
+    return external_url_;
+  }
+  void setExternalUrl(const std::string &externalUrl) {
+    external_url_ = externalUrl;
+  }
+  [[nodiscard]] const Followers &getFollowers() const { return followers_; }
+  void setFollowers(const Followers &followers) { followers_ = followers; }
+  [[nodiscard]] const std::string &getHref() const { return href_; }
+  void setHref(const std::string &href) { href_ = href; }
+  [[nodiscard]] const std::string &getId() const { return id_; }
+  void setId(const std::string &id) { id_ = id; }
+  [[nodiscard]] const std::vector<Image> &getImages() const { return images_; }
+  void setImages(const std::vector<Image> &images) { images_ = images; }
+  [[nodiscard]] const std::string &getName() const { return name_; }
+  void setName(const std::string &name) { name_ = name; }
+  [[nodiscard]] const User &getOwner() const { return owner_; }
+  void setOwner(const User &owner) { owner_ = owner; }
+  [[nodiscard]] bool isPublic() const { return public_; }
+  void setPublic(bool b_public) { public_ = b_public; }
+  [[nodiscard]] const Page<PlaylistTrack> &getTracks() const { return tracks_; }
+  void setTracks(const Page<PlaylistTrack> &tracks) { tracks_ = tracks; }
+  [[nodiscard]] const std::string &getType() const { return type_; }
+  void setType(const std::string &type) { type_ = type; }
+  [[nodiscard]] const std::string &getUri() const { return uri_; }
+  void setUri(const std::string &uri) { uri_ = uri; }
+
+ private:
+  bool collaborative_{false};
+  std::string description_;
+  std::string external_url_;
+  Followers followers_;
+  std::string href_;
+  std::string id_;
+  std::vector<Image> images_;
+  std::string name_;
+  User owner_;
+  bool public_{false};
+  Page<PlaylistTrack> tracks_;
+  std::string type_;
+  std::string uri_;
 };
 
 }  // namespace spotify::inline v1

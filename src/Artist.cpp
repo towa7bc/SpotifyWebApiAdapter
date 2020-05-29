@@ -15,6 +15,7 @@
 #include <string>                                  // for basic_string, oper...
 #include <string_view>                             // for string_view
 #include <type_traits>                             // for move
+#include <vector>
 
 #include "Album.hpp"              // for Album
 #include "Page.hpp"               // for Page
@@ -84,16 +85,18 @@ Page<Artist> Artist::Search(std::string &artistName, std::string &year,
       ([](const json_t &j) { return j.get<model::artist_search_result>(); });
   auto local_obj = stlab::blocking_get(local_future);
   Page<Artist> page;
-  page.next_ = local_obj.artists.next;
-  page.previous_ = local_obj.artists.previous;
-  page.href_ = local_obj.artists.href;
-  page.total_ = local_obj.artists.total;
-  page.offset_ = local_obj.artists.offset;
-  page.limit_ = local_obj.artists.limit;
+  page.setNext(local_obj.artists.next);
+  page.setPrevious(local_obj.artists.previous);
+  page.setHref(local_obj.artists.href);
+  page.setTotal(local_obj.artists.total);
+  page.setOffset(local_obj.artists.offset);
+  page.setLimit(local_obj.artists.limit);
+  std::vector<Artist> vec;
   for (const model::artist &item : local_obj.artists.items) {
     Artist artist_(item);
-    page.items_.push_back(artist_);
+    vec.push_back(std::move(artist_));
   }
+  page.setItems(vec);
   return page;
 }
 
@@ -115,7 +118,7 @@ std::vector<Track> Artist::GetTopTracks(const std::string &artist_id,
   auto local_obj = stlab::blocking_get(local_future);
   for (const auto &item : local_obj.tracks) {
     Track track_;
-    track_.track_number_ = item.track_number;
+    track_.setTrackNumber(item.track_number);
 
     tracks_list.push_back(track_);
   }
@@ -179,7 +182,7 @@ Artist::Artist(model::artist &&t_artist) noexcept
     this->images_.push_back(std::move(elem));
   }
   const int base{10};
-  this->popularity_ = std::stoi(std::move(t_artist.popularity), nullptr, base);
+  this->popularity_ = std::stoi(t_artist.popularity, nullptr, base);
 }
 
 }  // namespace spotify::inline v1

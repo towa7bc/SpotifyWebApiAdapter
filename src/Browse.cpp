@@ -13,6 +13,8 @@
 #include <stlab/concurrency/future.hpp>            // for async, future
 #include <stlab/concurrency/utility.hpp>           // for blocking_get
 #include <string>                                  // for basic_string, oper...
+#include <type_traits>
+#include <vector>
 
 #include "Album.hpp"              // for Album
 #include "Playlist.hpp"           // for Playlist
@@ -54,16 +56,18 @@ Page<Playlist> Browse::GetFeaturedPlaylists(const AuthenticationToken &token,
       });
   auto local_obj = stlab::blocking_get(local_future);
   Page<Playlist> play_list;
-  play_list.href_ = local_obj.playlists.href;
-  play_list.next_ = local_obj.playlists.next;
-  play_list.previous_ = local_obj.playlists.previous;
-  play_list.total_ = local_obj.playlists.total;
-  play_list.offset_ = local_obj.playlists.offset;
-  play_list.limit_ = local_obj.playlists.limit;
+  play_list.setHref(local_obj.playlists.href);
+  play_list.setNext(local_obj.playlists.next);
+  play_list.setPrevious(local_obj.playlists.previous);
+  play_list.setTotal(local_obj.playlists.total);
+  play_list.setOffset(local_obj.playlists.offset);
+  play_list.setLimit(local_obj.playlists.limit);
+  std::vector<Playlist> vec;
   for (const auto &item : local_obj.playlists.items) {
     Playlist pl(item);
-    play_list.items_.push_back(pl);
+    vec.push_back(std::move(pl));
   }
+  play_list.setItems(vec);
   return play_list;
 }
 
@@ -84,16 +88,18 @@ Page<Album> Browse::GetNewReleases(const AuthenticationToken &token,
       ([](const json_t &j) { return j.get<model::album_search_result>(); });
   auto local_obj = stlab::blocking_get(local_future);
   Page<Album> page;
-  page.href_ = local_obj.albums.href;
-  page.next_ = local_obj.albums.next;
-  page.previous_ = local_obj.albums.previous;
-  page.total_ = local_obj.albums.total;
-  page.offset_ = local_obj.albums.offset;
-  page.limit_ = local_obj.albums.limit;
+  page.setHref(local_obj.albums.href);
+  page.setNext(local_obj.albums.next);
+  page.setPrevious(local_obj.albums.previous);
+  page.setTotal(local_obj.albums.total);
+  page.setOffset(local_obj.albums.offset);
+  page.setLimit(local_obj.albums.limit);
+  std::vector<Album> vec;
   for (const auto &item : local_obj.albums.items) {
     Album album(item);
-    page.items_.push_back(album);
+    vec.push_back(std::move(album));
   }
+  page.setItems(vec);
   return page;
 }
 

@@ -25,31 +25,31 @@ auto AuthenticationToken::SetHasExpired(bool mHasExpired) -> void {
   has_expired_ = mHasExpired;
 }
 
-auto AuthenticationToken::HasExpired() const -> bool {
+auto AuthenticationToken::hasExpired() const -> bool {
   date_time_t currentTime(
       boost::gregorian::day_clock::universal_day(),
       boost::posix_time::second_clock::universal_time().time_of_day());
   return currentTime > expires_on_;
 }
 
-auto AuthenticationToken::GetAccessToken() const -> const std::string & {
-  if (HasExpired()) {
+auto AuthenticationToken::getAccessToken() const -> const std::string & {
+  if (hasExpired()) {
     Refresh();
   }
   return access_token_;
 }
 
-auto AuthenticationToken::SetAccessToken(std::string_view mAccessToken)
+auto AuthenticationToken::setAccessToken(std::string_view mAccessToken)
     -> void {
   access_token_ = mAccessToken;
 }
 
-auto AuthenticationToken::GetExpiresOn() const
+auto AuthenticationToken::getExpiresOn() const
     -> const boost::posix_time::ptime & {
   return expires_on_;
 }
 
-auto AuthenticationToken::SetExpiresOn(
+auto AuthenticationToken::setExpiresOn(
     const boost::posix_time::ptime &mExpiresOn) -> void {
   expires_on_ = mExpiresOn;
 }

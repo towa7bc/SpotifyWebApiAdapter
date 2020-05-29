@@ -31,7 +31,7 @@ bool Page<T>::HasNextPage() const {
 }
 
 template <typename T>
-void Page<T>::SetHasNextPage(bool hasNextPage) {
+void Page<T>::setHasNextPage(bool hasNextPage) {
   has_next_page_ = hasNextPage;
 }
 
@@ -41,12 +41,12 @@ bool Page<T>::HasPreviousPage() const {
 }
 
 template <typename T>
-void Page<T>::SetHasPreviousPage(bool hasPreviousPage) {
+void Page<T>::setHasPreviousPage(bool hasPreviousPage) {
   has_previous_page_ = hasPreviousPage;
 }
 
 template <typename T>
-Page<T> Page<T>::GetNextPage() {
+Page<T> Page<T>::getNextPage() {
   if (!HasNextPage()) {
     throw PageNotFoundException();
   }
@@ -87,7 +87,7 @@ Page<T> Page<T>::GetNextPage() {
 }
 
 template <typename T>
-Page<T> Page<T>::GetPreviousPage() {
+Page<T> Page<T>::getPreviousPage() {
   if (!HasPreviousPage()) {
     throw PageNotFoundException();
   }

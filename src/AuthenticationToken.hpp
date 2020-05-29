@@ -35,11 +35,11 @@ class AuthenticationToken {
   AuthenticationToken &operator=(AuthenticationToken &&) noexcept = default;
   AuthenticationToken(AuthenticationToken &&) noexcept = default;
   auto SetHasExpired(bool mHasExpired) -> void;
-  [[nodiscard]] auto HasExpired() const -> bool;
-  auto GetAccessToken() const -> const std::string &;
-  auto SetAccessToken(std::string_view mAccessToken) -> void;
-  [[nodiscard]] auto GetExpiresOn() const -> const boost::posix_time::ptime &;
-  auto SetExpiresOn(const boost::posix_time::ptime &mExpiresOn) -> void;
+  [[nodiscard]] auto hasExpired() const -> bool;
+  auto getAccessToken() const -> const std::string &;
+  auto setAccessToken(std::string_view mAccessToken) -> void;
+  [[nodiscard]] auto getExpiresOn() const -> const boost::posix_time::ptime &;
+  auto setExpiresOn(const boost::posix_time::ptime &mExpiresOn) -> void;
   auto Refresh() const -> void;
   void SetTokenType(std::string_view tokenType);
   void SetRefreshToken(std::string_view refreshToken);
