@@ -4,7 +4,6 @@
 
 #include "SpotifyNetworkManager.hpp"
 
-#include <qglobal.h>
 #include <qiodevice.h>
 #include <qnetworkreply.h>
 #include <qsslerror.h>
@@ -13,6 +12,7 @@
 #include <spdlog/logger.h>
 
 #include <string>
+#include <unordered_map>
 #include <utility>
 
 #include "../AuthenticationToken.hpp"
@@ -36,8 +36,8 @@ auto SpotifyNetworkManager::performGetRequest(std::string_view surl,
 }
 
 auto SpotifyNetworkManager::perform_post_request(
-    std::string_view url, const std::map<std::string, std::string> &postData)
-    -> void {
+    std::string_view url,
+    const std::unordered_map<std::string, std::string> &postData) -> void {
   auto request = createRequest(url, "application/x-www-form-urlencoded", "");
   Log::logger()->trace("perform_post_request called.");
   QByteArray data;
@@ -147,8 +147,8 @@ void SpotifyNetworkManager::perform_get_request(
 
 auto SpotifyNetworkManager::perform_post_request(
     std::string_view url, const AuthenticationToken &token,
-    const std::map<std::string, std::string> &postData, bool include_bearer)
-    -> void {
+    const std::unordered_map<std::string, std::string> &postData,
+    bool include_bearer) -> void {
   Log::logger()->trace("perform_post_request called.");
   QNetworkRequest request;
   if (include_bearer) {
@@ -183,8 +183,8 @@ auto SpotifyNetworkManager::perform_post_request(
 
 auto SpotifyNetworkManager::perform_put_request(
     std::string_view url, const AuthenticationToken &token,
-    const std::map<std::string, std::string> &postData, bool include_bearer)
-    -> void {
+    const std::unordered_map<std::string, std::string> &postData,
+    bool include_bearer) -> void {
   Log::logger()->trace("perform_put_request called.");
   QNetworkRequest request;
   if (include_bearer) {

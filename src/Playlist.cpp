@@ -10,12 +10,12 @@
 
 #include <algorithm>                               // for transform
 #include <functional>                              // for __base
-#include <map>                                     // for map
 #include <stlab/concurrency/default_executor.hpp>  // for executor_type, def...
 #include <stlab/concurrency/future.hpp>            // for async, future
 #include <stlab/concurrency/utility.hpp>           // for blocking_get
 #include <string>                                  // for basic_string, oper...
 #include <type_traits>                             // for move
+#include <unordered_map>                           // for map
 
 #include "Browse.hpp"             // for Browse
 #include "Page.hpp"               // for Page
@@ -134,7 +134,7 @@ Page<PlaylistTrack> Playlist::GetPlaylistTracks(
 
 void Playlist::AddTrack(const Track &track, AuthenticationToken &token) const {
   bool include_bearer{true};
-  std::map<std::string, std::string> d;
+  std::unordered_map<std::string, std::string> d;
   auto local_future = stlab::async(
       stlab::default_executor, detail::HttpHelper::Post2,
       "https://api.spotify.com/v1/users/" + std::string(owner_.getId()) +
@@ -151,7 +151,7 @@ void Playlist::AddTracks(const std::vector<Track> &track_uris,
       [](const Track &track) -> std::string { return track.getUri(); });
 
   bool include_bearer{true};
-  std::map<std::string, std::string> d;
+  std::unordered_map<std::string, std::string> d;
   auto local_future = stlab::async(
       stlab::default_executor, detail::HttpHelper::Post2,
       "https://api.spotify.com/v1/users/" + std::string(owner_.getId()) +

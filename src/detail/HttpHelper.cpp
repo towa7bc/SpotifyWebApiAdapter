@@ -6,6 +6,7 @@
 
 #include <nlohmann/json.hpp>
 #include <string>
+#include <unordered_map>
 
 #include "SpotifyNetworkManager.hpp"
 
@@ -27,7 +28,8 @@ namespace detail {
 }
 
 /* static */ auto detail::HttpHelper::Post1(
-    std::string_view url, const std::map<std::string, std::string> &postData)
+    std::string_view url,
+    const std::unordered_map<std::string, std::string> &postData)
     -> std::string {
   manager_.perform_post_request(url, postData);
   return manager_.get_reply();
@@ -35,8 +37,8 @@ namespace detail {
 
 /* static */ auto detail::HttpHelper::Post2(
     std::string_view url, const AuthenticationToken &token,
-    const std::map<std::string, std::string> &postData, bool include_bearer)
-    -> std::string {
+    const std::unordered_map<std::string, std::string> &postData,
+    bool include_bearer) -> std::string {
   manager_.perform_post_request(url, token, postData, include_bearer);
   return manager_.get_reply();
 }
@@ -53,8 +55,8 @@ namespace detail {
 
 /* static */ auto detail::HttpHelper::Put1(
     std::string_view url, const AuthenticationToken &token,
-    const std::map<std::string, std::string> &postData, bool include_bearer)
-    -> std::string {
+    const std::unordered_map<std::string, std::string> &postData,
+    bool include_bearer) -> std::string {
   manager_.perform_put_request(url, token, postData, include_bearer);
   return manager_.get_reply();
 }

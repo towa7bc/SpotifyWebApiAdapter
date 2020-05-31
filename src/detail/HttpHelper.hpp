@@ -5,9 +5,9 @@
 #ifndef SPOTIFYWEBAPIADAPTER_HTTPHELPER_HPP
 #define SPOTIFYWEBAPIADAPTER_HTTPHELPER_HPP
 
-#include <map>          // for map
-#include <string>       // for string
-#include <string_view>  // for string_view
+#include <string>         // for string
+#include <string_view>    // for string_view
+#include <unordered_map>  // for map
 
 #include "../model/modeldata.hpp"
 namespace spotify {
@@ -26,22 +26,24 @@ class HttpHelper {
   static SpotifyNetworkManager manager_;
 
  public:
-  static auto Post1(std::string_view url,
-                    const std::map<std::string, std::string> &postData)
+  static auto Post1(
+      std::string_view url,
+      const std::unordered_map<std::string, std::string> &postData)
       -> std::string;
-  static auto Post2(std::string_view url, const AuthenticationToken &token,
-                    const std::map<std::string, std::string> &postData,
-                    bool include_bearer) -> std::string;
+  static auto Post2(
+      std::string_view url, const AuthenticationToken &token,
+      const std::unordered_map<std::string, std::string> &postData,
+      bool include_bearer) -> std::string;
   static auto Post3(std::string_view url, const AuthenticationToken &token,
                     const model::playlistdata &pD, bool include_bearer = true)
       -> std::string;
   static auto Get1(std::string_view url) -> std::string;
   static auto Get2(std::string_view url, const AuthenticationToken &token,
                    bool include_bearer) -> std::string;
-  static std::string Put1(std::string_view url,
-                          const AuthenticationToken &token,
-                          const std::map<std::string, std::string> &postData,
-                          bool include_bearer);
+  static std::string Put1(
+      std::string_view url, const AuthenticationToken &token,
+      const std::unordered_map<std::string, std::string> &postData,
+      bool include_bearer);
   static std::string Put2(std::string_view url,
                           const AuthenticationToken &token,
                           const model::playlistdata &pD, bool include_bearer);

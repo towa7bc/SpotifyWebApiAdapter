@@ -13,11 +13,11 @@
 #include <qobjectdefs.h>            // for Q_OBJECT, signals, slots
 #include <qstring.h>                // for QString
 
-#include <array>        // for array
-#include <map>          // for map
-#include <memory>       // for unique_ptr
-#include <string>       // for string
-#include <string_view>  // for string_view
+#include <array>          // for array
+#include <memory>         // for unique_ptr
+#include <string>         // for string
+#include <string_view>    // for string_view
+#include <unordered_map>  // for map
 class QNetworkReply;
 class QSslError;
 class QUrl;
@@ -46,9 +46,9 @@ class SpotifyNetworkManager : public QObject {
       delete;
   SpotifyNetworkManager &operator=(SpotifyNetworkManager const &&manager) =
       delete;
-  auto perform_post_request(std::string_view url,
-                            const std::map<std::string, std::string> &postData)
-      -> void;
+  auto perform_post_request(
+      std::string_view url,
+      const std::unordered_map<std::string, std::string> &postData) -> void;
   [[nodiscard]] auto get_reply() const -> std::string;
   void perform_get_request(std::string_view view);
   void perform_get_request(std::string_view url,
@@ -56,16 +56,16 @@ class SpotifyNetworkManager : public QObject {
                            bool include_bearer = true);
   [[maybe_unused]] void perform_post_request(
       std::string_view url, const AuthenticationToken &token,
-      const std::map<std::string, std::string> &postData,
+      const std::unordered_map<std::string, std::string> &postData,
       bool include_bearer = true);
   void perform_post_request(std::string_view url,
                             const AuthenticationToken &token,
                             std::string_view json_string,
                             bool include_bearer = true);
-  void perform_put_request(std::string_view url,
-                           const AuthenticationToken &token,
-                           const std::map<std::string, std::string> &postData,
-                           bool include_bearer);
+  void perform_put_request(
+      std::string_view url, const AuthenticationToken &token,
+      const std::unordered_map<std::string, std::string> &postData,
+      bool include_bearer);
   void perform_put_request(std::string_view url,
                            const AuthenticationToken &token,
                            std::string_view json_string, bool include_bearer);
