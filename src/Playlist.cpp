@@ -40,7 +40,7 @@ Playlist::Playlist(const model::playlist &pl)
       tracks_(pl.tracks),
       type_(pl.type),
       uri_(pl.uri) {
-  images_.reserve(pl.images.capacity());
+  images_.reserve(pl.images.size());
   for (const auto &item : pl.images) {
     Image image(item);
     images_.push_back(std::move(image));
@@ -60,7 +60,7 @@ Playlist::Playlist(model::playlist &&pl) noexcept
       tracks_(pl.tracks),
       type_(std::move(pl.type)),
       uri_(std::move(pl.uri)) {
-  images_.reserve(pl.images.capacity());
+  images_.reserve(pl.images.size());
   for (auto &item : pl.images) {
     Image image(std::move(item));
     images_.push_back(std::move(image));

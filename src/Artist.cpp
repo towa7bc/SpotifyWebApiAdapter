@@ -159,7 +159,7 @@ Artist::Artist(const model::artist &t_artist)
       name_(t_artist.name),
       type_(t_artist.type),
       uri_(t_artist.uri) {
-  this->images_.reserve(t_artist.images.capacity());
+  this->images_.reserve(t_artist.images.size());
   for (const model::image &image : t_artist.images) {
     Image elem(image);
     this->images_.push_back(std::move(elem));
@@ -176,7 +176,7 @@ Artist::Artist(model::artist &&t_artist) noexcept
       name_(std::move(t_artist.name)),
       type_(std::move(t_artist.type)),
       uri_(std::move(t_artist.uri)) {
-  this->images_.reserve(t_artist.images.capacity());
+  this->images_.reserve(t_artist.images.size());
   for (auto &image : t_artist.images) {
     Image elem(std::move(image));
     this->images_.push_back(std::move(elem));

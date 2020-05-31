@@ -37,7 +37,7 @@ User::User(const model::user &t_user)
       product_(t_user.product),
       type_(t_user.type),
       uri_(t_user.uri) {
-  images_.reserve(t_user.images.capacity());
+  images_.reserve(t_user.images.size());
   for (const auto &imag : t_user.images) {
     Image image(imag);
     images_.push_back(std::move(image));
@@ -53,7 +53,7 @@ User::User(model::user &&t_user) noexcept
       product_(std::move(t_user.product)),
       type_(std::move(t_user.type)),
       uri_(std::move(t_user.uri)) {
-  images_.reserve(t_user.images.capacity());
+  images_.reserve(t_user.images.size());
   for (auto &imag : t_user.images) {
     Image image(std::move(imag));
     images_.push_back(std::move(image));

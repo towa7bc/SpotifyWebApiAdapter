@@ -114,12 +114,12 @@ Album::Album(const model::album &t_album)
   } else if (StrToUpper(t_album.album_type) == "COMPILATION") {
     this->album_type_ = Album::AlbumType::Compilation;
   }
-  this->images_.reserve(t_album.images.capacity());
+  this->images_.reserve(t_album.images.size());
   for (const model::image &image : t_album.images) {
     Image elem(image);
     this->images_.push_back(std::move(elem));
   }
-  this->artists_.reserve(t_album.artists.capacity());
+  this->artists_.reserve(t_album.artists.size());
   for (const model::artist &artist : t_album.artists) {
     Artist elem(artist);
     this->artists_.push_back(std::move(elem));
@@ -148,18 +148,18 @@ Album::Album(model::album &&t_album) noexcept
   } else if (StrToUpper(std::move(t_album.album_type)) == "COMPILATION") {
     this->album_type_ = Album::AlbumType::Compilation;
   }
-  this->images_.reserve(t_album.images.capacity());
+  this->images_.reserve(t_album.images.size());
   for (auto &image : t_album.images) {
     Image elem(std::move(image));
     this->images_.push_back(std::move(elem));
   }
-  this->artists_.reserve(t_album.artists.capacity());
+  this->artists_.reserve(t_album.artists.size());
   for (auto &artist : t_album.artists) {
     Artist elem(std::move(artist));
     this->artists_.push_back(std::move(elem));
   }
   const int base{10};
-  popularity_ = std::stoi(std::move(t_album.popularity), nullptr, base);
+  popularity_ = std::stoi(t_album.popularity, nullptr, base);
   release_date_ = boost::posix_time::time_from_string(t_album.release_date);
 }
 
@@ -206,13 +206,13 @@ std::vector<Album> Album::GetAlbums(const std::vector<std::string> &album_ids) {
   return album_array;
 }
 
-Page<Track> v1::Album::GetAlbumTracks(int limit, int offset) const {
+Page<Track> Album::GetAlbumTracks(int limit, int offset) const {
   return GetAlbumTracks(this->id_, limit, offset);
 }
 
-Page<Album> v1::Album::GetNewReleases(const AuthenticationToken &token,
-                                      std::string_view country, int limit,
-                                      int offset) {
+Page<Album> Album::GetNewReleases(const AuthenticationToken &token,
+                                  std::string_view country, int limit,
+                                  int offset) {
   return Browse::GetNewReleases(token, country, limit, offset);
 }
 

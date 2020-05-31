@@ -28,7 +28,7 @@ Track::Track(const model::track &t_track)
       explicit_(t_track.is_explicit),
       track_number_(t_track.track_number),
       album_(t_track.album_) {
-  artists_.reserve(t_track.artists.capacity());
+  artists_.reserve(t_track.artists.size());
   for (const auto &item : t_track.artists) {
     Artist artist(item);
     artists_.push_back(std::move(artist));
@@ -52,7 +52,7 @@ Track::Track(model::track &&t_track) noexcept
       explicit_(t_track.is_explicit),
       track_number_(t_track.track_number),
       album_(t_track.album_) {
-  artists_.reserve(t_track.artists.capacity());
+  artists_.reserve(t_track.artists.size());
   for (auto &item : t_track.artists) {
     Artist artist(std::move(item));
     artists_.push_back(std::move(artist));
@@ -76,7 +76,7 @@ Track::Track(const model::savedtrack &t_track)
       explicit_(t_track.track_.is_explicit),
       track_number_(t_track.track_.track_number),
       album_(t_track.track_.album_) {
-  artists_.reserve(t_track.track_.artists.capacity());
+  artists_.reserve(t_track.track_.artists.size());
   for (const auto &item : t_track.track_.artists) {
     Artist artist(item);
     artists_.push_back(std::move(artist));
@@ -100,7 +100,7 @@ Track::Track(model::savedtrack &&t_track) noexcept
       explicit_(t_track.track_.is_explicit),
       track_number_(t_track.track_.track_number),
       album_(t_track.track_.album_) {
-  artists_.reserve(t_track.track_.artists.capacity());
+  artists_.reserve(t_track.track_.artists.size());
   for (auto &item : t_track.track_.artists) {
     Artist artist(std::move(item));
     artists_.push_back(std::move(artist));
