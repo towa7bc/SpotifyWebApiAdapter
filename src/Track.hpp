@@ -29,16 +29,9 @@ class Track : public BaseModel {
   using json_t = nlohmann::json;
 
  public:
-  explicit Track(const model::track &);
-  explicit Track(model::track &&) noexcept;
-  explicit Track(const model::savedtrack &);
-  explicit Track(model::savedtrack &&t_track) noexcept;
+  explicit Track(model::track);
+  explicit Track(model::savedtrack t_track);
   Track() = default;
-  Track(const Track &) = default;
-  ~Track() override = default;
-  Track &operator=(const Track &) = default;
-  Track &operator=(Track &&) noexcept = default;
-  Track(Track &&) noexcept = default;
 
   [[nodiscard]] const std::vector<Artist> &getArtists() const {
     return artists_;

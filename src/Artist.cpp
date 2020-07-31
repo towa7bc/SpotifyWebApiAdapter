@@ -151,24 +151,7 @@ std::vector<Artist> Artist::GetRelatedArtists(
   return GetRelatedArtists(this->id_, country_code);
 }
 
-Artist::Artist(const model::artist &t_artist)
-    : genres_(t_artist.genres),
-      external_url_(t_artist.external_urls.at(0)),
-      href_(t_artist.href),
-      id_(t_artist.id),
-      name_(t_artist.name),
-      type_(t_artist.type),
-      uri_(t_artist.uri) {
-  this->images_.reserve(t_artist.images.size());
-  for (const model::image &image : t_artist.images) {
-    Image elem(image);
-    this->images_.push_back(std::move(elem));
-  }
-  const int base{10};
-  this->popularity_ = std::stoi(t_artist.popularity, nullptr, base);
-}
-
-Artist::Artist(model::artist &&t_artist) noexcept
+Artist::Artist(model::artist t_artist)
     : genres_(std::move(t_artist.genres)),
       external_url_(std::move(t_artist.external_urls.at(0))),
       href_(std::move(t_artist.href)),

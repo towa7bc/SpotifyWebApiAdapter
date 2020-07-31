@@ -11,10 +11,7 @@
 namespace spotify {
 inline namespace v1 {
 
-Image::Image(const model::image &t_image)
-    : height_(t_image.height), url_(t_image.url), width_(t_image.width) {}
-
-Image::Image(model::image &&t_image) noexcept
+Image::Image(model::image t_image)
     : height_(t_image.height),
       url_(std::move(t_image.url)),
       width_(t_image.width) {}

@@ -95,41 +95,7 @@ Page<Album> Album::Search(std::string &albumName, std::string &artistName,
   return page;
 }
 
-Album::Album(const model::album &t_album)
-    : availableMarkets_(t_album.available_markets),
-      external_id_(t_album.external_ids.at(0)),
-      external_url_(t_album.external_urls.at(0)),
-      genres_(t_album.genres),
-      href_(t_album.href),
-      id_(t_album.id),
-      name_(t_album.name),
-      release_date_precision_(t_album.release_date_precision),
-      type_(t_album.type),
-      uri_(t_album.uri),
-      tracks_(t_album.tracks) {
-  if (StrToUpper(t_album.album_type) == "ALBUM") {
-    this->album_type_ = Album::AlbumType::Album;
-  } else if (StrToUpper(t_album.album_type) == "SINGLE") {
-    this->album_type_ = Album::AlbumType::Single;
-  } else if (StrToUpper(t_album.album_type) == "COMPILATION") {
-    this->album_type_ = Album::AlbumType::Compilation;
-  }
-  this->images_.reserve(t_album.images.size());
-  for (const model::image &image : t_album.images) {
-    Image elem(image);
-    this->images_.push_back(std::move(elem));
-  }
-  this->artists_.reserve(t_album.artists.size());
-  for (const model::artist &artist : t_album.artists) {
-    Artist elem(artist);
-    this->artists_.push_back(std::move(elem));
-  }
-  const int base{10};
-  popularity_ = std::stoi(t_album.popularity, nullptr, base);
-  release_date_ = boost::posix_time::time_from_string(t_album.release_date);
-}
-
-Album::Album(model::album &&t_album) noexcept
+Album::Album(model::album t_album)
     : availableMarkets_(std::move(t_album.available_markets)),
       external_id_(std::move(t_album.external_ids.at(0))),
       external_url_(std::move(t_album.external_urls.at(0))),
@@ -140,12 +106,12 @@ Album::Album(model::album &&t_album) noexcept
       release_date_precision_(std::move(t_album.release_date_precision)),
       type_(std::move(t_album.type)),
       uri_(std::move(t_album.uri)),
-      tracks_(t_album.tracks) {
-  if (StrToUpper(std::move(t_album.album_type)) == "ALBUM") {
+      tracks_(std::move(t_album.tracks)) {
+  if (StrToUpper(t_album.album_type) == "ALBUM") {
     this->album_type_ = Album::AlbumType::Album;
-  } else if (StrToUpper(std::move(t_album.album_type)) == "SINGLE") {
+  } else if (StrToUpper(t_album.album_type) == "SINGLE") {
     this->album_type_ = Album::AlbumType::Single;
-  } else if (StrToUpper(std::move(t_album.album_type)) == "COMPILATION") {
+  } else if (StrToUpper(t_album.album_type) == "COMPILATION") {
     this->album_type_ = Album::AlbumType::Compilation;
   }
   this->images_.reserve(t_album.images.size());

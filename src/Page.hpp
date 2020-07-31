@@ -23,18 +23,13 @@ class Page : public BaseModel {
   using json_t = nlohmann::json;
 
  public:
-  explicit Page(const model::page<model::track> &);
-  explicit Page(const model::page<model::savedtrack> &);
-  explicit Page(const model::page<model::album> &);
-  explicit Page(const model::page<model::playlisttrack> &);
-  explicit Page(const model::page<model::playlist> &);
-  explicit Page(const model::page<model::artist> &);
+  explicit Page(model::page<model::track>);
+  explicit Page(model::page<model::savedtrack>);
+  explicit Page(model::page<model::album>);
+  explicit Page(model::page<model::playlisttrack>);
+  explicit Page(model::page<model::playlist>);
+  explicit Page(model::page<model::artist>);
   Page() = default;
-  Page(const Page &) = default;
-  ~Page() override = default;
-  Page &operator=(const Page &) = default;
-  Page &operator=(Page &&) noexcept = default;
-  Page(Page &&) noexcept = default;
   [[nodiscard]] const std::string &getHref() const { return href_; }
   void setHref(const std::string &href) { href_ = href; }
   const std::vector<T> &getItems() const { return items_; }

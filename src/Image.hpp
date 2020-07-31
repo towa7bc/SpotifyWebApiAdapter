@@ -18,14 +18,8 @@ namespace spotify {
 inline namespace v1 {
 
 struct Image {
-  explicit Image(const model::image &);
-  explicit Image(model::image &&) noexcept;
+  explicit Image(model::image);
   Image() = default;
-  Image(const Image &) = default;
-  ~Image() = default;
-  Image &operator=(const Image &) = default;
-  Image &operator=(Image &&) noexcept = default;
-  Image(Image &&) noexcept = default;
 
   [[nodiscard]] int getHeight() const { return height_; }
   void setHeight(int height) { height_ = height; }

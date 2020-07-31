@@ -28,23 +28,7 @@ class AuthenticationToken;
 namespace spotify {
 inline namespace v1 {
 
-User::User(const model::user &t_user)
-    : country_(t_user.country),
-      displayName_(t_user.display_name),
-      external_url_(t_user.external_urls.at(0)),
-      href_(t_user.href),
-      id_(t_user.id),
-      product_(t_user.product),
-      type_(t_user.type),
-      uri_(t_user.uri) {
-  images_.reserve(t_user.images.size());
-  for (const auto &imag : t_user.images) {
-    Image image(imag);
-    images_.push_back(std::move(image));
-  }
-}
-
-User::User(model::user &&t_user) noexcept
+User::User(model::user t_user)
     : country_(std::move(t_user.country)),
       displayName_(std::move(t_user.display_name)),
       external_url_(std::move(t_user.external_urls.at(0))),

@@ -32,14 +32,8 @@ class User : public BaseModel {
   using json_t = nlohmann::json;
 
  public:
-  explicit User(const model::user &);
-  explicit User(model::user &&) noexcept;
+  explicit User(model::user);
   User() = default;
-  User(const User &) = default;
-  ~User() override = default;
-  User &operator=(const User &) = default;
-  User &operator=(User &&) noexcept = default;
-  User(User &&) noexcept = default;
 
   [[nodiscard]] const std::string &getCountry() const { return country_; }
   void setCountry(const std::string &country) { country_ = country; }

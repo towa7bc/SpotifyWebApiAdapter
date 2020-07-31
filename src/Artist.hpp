@@ -28,14 +28,8 @@ class Artist : public BaseModel {
   using json_t = nlohmann::json;
 
  public:
-  explicit Artist(const model::artist &);
-  explicit Artist(model::artist &&t_artist) noexcept;
+  explicit Artist(model::artist t_artist);
   Artist() = default;
-  Artist(const Artist &) = default;
-  ~Artist() override = default;
-  Artist &operator=(const Artist &) = default;
-  Artist &operator=(Artist &&) noexcept = default;
-  Artist(Artist &&) noexcept = default;
   static Artist GetArtist(const std::string &artist_id);
   static std::vector<Artist> GetArtists(
       const std::vector<std::string> &artist_ids);

@@ -31,14 +31,8 @@ namespace spotify {
 inline namespace v1 {
 
 struct PlaylistTrack {
-  explicit PlaylistTrack(const model::playlisttrack &);
-  explicit PlaylistTrack(model::playlisttrack &&) noexcept;
+  explicit PlaylistTrack(model::playlisttrack);
   PlaylistTrack() = default;
-  PlaylistTrack(const PlaylistTrack &) = default;
-  ~PlaylistTrack() = default;
-  PlaylistTrack &operator=(const PlaylistTrack &) = default;
-  PlaylistTrack &operator=(PlaylistTrack &&) noexcept = default;
-  PlaylistTrack(PlaylistTrack &&) noexcept = default;
 
   [[nodiscard]] const User &getAddedBy() const { return added_by_; }
   void setAddedBy(const User &addedBy) { added_by_ = addedBy; }

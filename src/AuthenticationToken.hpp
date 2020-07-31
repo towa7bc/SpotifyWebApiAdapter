@@ -28,12 +28,6 @@ class AuthenticationToken {
   json_t json_;
 
  public:
-  AuthenticationToken() = default;
-  AuthenticationToken(const AuthenticationToken &) = default;
-  ~AuthenticationToken() = default;
-  AuthenticationToken &operator=(const AuthenticationToken &) = default;
-  AuthenticationToken &operator=(AuthenticationToken &&) noexcept = default;
-  AuthenticationToken(AuthenticationToken &&) noexcept = default;
   auto SetHasExpired(bool mHasExpired) -> void;
   [[nodiscard]] auto hasExpired() const -> bool;
   auto getAccessToken() const -> const std::string &;

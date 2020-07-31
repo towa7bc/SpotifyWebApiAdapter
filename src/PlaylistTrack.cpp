@@ -7,19 +7,15 @@
 #include <boost/date_time/posix_time/time_parsers.hpp>  // for time_from_string
 
 #include "model/modeldata.hpp"  // for playlisttrack
+#include <type_traits>
 
 namespace spotify {
 inline namespace v1 {
 
-PlaylistTrack::PlaylistTrack(const model::playlisttrack &t_plt)
-    : added_by_(t_plt.added_by),
+PlaylistTrack::PlaylistTrack(model::playlisttrack t_plt)
+    : added_by_(std::move(t_plt.added_by)),
       added_at_(boost::posix_time::time_from_string(t_plt.added_at)),
-      track_(t_plt.track_) {}
-
-PlaylistTrack::PlaylistTrack(model::playlisttrack &&t_plt) noexcept
-    : added_by_(t_plt.added_by),
-      added_at_(boost::posix_time::time_from_string(t_plt.added_at)),
-      track_(t_plt.track_) {}
+      track_(std::move(t_plt.track_)) {}
 
 }  // namespace v1
 }  // namespace spotify

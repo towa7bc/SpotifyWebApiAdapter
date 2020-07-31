@@ -128,12 +128,12 @@ Page<T> Page<T>::getPreviousPage() {
 }
 
 template <typename T>
-Page<T>::Page(const model::page<model::track> &t_page)
-    : href_(t_page.href),
+Page<T>::Page(model::page<model::track> t_page)
+    : href_(std::move(t_page.href)),
       limit_(t_page.limit),
-      next_(t_page.next),
+      next_(std::move(t_page.next)),
       offset_(t_page.offset),
-      previous_(t_page.previous),
+      previous_(std::move(t_page.previous)),
       total_(t_page.total) {
   items_.reserve(t_page.items.size());
   for (const auto &item : t_page.items) {
@@ -143,12 +143,27 @@ Page<T>::Page(const model::page<model::track> &t_page)
 }
 
 template <typename T>
-Page<T>::Page(const model::page<model::album> &t_page)
-    : href_(t_page.href),
+Page<T>::Page(model::page<model::savedtrack> t_page)
+    : href_(std::move(t_page.href)),
       limit_(t_page.limit),
-      next_(t_page.next),
+      next_(std::move(t_page.next)),
       offset_(t_page.offset),
-      previous_(t_page.previous),
+      previous_(std::move(t_page.previous)),
+      total_(t_page.total) {
+  items_.reserve(t_page.items.size());
+  for (const auto &item : t_page.items) {
+    Track track_(item.track_);
+    items_.push_back(std::move(track_));
+  }
+}
+
+template <typename T>
+Page<T>::Page(model::page<model::album> t_page)
+    : href_(std::move(t_page.href)),
+      limit_(t_page.limit),
+      next_(std::move(t_page.next)),
+      offset_(t_page.offset),
+      previous_(std::move(t_page.previous)),
       total_(t_page.total) {
   items_.reserve(t_page.items.size());
   for (const auto &item : t_page.items) {
@@ -158,62 +173,47 @@ Page<T>::Page(const model::page<model::album> &t_page)
 }
 
 template <typename T>
-Page<T>::Page(const model::page<model::playlisttrack> &t_page)
-    : href_(t_page.href),
+Page<T>::Page(model::page<model::playlisttrack> t_page)
+    : href_(std::move(t_page.href)),
       limit_(t_page.limit),
-      next_(t_page.next),
+      next_(std::move(t_page.next)),
       offset_(t_page.offset),
-      previous_(t_page.previous),
+      previous_(std::move(t_page.previous)),
       total_(t_page.total) {
   items_.reserve(t_page.items.size());
   for (const auto &item : t_page.items) {
-    PlaylistTrack plt_(item);
-    items_.push_back(std::move(plt_));
+    Track track_(item.track_);
+    items_.push_back(std::move(track_));
   }
 }
 
 template <typename T>
-Page<T>::Page(const model::page<model::playlist> &t_page)
-    : href_(t_page.href),
+Page<T>::Page(model::page<model::playlist> t_page)
+    : href_(std::move(t_page.href)),
       limit_(t_page.limit),
-      next_(t_page.next),
+      next_(std::move(t_page.next)),
       offset_(t_page.offset),
-      previous_(t_page.previous),
+      previous_(std::move(t_page.previous)),
       total_(t_page.total) {
   items_.reserve(t_page.items.size());
   for (const auto &item : t_page.items) {
-    Playlist plt_(item);
-    items_.push_back(std::move(plt_));
+    Playlist pl_(item);
+    items_.push_back(std::move(pl_));
   }
 }
 
 template <typename T>
-Page<T>::Page(const model::page<model::artist> &t_page)
-    : href_(t_page.href),
+Page<T>::Page(model::page<model::artist> t_page)
+    : href_(std::move(t_page.href)),
       limit_(t_page.limit),
-      next_(t_page.next),
+      next_(std::move(t_page.next)),
       offset_(t_page.offset),
-      previous_(t_page.previous),
+      previous_(std::move(t_page.previous)),
       total_(t_page.total) {
   items_.reserve(t_page.items.size());
   for (const auto &item : t_page.items) {
-    Artist plt_(item);
-    items_.push_back(std::move(plt_));
-  }
-}
-
-template <typename T>
-Page<T>::Page(const model::page<model::savedtrack> &t_page)
-    : href_(t_page.href),
-      limit_(t_page.limit),
-      next_(t_page.next),
-      offset_(t_page.offset),
-      previous_(t_page.previous),
-      total_(t_page.total) {
-  items_.reserve(t_page.items.size());
-  for (const auto &item : t_page.items) {
-    Track plt_(item);
-    items_.push_back(std::move(plt_));
+    Artist art_(item);
+    items_.push_back(std::move(art_));
   }
 }
 

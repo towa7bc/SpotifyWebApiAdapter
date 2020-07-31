@@ -27,27 +27,7 @@
 namespace spotify {
 inline namespace v1 {
 
-Playlist::Playlist(const model::playlist &pl)
-    : collaborative_(pl.is_collaborative),
-      description_(pl.description),
-      external_url_(pl.external_urls.at(0)),
-      followers_(pl.followers_),
-      href_(pl.href),
-      id_(pl.id),
-      name_(pl.name),
-      owner_(pl.owner),
-      public_(pl.is_public),
-      tracks_(pl.tracks),
-      type_(pl.type),
-      uri_(pl.uri) {
-  images_.reserve(pl.images.size());
-  for (const auto &item : pl.images) {
-    Image image(item);
-    images_.push_back(std::move(image));
-  }
-}
-
-Playlist::Playlist(model::playlist &&pl) noexcept
+Playlist::Playlist(model::playlist pl)
     : collaborative_(pl.is_collaborative),
       description_(std::move(pl.description)),
       external_url_(std::move(pl.external_urls.at(0))),

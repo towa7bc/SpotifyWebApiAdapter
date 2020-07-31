@@ -38,14 +38,8 @@ class Playlist : public BaseModel {
   using json_t = nlohmann::json;
 
  public:
-  explicit Playlist(const model::playlist &);
-  explicit Playlist(model::playlist &&) noexcept;
+  explicit Playlist(model::playlist);
   Playlist() = default;
-  Playlist(const Playlist &) = default;
-  ~Playlist() override = default;
-  Playlist &operator=(const Playlist &) = default;
-  Playlist &operator=(Playlist &&) noexcept = default;
-  Playlist(Playlist &&) noexcept = default;
 
   static Page<Playlist> GetUsersPlaylists(std::string_view user_id,
                                           const AuthenticationToken &token);

@@ -18,14 +18,8 @@ namespace spotify {
 inline namespace v1 {
 
 struct Followers {
-  explicit Followers(const model::followers &);
-  explicit Followers(model::followers &&) noexcept;
+  explicit Followers(model::followers);
   Followers() = default;
-  Followers(const Followers &) = default;
-  ~Followers() = default;
-  Followers &operator=(const Followers &) = default;
-  Followers &operator=(Followers &&) noexcept = default;
-  Followers(Followers &&) noexcept = default;
 
   [[nodiscard]] int getTotal() const { return total_; }
   void setTotal(int total) { total_ = total; }

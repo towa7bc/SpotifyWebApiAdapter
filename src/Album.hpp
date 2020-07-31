@@ -35,14 +35,8 @@ class Album : public BaseModel {
   using json_t = nlohmann::json;
 
  public:
-  explicit Album(const model::album &);
-  explicit Album(model::album &&) noexcept;
+  explicit Album(model::album);
   Album() = default;
-  Album(const Album &) = default;
-  ~Album() override = default;
-  Album &operator=(const Album &) = default;
-  Album &operator=(Album &&) noexcept = default;
-  Album(Album &&) noexcept = default;
   static Page<Album> GetArtistAlbums(std::string_view artist_id);
   static Page<Album> Search(std::string &albumName, std::string &artistName,
                             std::string &year, std::string &genre,
